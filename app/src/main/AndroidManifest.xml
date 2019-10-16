@@ -145,6 +145,9 @@
         <meta-data
             android:name="hxb.xb_testandroidfunction.test_pic_crop.glide.XiayuGlideModule"
             android:value="GlideModule" />
+
+
+        <activity android:name=".test_different_display.DifferentDisplayActivity"/>
     </application>
 
 </manifest>
