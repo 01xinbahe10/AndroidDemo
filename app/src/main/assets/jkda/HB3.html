@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息登记表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="css/com/reset.css" />
+    <link rel="stylesheet" href="css/com/fontSize.css" />
+    <link rel="stylesheet" href="css/com/app.css" />
+	<!--输入框样式-->
+    <link rel="stylesheet" href="css/com/inpuStyle/style.css" />
+    <link rel="stylesheet" href="css/com/common.css" />
+    <link rel="stylesheet" href="css/HB3.css" />
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/com.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    
+</head>
+<body>
+<div class="HB3maxBox">
+    <div class="HBtop">
+        <div class="line">
+
+        </div>
+        <div class="itemBox">
+            <div class="item change">
+               <a class="ativePeople" href="HB1.html">1</a> 
+            </div>
+            <div class="item change">
+               <a class="ativePeople" href="HB2.html">2</a> 
+            </div>
+            <div class="item now">
+                3
+            </div>
+            <div class="item">
+                <a class="ativePeople" href="HB4.html">4</a> 
+            </div>
+            <div class="item">
+                <a class="ativePeople" href="HB5.html">5</a> 
+            </div>
+        </div>
+
+    </div>
+    <div class="HBcontent">
+        <div class="title">
+            家族史
+        </div>
+        <div class="selectFamily">
+            <div class="item">父亲</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="无" class="diseaseNone" value="0" id="USERa1" name="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa1"  class="txt2">无</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="高血压"  value="1" id="USERa2" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa2" class="txt2">高血压</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="糖尿病" value="2" id="USERa3" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa3" class="txt2">糖尿病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="冠心病"  value="3" id="USERa4" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa4" class="txt2">冠心病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="慢性阻塞性肺疾病"  value="4" id="USERa5" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa5" class="txt2">慢性阻塞性肺疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="恶心肿瘤" value="5" id="USERa6" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa6" class="txt2">恶心肿瘤</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="脑卒中" value="6" id="USERa7" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa7" class="txt2">脑卒中</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="重性精神疾病" value="7" id="USERa8"  name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa8" class="txt2">重性精神疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="结核病" value="8" id="USERa9" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa9" class="txt2">结核病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="肝炎"  value="9" id="USERa10" name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa10" class="txt2">肝炎</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="先天畸形" value="10" id="USERa11"  name="father" class="father" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERa11" class="txt2">先天畸形</label>
+                </div>
+                <div class="selectItemAgo info">
+                    <div class="selectItem">
+                        <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                            <input value="11" forEleId="FQEle" id="USERa13" name="father" class="father" type="checkbox" data-checkedselect="1">
+                            <label style="padding-left: 0px;padding-right:4px;"></label>
+                        </div>
+                        <label for="USERa13" class="txt2">其他</label>
+                    </div>
+<!--                     <input id="FQEle" class="BlineInput" placeholder="请输入疾病名称"> -->
+                </div>
+            </div>
+        </div>
+        <div class="selectFamily">
+            <div class="item">母亲</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="无" value="0" id="USERb1" name="mather" class="diseaseNone1" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb1"  class="txt2">无</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="高血压" value="1" id="USERb2" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb2" class="txt2">高血压</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="糖尿病" value="2" id="USERb3" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb3" class="txt2">糖尿病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="冠心病"  value="3" id="USERb4" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb4" class="txt2">冠心病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="慢性阻塞性肺疾病" value="4" id="USERb5" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb5" class="txt2">慢性阻塞性肺疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="恶心肿瘤" value="5" id="USERb6" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb6" class="txt2">恶性肿瘤</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="脑卒中" value="6" id="USERb7" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb7" class="txt2">脑卒中</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="重性精神疾病" value="7" id="USERb8"  name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb8" class="txt2">重性精神疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="结核病" value="8" id="USERb9" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb9" class="txt2">结核病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="肝炎" value="9" id="USERb10" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb10" class="txt2">肝炎</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="先天畸形" value="10" id="USERb11"  name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERb11" class="txt2">先天畸形</label>
+                </div>
+                <div class="selectItemAgo info">
+                    <div class="selectItem">
+                        <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                            <input value="11" forEleId="MQEle" id="USERb13" name="mather" class="mather" type="checkbox" data-checkedselect="1">
+                            <label style="padding-left: 0px;padding-right:4px;"></label>
+                        </div>
+                        <label for="USERb13" class="txt2">其他</label>
+                    </div>
+                    <!-- <input id="MQEle" class="BlineInput" placeholder="请输入疾病名称"> -->
+                </div>
+            </div>
+        </div>
+        <div class="selectFamily">
+            <div class="item">兄弟姐妹</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="无" value="0" id="USERc1" name="XDJM" class="diseaseNone2" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc1"  class="txt2">无</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="高血压" value="1" id="USERc2" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc2" class="txt2">高血压</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="糖尿病" value="2" id="USERc3" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc3" class="txt2">糖尿病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="冠心病" value="3" id="USERc4" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc4" class="txt2">冠心病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="慢性阻塞性肺疾病" value="4" id="USERc5" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc5" class="txt2">慢性阻塞性肺疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="恶心肿瘤" value="5" id="USERc6" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc6" class="txt2">恶性肿瘤</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="脑卒中"  value="6" id="USERc7" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc7" class="txt2">脑卒中</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="重性精神疾病" value="7" id="USERc8"  name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc8" class="txt2">重性精神疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="结核病" value="8" id="USERc9" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc9" class="txt2">结核病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="肝炎" value="9" id="USERc10" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc10" class="txt2">肝炎</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="先天畸形" value="10" id="USERc11"  name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERc11" class="txt2">先天畸形</label>
+                </div>
+                <div class="selectItemAgo info">
+                    <div class="selectItem">
+                        <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                            <input  value="11" forEleId="XDJMEle" id="USERc13" name="XDJM" class="XDJM" type="checkbox" data-checkedselect="1">
+                            <label style="padding-left: 0px;padding-right:4px;"></label>
+                        </div>
+                        <label for="USERc13" class="txt2">其他</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="selectFamily">
+            <div class="item">子女</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="无" value="0" id="USERd1" name="ZL" class="diseaseNone3" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd1"  class="txt2">无</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="高血压" value="1" id="USERd2" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd2" class="txt2">高血压</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="糖尿病" value="2" id="USERd3" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd3" class="txt2">糖尿病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="冠心病" value="3" id="USERd4" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd4" class="txt2">冠心病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="慢性阻塞性肺疾病" value="4" id="USERd5" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd5" class="txt2">慢性阻塞性肺疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="恶心肿瘤" value="5" id="USERd6" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd6" class="txt2">恶性肿瘤</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="脑卒中" value="6" id="USERd7" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd7" class="txt2">脑卒中</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="重性精神疾病" value="7" id="USERd8"  name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd8" class="txt2">重性精神疾病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="结核病" value="8" id="USERd9" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd9" class="txt2">结核病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="肝炎" value="9" id="USERd10" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd10" class="txt2">肝炎</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="先天畸形"  value="10" id="USERd11"  name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="USERd11" class="txt2">先天畸形</label>
+                </div>
+                <div class="selectItemAgo info">
+                    <div class="selectItem">
+                        <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                            <input  value="11" forEleId="zlEle" id="USERd13" name="ZL" class="ZL" type="checkbox" data-checkedselect="1">
+                            <label style="padding-left: 0px;padding-right:4px;"></label>
+                        </div>
+                        <label for="USERd13" class="txt2">其他</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="YCBS">
+            <span class="txt">遗传病史</span>
+        
+            <div class="selectItem">
+                <div class="radio radio-success navCheck" style="display: inline-block">
+                    <input data-bufValue="无" value="0" id="YCBS2" name="YCBS" type="radio" data-checkedselect="1">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <label for="YCBS2" class="txt2">无</label>
+            </div>
+            <div class="selectItem">
+                <div class="radio radio-success navCheck" style="display: inline-block">
+                    <input forEleId="YCBSEle" data-bufValue="有" value="-1" id="YCBS1" name="YCBS" type="radio" data-checkedselect="1">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <label for="YCBS1" class="txt2">有</label>
+            </div>
+            <input id="YCBSEle" type="text" class="BlineInput" style="width: 100px;">
+        </div>
+    </div>
+    <div class="HBcontent">
+        <div class="title">
+            目前健康状况
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">总体来讲，您的健康状况是：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="好" value="0" id="JKZK1" name="JKZK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="JKZK1" class="txt2">好</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="一般" value="1" id="JKZK2" name="JKZK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="JKZK2" class="txt2">一般</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="差" value="2" id="JKZK3" name="JKZK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="JKZK3" class="txt2">差</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">您过去一段时间感到疲劳的程度：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="无疲劳" value="0" id="ITZZT1" name="IPLZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="ITZZT1" class="txt2">无疲劳</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="稍微疲劳" value="1" id="ITZZT2" name="IPLZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="ITZZT2" class="txt2">稍微疲劳</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="很疲劳" value="2" id="ITZZT3"  name="IPLZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="ITZZT3"  class="txt2">很疲劳</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">同一年前相比，您的体重是：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="增加" value="0" id="IPLZT1"  name="ITZZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="IPLZT1" class="txt2">增加</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="基本不变" value="1" id="IPLZT2" name="ITZZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="IPLZT2" class="txt2">基本不变</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="下降" id="IPLZT3" value="2" name="ITZZT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="IPLZT3" class="txt2">下降</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">是否经常有颈部、腰部、骨关节疼痛：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="否"  value="0" id="IGJTT1" name="IGJTT" type="radio" data-checkedselect="1">
+                        <label  style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="IGJTT1" class="txt2">否</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="是"  value="1" id="IGJTT2" name="IGJTT" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="IGJTT2" class="txt2">是</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">慢性疾病史:</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="无"  id="MXBS0" value="0" name="MXBS" type="checkbox" data-checkedselect="1" class="diseaseNone4">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS0" class="txt2">无</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="高血压"  id="MXBS2" value="1" class="MXBS" name="MXBS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS2" class="txt2">高血压</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="冠心病"  id="MXBS3" value="2" class="MXBS" name="MXBS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS3" class="txt2">冠心病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="糖尿病"  id="MXBS4" value="3" class="MXBS" name="MXBS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS4" class="txt2">糖尿病</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="血脂异常" id="MXBS5" value="4" class="MXBS" name="MXBS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS5" class="txt2">血脂异常</label>
+                </div>
+                <div class="selectItemInfo">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  id="MXBS6" value="5" forEleId="MXBSEle" class="MXBS" name="MXBS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="MXBS6"  class="txt2">其他</label>
+                    <!-- <input id="MXBSEle" type="text" placeholder="请输入疾病名称" class="BlineInput"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="HBcontent">
+        <div class="title">
+            个人兴趣爱好
+        </div>
+        <div class="selectFamily">
+            <div class="selectBox bk">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="唱歌" value="0" id="CYYAN1"  name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN1" class="txt2">唱歌</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="跳舞" id="CYYAN2" value="1" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN2" class="txt2">跳舞</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="游泳" id="CYYAN3" value="2" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN3" class="txt2">游泳</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="围棋" id="CYYAN4" value="3" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN4" class="txt2">围棋</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="象棋" id="CYYAN5" value="4" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN5" class="txt2">象棋</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="画画"  id="CYYAN6" value="5" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN6" class="txt2">画画</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="羽毛球" id="CYYAN7" value="6"  name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN7" class="txt2">羽毛球</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="乒乓球" id="CYYAN8" value="7" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN8" class="txt2">乒乓球</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="篮球" id="CYYAN9" value="8" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN9" class="txt2">篮球</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="排球" id="CYYAN10" value="9" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN10" class="txt2">排球</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="徒步" id="CYYAN11" value="10" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN11" class="txt2">徒步</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="足球" id="CYYAN12" value="11" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN12" class="txt2">足球</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="旅游" id="CYYAN13" value="12" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN13" class="txt2">旅游</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="自驾游" id="CYYAN14" value="13" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN14" class="txt2">自驾游</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="瑜伽聊天" id="CYYAN15" value="14" name="CYYAH" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="CYYAN15" class="txt2">瑜伽聊天</label>
+                </div>
+                <div class="selectItemAgo info">
+                    <div class="selectItem">
+                        <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                            <input  id="CYYAN16" value="-1" forEleId="CYYANEle" name="CYYAH" type="checkbox" data-checkedselect="1">
+                            <label style="padding-left: 0px;padding-right:4px;"></label>
+                        </div>
+                        <label for="CYYAN16" class="txt2" >其他</label>
+                    </div>
+                    <input id="CYYANEle" class="BlineInput" placeholder="请输入你的爱好">
+                </div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div id="btnAdd3" class="HBbtn bottom_btn">
+        下一步(3/5）
+    </div>
+</div>
+<script type="text/javascript" src="js/HB3.js" ></script>
+</body>
+</html>

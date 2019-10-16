@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.cdct.cmdim.view.SelectableRoundedImageView
+        android:id="@+id/ivHeadPortrait"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="18dp"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        app:sriv_oval="true" />
+
+    <com.cdct.cmdim.view.SelectableRoundedImageView
+        android:id="@+id/ivImage"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ivHeadPortrait"
+        app:sriv_left_bottom_corner_radius="5dp"
+        app:sriv_left_top_corner_radius="5dp"
+        app:sriv_right_bottom_corner_radius="5dp"
+        app:sriv_right_top_corner_radius="5dp" />
+</RelativeLayout>

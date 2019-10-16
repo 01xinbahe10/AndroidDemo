@@ -1,0 +1,73 @@
+<xml xmlns="https://www.robelf.com/android">
+  <block deletable="false" id="b85e97c9-80b0-440f-a619-a39189b154bc" type="time_triggering" x="0.0" y="0.0">
+    <field name="start_time">00:00</field>
+    <field name="stop_time">23:59</field>
+    <next>
+      <block id="cc68ca25-a045-4025-b1c8-4432f2a728fd" type="else_triggering">
+        <value name="NAME">
+          <block id="37ba0119-a9f3-46f4-a03f-ad7bebfde5ad" type="condition_triggering">
+            <field name="category">0</field>
+          </block>
+        </value>
+        <next>
+          <block id="de2a6452-54bc-4d33-ae08-d182f133e2ed" type="behavior_async">
+            <statement name="value">
+              <block id="96ab1cee-2ed2-41a9-9799-b04228917f4e" type="behavior_expression">
+                <field hint="0" name="expression">开心</field>
+                <next>
+                  <block id="9482d555-75f8-4e15-a131-49f760b4634e" type="behavior_speak">
+                    <field name="speak">小弟弟，要看佩佩猪么</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block id="2914eb5e-6781-4b2b-8218-3bf8bae9b18f" type="controls_if_hear_triggering">
+                <mutation else="0" elseif="1"/>
+                <value name="IF0">
+                  <block id="f298d137-8e86-44bc-8624-765bbfb7f19c" type="hear_triggering">
+                    <field name="hear">好</field>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block id="be712847-a969-4d69-8f6c-471ef4d06c3a" type="behavior_speak">
+                    <field name="speak">想看第几集呢</field>
+                    <next>
+                      <block id="682152a5-9aa6-4bff-abe2-bc4c25c744d1" type="controls_if_hear_triggering">
+                        <value name="IF0">
+                          <block id="bcfffeb0-71e7-41c8-ba35-edb6dce0db7c" type="hear_triggering">
+                            <field name="hear">1</field>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block id="b5c076c9-9542-4b52-b0b6-91163263bed7" type="behavior_speak">
+                            <field name="speak">好哦，</field>
+                            <next>
+                              <block id="dcc15097-4a43-403d-a923-6c2f46731bbe" type="behavior_youtube">
+                                <field name="url">https://www.youtube.com/watch?v=ZrKIVcw4YAM</field>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <value name="IF1">
+                  <block id="120bef7b-160f-4d85-9de8-f30756489772" type="hear_triggering">
+                    <field name="hear">不</field>
+                  </block>
+                </value>
+                <statement name="DO1">
+                  <block id="894fbe3d-bc63-458a-bf8a-20e5faf5b44c" type="behavior_speak">
+                    <field name="speak">不看拉倒</field>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

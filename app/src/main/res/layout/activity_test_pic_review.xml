@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnClickReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="ClickBtn1"
+        android:text="图片预览"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <hxb.xb_testandroidfunction.test_pic_crop.crop_image.view.CropImageView
+        android:id="@+id/ivCrop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:background="#000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClickReview" />
+
+    <hxb.xb_testandroidfunction.test_pic_crop.surfaceview.MineSurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClickReview"
+        app:src="@mipmap/ic_launcher_round" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <hxb.xb_testandroidfunction.test_list_refresh_load.pull_away_pulltorefreshlistview.PullToRefreshListView
+        android:id="@+id/listView"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <Button
+        android:onClick="ClickBtn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义Toast弹窗"/>
+</LinearLayout>

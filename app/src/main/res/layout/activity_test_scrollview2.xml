@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:orientation="vertical">-->
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout1"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout2"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout3"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout4"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout5"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout6"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv5" />
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout7"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv6" />
+
+        <TextView
+            android:id="@+id/tv8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout8"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv7" />
+
+        <TextView
+            android:id="@+id/tv9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试ScrollView是否可以嵌套ConstraintLayout9"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv8" />
+
+        <!--</LinearLayout>-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

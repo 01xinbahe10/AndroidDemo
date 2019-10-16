@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息登记表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/com/reset.css" />
+    <link rel="stylesheet" href="css/com/fontSize.css" />
+    <link rel="stylesheet" href="css/com/app.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/com.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <!--输入框样式-->
+    <link rel="stylesheet" href="css/com/inpuStyle/style.css" />
+    <link rel="stylesheet" href="css/com/common.css" />
+    <link rel="stylesheet" href="css/HB2.css" />
+
+</head>
+<body>
+<div class="HB2maxBox">
+    <div class="HBtop">
+        <div class="line">
+
+        </div>
+        <div class="itemBox">
+            <div class="item change">
+                <a class="ativePeople" href="HB1.html">1</a> 
+            </div>
+            <div class="item now ">
+                2
+            </div>
+            <div class="item">
+                <a class="ativePeople" href="HB3.html">3</a> 
+            </div>
+            <div class="item">
+                <a class="ativePeople" href="HB4.html">4</a> 
+            </div>
+            <div class="item">
+                <a class="ativePeople" href="HB5.html">5</a> 
+            </div>
+        </div>
+
+    </div>
+    <div class="HBcontent">
+        <div class="title">
+            既往史
+        </div>
+        <div class="checkboxDiv inputDiv">
+            <span class="txt" style="vertical-align: top;">疾&ensp;&ensp;&ensp;&ensp;病</span>
+            <ul class="checkboxContent" id="checkboxContent">
+                <li>
+                    <div class="checkbox checkbox-success navCheck">
+                        <input data-bufValue="无"  type="checkbox" data-checkedselect="1" value="0" name="CJBJWS" id="diseaseNone">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2" value="0" >无</span>
+
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input  data-bufValue="高血压" type="checkbox" data-checkedselect="1" class="disease" value="1" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">高血压</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input  data-bufValue="糖尿病"  type="checkbox" data-checkedselect="1" class="disease" value="2" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">糖尿病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="冠心病" type="checkbox" data-checkedselect="1" class="disease" value="3" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">冠心病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="结核病"  type="checkbox" data-checkedselect="1" class="disease" value="4" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">结核病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="肝炎"   type="checkbox" data-checkedselect="1" class="disease" value="5" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">肝炎</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="脑卒中"   type="checkbox" data-checkedselect="1" class="disease" value="6" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">脑卒中</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="严重精神障碍"   type="checkbox" data-checkedselect="1" class="disease" value="7" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">严重精神障碍</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="慢性阻塞性肺疾病"   type="checkbox" data-checkedselect="1" class="disease" value="8" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">慢性阻塞性肺疾病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="恶性肿瘤"   type="checkbox" data-checkedselect="1" class="disease" value="9" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">恶性肿瘤</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="其他法定传染病"   type="checkbox" data-checkedselect="1" class="disease" value="10" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">其他法定传染病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="职业病"   type="checkbox" data-checkedselect="1" class="disease" value="11" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">职业病</span>
+                    <span class="more"><input class="choiceTime" type="date" /></span>
+                </li>
+                 <li>
+                    <div class="checkbox checkbox-success navCheck" >
+                        <input data-bufValue="其他"   type="checkbox" data-checkedselect="1" class="disease" value="12" name="CJBJWS">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <span class="txt2">其他</span>
+                    <span class="more"><input style="text-align: left" class="choiceTime" type="text" placeholder="请输入疾病名称"/></span>
+                </li>
+            </ul>
+        </div>
+        <div class="inputDiv radioBox">
+            <span class="txt">手&ensp;&ensp;&ensp;&ensp;术</span>
+            <div class="radioA">
+                <div class="radio radio-success navCheck" style="display: inline-block">
+                    <input data-bufValue="有"  type="radio" data-checkedselect="1" value="1" name="CSJJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">有</span>
+                <div class="radio radio-success navCheck"  style="display: inline-block">
+                    <input data-bufValue="否"   type="radio" data-checkedselect="1" value="0" name="CSJJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">否</span>
+            </div>
+        </div>
+
+        <div class="inputDiv radioBox">
+            <span class="txt">外&ensp;&ensp;&ensp;&ensp;伤</span>
+            <div class="radioA">
+                <div class="radio radio-success navCheck" style="display: inline-block">
+                    <input data-bufValue="有"  type="radio" data-checkedselect="1" value="1" name="CWSJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">有</span>
+                <div class="radio radio-success navCheck"  style="display: inline-block">
+                    <input data-bufValue="否"  type="radio" data-checkedselect="1" value="0" name="CWSJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">否</span>
+            </div>
+        </div>
+
+        <div class="inputDiv radioBox">
+            <span class="txt">输&ensp;&ensp;&ensp;&ensp;血</span>
+            <div class="radioA">
+                <div class="radio radio-success navCheck" style="display: inline-block">
+                    <input data-bufValue="有" type="radio" data-checkedselect="1" value="1" name="CSXJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">有</span>
+                <div class="radio radio-success navCheck"  style="display: inline-block">
+                    <input data-bufValue="否"  type="radio" data-checkedselect="1" value="0" name="CSXJWS">
+                    <label style="padding-left: 0px;padding-right:4px;"></label>
+                </div>
+                <span class="txt2">否</span>
+            </div>
+        </div>
+
+        
+    </div>
+    <div class="HBbtn bottom_btn" id="saveInfo">
+        	下一步(2/5）
+    </div>
+</div>
+<script type="text/javascript" src="js/HB2.js"></script>
+</body>
+</html>

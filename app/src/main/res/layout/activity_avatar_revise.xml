@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="190dp"
+    android:orientation="vertical"
+    android:background="@color/colorAccent"
+    android:weightSum="14">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="摄像头"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"/>
+
+    <TextView
+        android:id="@+id/tv_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/img1"
+        android:gravity="center"
+        android:text="相册"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"/>
+
+    <TextView
+        android:id="@+id/tv_chose_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/img1"
+        android:gravity="center"
+        android:text="选择从画廊"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
+</LinearLayout>

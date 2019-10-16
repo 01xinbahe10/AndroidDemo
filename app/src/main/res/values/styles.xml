@@ -1,0 +1,46 @@
+
+<resources xmlns:android = "http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="translucent">
+        <item name="android:windowBackground">@color/translucent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!--<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
+
+
+    <style name="MyDialogActivityStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:reqTouchScreen">undefined</item>
+    </style>
+
+    <style name="PregSeekBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/prg_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/prg_progress_horizontal</item>
+        <item name="android:minHeight">3dip</item>
+        <item name="android:maxHeight">3dip</item>
+        <item name="android:thumb">@drawable/pp_video_thum</item>
+        <item name="android:thumbOffset">5dip</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+
+
+</resources>

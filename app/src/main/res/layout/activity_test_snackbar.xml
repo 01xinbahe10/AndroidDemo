@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlStateBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:onClick="btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击显示Snackbar"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

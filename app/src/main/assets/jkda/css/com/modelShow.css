@@ -1,0 +1,115 @@
+[data-styleType="1"].m-modal {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: none;
+	z-index: 1000000;
+	overflow-x: hidden;
+	background-color: rgba(0, 0, 0, .2);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#32000000,endColorstr=#32000000);
+}
+
+[data-styleType="1"] .m-modal-dialog {
+	font-family: "microsoft yahei", "宋体";
+	margin: 0 auto;
+	width: 600px;
+	background-color: #ffffff;
+	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff,endColorstr=#ffffffff);
+	position: absolute;
+	top:50%;
+	left: 50%;
+}
+
+[data-styleType="1"] .m-top {
+	background-color: #30A9DE;
+}
+
+[data-styleType="1"] .m-modal-title {
+	margin: 0;
+	color: #ffffff;
+	padding: 10px 20px 10px 20px;
+	font-size: 20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+[data-styleType="1"] .m-modal-close {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	display: inline-block;
+	font-size: 35px;
+	line-height: 20px;
+	color: #555;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: #fff;
+}
+
+[data-styleType="1"] .m-modal-close:hover {
+	color: #555;
+}
+
+[data-styleType="1"] .m-middle {
+	padding: 10px 20px 10px 20px;
+}
+
+[data-styleType="1"] .m-bottom {
+	padding: 0 6px 6px;
+	overflow: hidden;
+}
+
+[data-styleType="1"] .m-bottom button {
+	font-family: "microsoft yahei", "宋体";
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	padding: 5px 15px;
+	float: right;
+	margin: 0 0 0 10px;
+	outline: none;
+	font-size: 14px;
+	color: #333;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+[data-styleType="1"] .m-bottom button:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+[data-styleType="1"] .m-bottom button:active {
+	color: #333;
+	background-color: #d4d4d4;
+	border-color: #c8c8c8
+}
+
+[data-styleType="1"] .m-bottom .m-btn-sure {
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+
+[data-styleType="1"] .m-bottom .m-btn-sure:hover {
+	color: #fff;
+	background-color: #286090;
+	border-color: #204d74;
+}
+
+[data-styleType="1"] .m-bottom .m-btn-sure:active {
+	color: #fff;
+	background-color: #204d74;
+	border-color: #122b40;
+}

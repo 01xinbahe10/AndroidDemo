@@ -1,0 +1,27 @@
+.seeImg{
+    position: fixed;
+    z-index: 10000000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    font-size: 0;
+    line-height: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+.seeImg .seeChildImg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.seeImg .twoChildBox{
+    width: auto;
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+    display: inline-block;
+}
+.seeImg .twoChildChildBox{
+    display: inline-block;
+    position: relative;
+}

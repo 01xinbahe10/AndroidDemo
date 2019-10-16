@@ -1,0 +1,74 @@
+<xml xmlns="https://www.robelf.com/android">
+  <block deletable="false" id="464b3fa6-27aa-4df8-a106-229379dd92be" type="time_triggering" x="0.0" y="0.0">
+    <field name="start_time">00:00</field>
+    <field name="stop_time">23:59</field>
+    <next>
+      <block id="72ce2f0d-76ec-4430-bb83-58bb7d949700" type="else_triggering">
+        <value name="NAME">
+          <block id="0" type="hear_triggering">
+            <field name="hear">您好</field>
+          </block>
+        </value>
+        <next>
+          <block id="3e528f90-cffc-47bd-8ac1-9a5a2cbf74b5" type="controls_if_hear_triggering">
+            <value name="IF0">
+              <block id="52fbe8b8-2d18-4608-a2fe-31da415a3d24" type="hear_triggering">
+                <field name="hear">您好</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block id="a1a80292-9a27-4005-8307-b5e3c2153589" type="controls_if_hear_triggering">
+                <value name="IF0">
+                  <block id="dcc55ea0-0fc6-4adf-b3c3-7a2106a1e21f" type="hear_triggering">
+                    <field name="hear">您好</field>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block id="be7a577f-1f0f-45ae-981c-a3938526d0dc" type="behavior_expression">
+                    <field hint="0" name="expression">开心</field>
+                    <next>
+                      <block id="c1965a48-1884-4ca1-869d-2ce6e2667d26" type="behavior_speak">
+                        <field name="speak">您好</field>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block id="0345f412-70b5-49ab-aa02-36e914f7d4ee" type="controls_if_hear_triggering">
+                    <value name="IF0">
+                      <block id="84f00a7b-ed51-48fe-97e4-40e23e628357" type="hear_triggering">
+                        <field name="hear">您好</field>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block id="5687c8c8-69ce-4a04-8e35-2c23888b0916" type="behavior_head_up_down">
+                        <field name="orientation">0</field>
+                        <field name="angle">0</field>
+                      </block>
+                    </statement>
+                    <next>
+                      <block id="1f0fb68a-17a1-482a-8302-c2a84a996202" type="behavior_while">
+                        <field name="num">1</field>
+                        <statement name="value">
+                          <block id="d5fbcdf2-2651-4f79-8849-6915b5d330b0" type="behavior_expression">
+                            <field hint="0" name="expression">开心</field>
+                          </block>
+                        </statement>
+                        <next>
+                          <block id="1a6bd5da-9097-4612-bfc2-a7a00591b579" type="behavior_body_left_right">
+                            <field name="orientation">0</field>
+                            <field name="angle">0</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

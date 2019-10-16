@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息登记表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="css/com/reset.css" />
+    <link rel="stylesheet" href="css/com/fontSize.css" />
+    <link rel="stylesheet" href="css/com/app.css" />
+	<!--输入框样式-->
+    <link rel="stylesheet" href="css/com/inpuStyle/style.css" />
+    <link rel="stylesheet" href="css/com/common.css" />
+    <link rel="stylesheet" href="css/HB5.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/com.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    
+</head>
+<body>
+<div class="HB5maxBox">
+    <div class="HBtop">
+        <div class="line">
+
+        </div>
+        <div class="itemBox">
+            <div class="item change">
+                <a class="ativePeople" href="HB1.html">1</a> 
+            </div>
+            <div class="item change">
+               <a class="ativePeople" href="HB2.html">2</a> 
+            </div>
+            <div class="item change">
+                <a class="ativePeople" href="HB3.html">3</a> 
+            </div>
+            <div class="item now">
+                4
+            </div>
+            <div class="item ">
+                <a class="ativePeople" href="HB5.html">5</a> 
+            </div>
+        </div>
+    </div>
+    <div class="HBcontent">
+        <div class="title">
+            饮食习惯
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">您主副食通常是：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="主食为主" id="1" value="1" name="IZFSQK" type="radio" data-checkedselect="1">
+                        <label  style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="1" class="txt2">主食为主</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="辅食为主"  id="2" value="2" name="IZFSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="2" class="txt2">辅食为主</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="主副食各半" id="3" value="3" name="IZFSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="3" class="txt2">主副食各半</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">饭菜的荤素搭配情况：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="荤食为主"  value="1" id="4" name="IHSDP" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="4" class="txt2">荤食为主</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="素食为主" value="2" id="5" name="IHSDP" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="5" class="txt2">素食为主</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="荤素各半" value="3" id="6" name="IHSDP" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="6" class="txt2">荤素各半</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">您是否吃早餐：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="每天都吃"  value="1" id="7" name="ISFCZC" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="7" class="txt2">每天都吃</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="有时吃"  value="2" id="8" name="ISFCZC" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="8" class="txt2">有时吃</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="不吃"  value="3" id="9" name="ISFCZC" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="9" class="txt2">不吃</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">您通常如何用餐：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="到餐馆用餐" id="10" name=CRHYC value="1" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="10" class="txt2">到餐馆用餐</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="家庭用餐饭" id="11" name="CRHYC" value="2" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="11" class="txt2">家庭用餐饭</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="吃方便食品" id="12" name="CRHYC" value="3" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="12" class="txt2">吃方便食品</label>
+                </div>
+                <div class="selectItem w100">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  id="13" name="CRHYC" value="4" forEleId="CZNJZBEle" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="13" class="txt2">其他</label>
+                    <!--<input id="CZNJZBEle" type="text" class="BlineInput" placeholder="请输入其他用餐方式">-->
+                </div>
+            </div>
+        </div> 
+        <div class="radioSelectBox">
+            <div class="txt">您是否常吃水果：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="经常" value="1" id="14" name="ISFCSG" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="14" class="txt2">经常</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="偶尔" value="2" id="15" name="ISFCSG" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="15" class="txt2">偶尔</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="不吃" value="3" id="16" name="ISFCSG" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="16" class="txt2">不吃</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="radioSelectBox">
+            <div class="txt">您每日饮水情况（500毫升约2茶杯）：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="不足2杯" value="1" id="17" name="IYSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="17" class="txt2">不足2杯</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="2 - 4杯" value="2" id="18" name="IYSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="18" class="txt2">2 - 4杯</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="4杯以上" value="3" id="19" name="IYSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="19" class="txt2">4杯以上</label>
+                </div>
+                 <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="极少喝水" value="4" id="20" name="IYSQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="20" class="txt2">极少喝水</label>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="HBcontent">
+        <div class="title">
+            运动习惯
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">工作或日常生活中(8小时)坐着的时间：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="几乎全部" value="1" id="21" name="IZZSJ" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="21" class="txt2">几乎全部</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="多余4小时" value="2" id="22" name="IZZSJ" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="22" class="txt2">多余4小时</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="少于4小时"  value="3" id="23" name="IZZSJ" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="23" class="txt2">少于4小时</label>
+                </div>
+                 <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="几乎没有" value="4" id="24" name="IZZSJ" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="24" class="txt2">几乎没有</label> 
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">主要的出行方式是：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="步行" value="1" id="25" name="ICXFS" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="25" class="txt2">步行</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="骑自行车" value="2" id="26" name="ICXFS" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="26" class="txt2">骑自行车</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="乘车或开车" value="3" id="27" name="ICXFS" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="27" class="txt2">乘车或开车</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="很少外出办事" value="4" id="28" name="ICXFS" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="28" class="txt2">很少外出办事</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">参加日常的家务劳动：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="经常" value="1" id="29" name="ILWQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="29" class="txt2">经常</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input  data-bufValue="有时" id="30" value="2" name="ILWQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="30" class="txt2">有时</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="很少" id="31" value="3" name="ILWQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="31" class="txt2">很少</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="没有" id="32" value="4" name="ILWQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="32" class="txt2">没有</label>
+                </div>
+            </div>
+        </div>
+        <div class="radioSelectBox">
+            <div class="txt">是否参加体育锻炼：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="是"  value="1" id="33" name="IDLQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="33" class="txt2">是</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="否" value="0" id="34" name="IDLQK" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="34" class="txt2">否</label>
+                </div>
+                 
+            </div>
+        </div>
+         <div class="radioSelectBox">
+            <div class="txt">运动方式：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="走步" value="1" id="35" name="CDLFS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="35" class="txt2">走步</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="跑步" value="2" id="36" name="CDLFS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="36" class="txt2">跑步</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="骑自行车" id="37" value="3" name="CDLFS" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="37" class="txt2">骑自行车</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="游泳" id="38" name="CDLFS" value="4" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="38" class="txt2">游泳</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="滑冰" id="39" name="CDLFS" type="checkbox" value="5" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="39" class="txt2">滑冰</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="球类" id="40" name="CDLFS" value="6" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="40" class="txt2">球类</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="打太极" id="41" name="CDLFS" value="7" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="41" class="txt2">打太极</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="跳健身舞" id="42" name="CDLFS" value="8" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="42" class="txt2">跳健身舞</label>
+                </div>
+                <div class="selectItem">
+                    <div class="checkbox checkbox-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="排球" id="43" name="CDLFS" value="9" type="checkbox" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="43" class="txt2">排球</label>
+                </div>
+                
+            </div>
+        </div>
+         <div class="radioSelectBox">
+            <div class="txt">运动时间(每天平均)：</div>
+            <div class="selectBox">
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="小于1小时"  id="44" name="IYDSJ" value="1" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="44" class="txt2">小于1小时</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="1-2小时" id="45" name="IYDSJ" value="2" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="45" class="txt2">1-2小时</label>
+                </div>
+                <div class="selectItem">
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="2-3小时"  id="46" name="IYDSJ" value="3" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="46" class="txt2">2-3小时</label>
+                </div> 
+                 <div class="selectItem"> 
+                    <div class="radio radio-success navCheck"  style="display: inline-block">
+                        <input data-bufValue="大于3小时"  id="47" name="IYDSJ" value="4" type="radio" data-checkedselect="1">
+                        <label style="padding-left: 0px;padding-right:4px;"></label>
+                    </div>
+                    <label for="47" class="txt2">大于3小时</label>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+     <div id="addSave4" class="HBbtn bottom_btn">
+        下一步(4/5）
+    </div>
+</div>
+<script type="text/javascript" src="js/HB4.js"></script>
+</body>
+</html>

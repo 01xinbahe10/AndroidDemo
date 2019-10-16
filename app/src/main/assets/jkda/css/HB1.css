@@ -1,0 +1,80 @@
+body{
+    max-width: 640px;
+    margin: auto;
+    background-color: #f5f5f5;
+}
+.HB1maxBox{
+    padding-top: 1px;
+}
+.HB1maxBox .HBtop{
+    margin-top: 18px;
+}
+.HB1maxBox .HBcontent{
+    margin-top: 21px;
+}
+.HB1maxBox .HBcontent .checkboxDiv{
+    margin-top: 15px;
+}
+.HB1maxBox .HBcontent .checkboxDiv .radioA{
+    margin-top: 10px;
+}
+.HB1maxBox .HBcontent .checkboxDiv .checkbox{
+    margin-left: 2%;
+}
+.HB1maxBox .HBcontent .checkboxDiv .checkbox:first-child{
+    margin-left: 0;
+}
+.HB1maxBox .HBcontent .checkboxDiv .radioA .txt2{
+    color: #666666;
+}
+.HBcontent .BlineInput{
+    height: 16px;
+    width: calc(100% - 66px);
+    width: -moz-calc(100% - 66px);
+    width: -webkit-calc(100% - 66px);
+    width: -ms-calc(100% - 66px);
+    width: -o-calc(100% - 66px);
+}
+.HBcontent{
+    padding-top: 30px;
+    padding-bottom: 105px;
+    position: relative;
+}
+.HBcontent:before{
+    content: "";
+    position: absolute;
+    right: -1px;
+    width: 48px;
+    top: -1px;
+    height: 48px;
+    background-size: cover;
+    background-image: url(../img/HB/DA.png);
+}
+.HBcontent:after{
+    content: "";
+    position: absolute;
+    right: -4px;
+    width: 112px;
+    bottom: -1px;
+    height: 100px;
+    background-size: cover;
+    background-image: url(../img/HB/RW.png);
+}
+.HB1maxBox .HBcontent .checkboxDiv.inputDiv{
+    border:none;
+}
+.HB1maxBox .HBbtn{
+    margin-top: 18px;
+    margin-bottom: 12px;
+}
+
+.item .ativePeople{
+	display: inline-block;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    font-size:0.9rem;
+}
+a:hover, a:visited, a:link, a:active {
+   color: #fff;
+}

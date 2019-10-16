@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.cdct.cmdim.view.SelectableRoundedImageView
+        android:id="@+id/ivHeadPortrait"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginRight="18dp"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        app:sriv_oval="true" />
+    <RelativeLayout
+        android:background="@drawable/bg_chat_shap_line"
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/ivHeadPortrait">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:text="七日空压计划"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvTime"
+            android:textSize="13dp"
+            android:textColor="#666666"
+            android:text="2017.9.19"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="18dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvName"
+            android:textSize="13dp"
+            android:text="方清平(健康专员)"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toRightOf="@id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/ivPlan"
+            android:layout_marginBottom="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_marginTop="6dp"
+            android:textSize="12dp"
+            android:textColor="#999999"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="50dp"
+            android:layout_below="@id/tvTime"
+            android:text="强迫症是严重影响人们生活质量的四大精神障碍之一，在心理咨询和治疗的案例中。"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

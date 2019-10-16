@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    testImplementation 'com.google.testing.compile:compile-testing:0.15'
+//    testImplementation 'junit:junit:4.12'
+//    testImplementation 'com.google.truth:truth:0.42'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation "com.google.auto.service:auto-service:1.0-rc4"//自動配置的
+    annotationProcessor "com.google.auto.service:auto-service:1.0-rc4" //這個在gradle5.0以上需要的
+}
+//  解決build 錯誤：編碼GBK的不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+

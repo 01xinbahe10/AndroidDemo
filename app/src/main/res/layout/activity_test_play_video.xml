@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <EditText
+        android:id="@+id/et_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="/sdcard/basketball.mp4" />
+    <!--视频播放-->
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/et_path"
+        android:layout_marginTop="10dp" />
+
+    <!-- 底部控制器 -->
+
+    <LinearLayout
+        android:id="@+id/controller_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/preg_video_controller_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="25dip"
+            android:paddingRight="25dip">
+
+            <ImageView
+                android:id="@+id/imagePlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dip"
+                android:src="@drawable/preg_video_play_bt" />
+
+            <ImageView
+                android:id="@+id/iv_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@+id/imagePlay"
+                android:src="@drawable/preg_video_play_next_bt_selector" />
+
+            <SeekBar
+                android:id="@+id/videoProgress"
+                style="@style/PregSeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:max="100"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:progress="0"
+                android:secondaryProgress="0"
+                android:thumb="@drawable/pp_video_thum" />
+
+            <TextView
+                android:id="@+id/textHasPalyTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dip"
+                android:layout_weight="0"
+                android:text="00:00"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dip"
+                android:layout_weight="0"
+                android:text=" / "
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/video_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="00:00"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

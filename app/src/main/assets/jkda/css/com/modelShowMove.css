@@ -1,0 +1,41 @@
+[data-styleType="1"] .m-modal-dialog{
+	border-radius: 5px;
+	overflow: hidden;
+}
+[data-styleType="1"] .m-modal-close{
+	display: none;
+}
+[data-styleType="1"] .m-modal-title{
+	text-align: center;
+	font-size: 1.9rem;font-weight: 400;
+}
+[data-styleType="1"] .m-top{
+	background-color: rgba(21,162,233,1);
+}
+[data-styleType="1"] .m-bottom{
+	padding: 0;
+	width: 100%;
+	border-top: 1px solid #e6eaee;
+}
+[data-styleType="1"] .m-bottom button{
+	width: 50%;
+	margin: 0;
+	background-color: #ffffff;
+	height: 50px;
+	border: none;
+}
+[data-styleType="1"] .m-bottom .m-btn-sure{
+	background-color: #ffffff;
+	color: rgba(21,162,233,1);
+	border: none;
+}
+[data-styleType="1"] .m-bottom button.m-btn-cancel{
+	border-right: 1px solid #e6eaee;
+	color: rgba(153,153,153,1);
+}
+
+
+[data-styleType="1"] .m-middle{
+	font-size: 1.6rem;
+	text-align: center;
+}

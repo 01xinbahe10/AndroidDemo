@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">XB_TestAndroidFunction</string>
+
+
+    <string name="android_auto_update_dialog_title">Discover New Version</string>
+
+    <string name="android_auto_update_notify_ticker">Find a new version and click upgrade</string>
+    <string name="android_auto_update_notify_content">Find a new version and click upgrade</string>
+
+    <string name="android_auto_update_dialog_btn_download">Download now</string>
+    <string name="android_auto_update_dialog_btn_cancel">talk to you later</string>
+
+    <string name="android_auto_update_toast_no_new_update">It\'s the latest version</string>
+
+    <string name="android_auto_update_download_progress">downloading:%1$d%%</string>
+
+    <string name="android_auto_update_dialog_checking">Version under review</string>
+</resources>

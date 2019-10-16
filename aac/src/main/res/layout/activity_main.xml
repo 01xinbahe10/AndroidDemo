@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.aac.base_frame.sample_adapter.LayoutManagers" />
+
+        <variable
+            name="mainViewModel"
+            type="com.example.aac.view_model.MainViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.example.aac.base_frame.sample2_adapter.BindingRecyclerViewAdapter" />
+
+        <variable
+            name="adapter2"
+            type="com.example.aac.base_frame.adapter.BaseRecycler2Adapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".home.MainActivity">
+
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{mainViewModel.onClickListener}"
+            android:text="@={mainViewModel.test}"
+            android:textColor="#000000"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--<androidx.recyclerview.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:adapter="@{adapter}"-->
+        <!--app:itemBinding="@{mainViewModel.itemBinding}"-->
+        <!--app:items="@{mainViewModel.observableList}"-->
+        <!--app:layoutManager="@{LayoutManagers.linear()}"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:adapter="@{adapter2}"
+            app:itemBinding="@{mainViewModel.itemBinding2}"
+            app:layoutManager="@{LayoutManagers.linear()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+        <!--<androidx.recyclerview.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

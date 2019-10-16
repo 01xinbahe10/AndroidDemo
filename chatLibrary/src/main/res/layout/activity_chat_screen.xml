@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlViewAnchor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_shadow_down"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvImgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="19dp"
+            android:drawableLeft="@mipmap/img_back"
+            android:gravity="center_vertical"
+            android:text="返回"
+            android:textColor="#757575"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tvMid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="医生名字"
+            android:textColor="#333333"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text=""
+            android:textColor="#2ca9e8"
+            android:textSize="17sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/llChatParent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <LinearLayout
+        android:id="@+id/rlRVParent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top"
+            android:background="#00000000"
+            android:overScrollMode="never"
+            android:paddingBottom="10dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <View
+            android:id="@+id/viewPhonetics"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/bg_chat_click_phonetics_effect" />
+
+        <com.cdct.cmdim.view.ListenerKeyBackEditTextView
+            android:id="@+id/etChatContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入"
+            android:maxHeight="60dp"
+            android:minHeight="29dp"
+            android:textColor="#333333"
+            android:textColorHint="#9b9b9b"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="13dp">
+
+            <View
+                android:id="@+id/viewAddPic"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_chat_click_add_pic_effect" />
+
+            <TextView
+                android:id="@+id/tvSendMsg"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_chat_tv_send_msg"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llExpressionPanel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:background="#f5f5f5"
+        android:visibility="gone">
+
+        <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/panelViewPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone"/>-->
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <!--</LinearLayout>-->
+
+
+</LinearLayout>

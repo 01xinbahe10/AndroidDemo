@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>个人信息登记表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="no">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="css/com/reset.css" />
+<link rel="stylesheet" href="css/com/app.css" />
+<link rel="stylesheet" href="css/com/fontSize.css" />
+<!--输入框样式-->
+<link rel="stylesheet" href="css/com/inpuStyle/style.css" />
+<link rel="stylesheet" href="css/com/common.css" />
+<link rel="stylesheet" href="css/HB1.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="app.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/com.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body>
+	<div class="HB1maxBox">
+		<div class="HBtop">
+			<div class="line"></div>
+			<div class="itemBox">
+				<div class="item now">1</div>
+				<div class="item">
+					<a class="ativePeople" href="HB2.html">2</a>
+				</div>
+				<div class="item">
+					<a class="ativePeople" href="HB3.html">3</a>
+				</div>
+				<div class="item">
+					<a class="ativePeople" href="HB4.html">4</a>
+				</div>
+				<div class="item">
+					<a class="ativePeople" href="HB5.html">5</a>
+				</div>
+			</div>
+
+		</div>
+		<div class="HBcontent">
+			<div class="inputDiv">
+				<span class="txt">姓<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>名
+				</span> <input id="HB1userName" placeholder="请输入姓名" class="input"
+					type="text">
+			</div>
+			<div class="inputDiv radioBox">
+				<span class="txt">性<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>别
+				</span>
+				<div class="radioA">
+					<div class="radio radio-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="男" value="1" name="sex" type="radio"
+							data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">男</span>
+					<div class="radio radio-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="女" value="2" name="sex" type="radio"
+							data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">女</span>
+				</div>
+			</div>
+			<div class="inputDiv">
+				<span class="txt">出生年月</span> <input id="DCSNY"
+					placeholder="请输入出生年月" class="input" type="date" value="">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">身份证号</span> <input id="CHZSFZH"
+					placeholder="请输入身份证号" class="input" type="text">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">出<span class="ensp"></span>生<span
+					class="ensp"></span>地
+				</span> <input id="CCSD" placeholder="请输入出生地" class="input" type="text">
+			</div>
+			<div class="selectDiv inputDiv">
+				<span class="txt">民<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>族
+				</span> <select id="CHZMZ" class="input">
+					<option value="1">汉族</option>
+					<option value="10">朝鲜族</option>
+					<option value="11">满族</option>
+					<option value="12">侗族</option>
+					<option value="13">瑶族</option>
+					<option value="14">白族</option>
+					<option value="15">土家族</option>
+					<option value="16">哈尼族</option>
+					<option value="17">哈萨克族</option>
+					<option value="18">傣族</option>
+					<option value="19">黎族</option>
+					<option value="2">蒙古族</option>
+					<option value="20">傈僳族</option>
+					<option value="21">佤族</option>
+					<option value="22">畲族</option>
+					<option value="23">高山族</option>
+					<option value="24">拉祜族</option>
+					<option value="25">水族</option>
+					<option value="26">东乡族</option>
+					<option value="27">纳西族</option>
+					<option value="28">景颇族</option>
+					<option value="29">柯尔克孜族</option>
+					<option value="3">回族</option>
+					<option value="30">土族</option>
+					<option value="31">达斡尔族</option>
+					<option value="32">仫佬族</option>
+					<option value="33">羌族</option>
+					<option value="34">布朗族</option>
+					<option value="35">撒拉族</option>
+					<option value="36">毛南族</option>
+					<option value="37">仡佬族</option>
+					<option value="38">锡伯族</option>
+					<option value="39">阿昌族</option>
+					<option value="4">藏族</option>
+					<option value="40">普米族</option>
+					<option value="41">塔吉克族</option>
+					<option value="42">怒族</option>
+					<option value="43">乌孜别克族</option>
+					<option value="44">俄罗斯族</option>
+					<option value="45">鄂温克族</option>
+					<option value="46">德昴族</option>
+					<option value="47">保安族</option>
+					<option value="48">裕固族</option>
+					<option value="49">京族</option>
+					<option value="5">维吾尔族</option>
+					<option value="50">塔塔尔族</option>
+					<option value="51">独龙族</option>
+					<option value="52">鄂伦春族</option>
+					<option value="53">赫哲族</option>
+					<option value="54">门巴族</option>
+					<option value="55">珞巴族</option>
+					<option value="56">基诺族</option>
+					<option value="6">苗族</option>
+					<option value="7">彝族</option>
+					<option value="8">壮族</option>
+					<option value="9">布依族</option>
+				</select>
+			</div>
+			<div class="inputDiv">
+				<span class="txt">本人电话</span> <input id="CHZSJ" placeholder="请输入电话"
+					class="input" type="text">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">联系人姓名</span> <input id="CLXRXM"
+					placeholder="请输入姓名" class="input" type="text">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">联系人电话</span> <input id="CLXRDH"
+					placeholder="请输入电话" class="input" type="text">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">身<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>高
+				</span> <input id="CHZSG" placeholder="请输入身高" class="input" type="text">
+			</div>
+			<div class="inputDiv">
+				<span class="txt">体<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>重
+				</span> <input id="CHZTZ" placeholder="请输入体重" class="input" type="text">
+			</div>
+			<div class="selectDiv inputDiv">
+				<span class="txt">血<span class="ensp"></span><span
+					class="ensp"></span><span class="ensp"></span><span class="ensp"></span>型
+				</span> <select id="IXXBM" class="input">
+					<option value="1">A型</option>
+					<option value="2">B型</option>
+					<!-- <option value="3">O型</option> -->
+					<option value="3">AB型</option>
+					<option value="4">不详</option>
+				</select>
+			</div>
+			<div class="inputDiv radioBox">
+				<span class="txt">RH阴性</span>
+				<div class="radioA">
+					<div class="radio radio-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="是" value="2" name="YX" type="radio"
+							data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">是</span>
+					<div class="radio radio-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="否" value="1" name="YX" type="radio"
+							data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">否</span>
+					<div class="radio radio-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="不详" value="3" name="YX" type="radio"
+							data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">不详</span>
+				</div>
+			</div>
+			<div class="selectDiv inputDiv">
+				<span class="txt">文化程度</span> <select id="CWHCDBM" class="input">
+					<option value="1">文盲及半文盲</option>
+					<option value="2">小学</option>
+					<option value="3">初中</option>
+					
+					<option value="4">高中/技校/中专</option>
+					<option value="5">大学专科及以上</option>
+					<option value="6">不详</option>
+				</select>
+			</div>
+			<div class="selectDiv inputDiv">
+				<span class="txt">职业</span> <select id="CZYBM" class="input">
+					<option value="1">国家机关、党群组织、企业、事业单位负责人</option>
+					<option value="2">专业技术人员</option>
+					<option value="3">办事人员和有关人员</option>
+					<option value="4">商业、服务业人员</option>
+					<option value="5">农、林、牧、渔、水利业生产人员</option>
+					<option value="6">生产、运输设备操作员及有关人员</option>
+					<option value="7">军人</option>
+					<option value="8">不便分类的其它从业人员</option>
+				</select>
+			</div>
+			<div class="selectDiv inputDiv">
+				<span class="txt">婚姻状况</span> <select id="CHYZTBM" class="input">
+					<option value="1">未婚</option>
+					<option value="2">已婚</option>
+					<option value="3">丧偶</option>
+					<option value="4">离婚</option>
+					<option value="5">未说明的婚姻状况</option>
+				</select>
+			</div>
+			<div class="checkboxDiv inputDiv">
+				<span class="txt">药物过敏史</span>
+				<div class="radioA">
+					<div class="checkbox checkbox-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="无" value="0" name="YWGMS" type="checkbox"
+							data-checkedselect="1" id="diseaseNone"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">无</span>
+					<div class="checkbox checkbox-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="青霉素" value="1" class="YWGMS" name="YWGMS"
+							type="checkbox" data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">青霉素</span>
+					<div class="checkbox checkbox-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="磺胺" value="2" class="YWGMS" name="YWGMS"
+							type="checkbox" data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">磺胺</span>
+					<div class="checkbox checkbox-success navCheck"
+						style="display: inline-block">
+						<input data-bufValue="链霉素" value="3" class="YWGMS" name="YWGMS"
+							type="checkbox" data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">链霉素</span>
+				</div>
+				<div class="radioA">
+					<div class="checkbox checkbox-success navCheck"
+						style="display: inline-block">
+						<input value="-1" forEleId="YWGMSEle" class="YWGMS" name="YWGMS"
+							type="checkbox" data-checkedselect="1"> <label
+							style="padding-left: 0px; padding-right: 4px;"></label>
+					</div>
+					<span class="txt2">其他</span> <input name="YWGMS"
+						placeholder="请输入疾病名称" class="YWGMS" id="YWGMSEle" type="text"
+						class="BlineInput"
+						style="border: none; border-bottom: 1px solid #e6eaee;">
+				</div>
+			</div>
+		</div>
+		<div id="infoSave" class="HBbtn bottom_btn">下一步(1/5）</div>
+	</div>
+	<script type="text/javascript" src="js/HB1.js"></script>
+</body>
+</html>
