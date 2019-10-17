@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hxb.xb_testandroidfunction.test_custom_view.view.SquareConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llAppItemParent"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/d_select_presentation_flying_frame"
+    android:padding="2dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    app:childLengthBasedOn="height">
+
+    <ImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_app" />
+</hxb.xb_testandroidfunction.test_custom_view.view.SquareConstraintLayout>

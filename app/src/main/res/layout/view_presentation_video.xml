@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2196F3">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineLeftVideoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineRightVideoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineBottomVideoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVideoList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/d_select_presentation_flying_frame"
+        android:nextFocusRight="@id/videoView"
+        android:orientation="vertical"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/baseLineBottomVideoList"
+        app:layout_constraintLeft_toLeftOf="@id/baseLineLeftVideoList"
+        app:layout_constraintRight_toRightOf="@+id/baseLineRightVideoList"
+        app:layout_constraintTop_toTopOf="@+id/baseLineTopVideoView" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineLeftVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineRightVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineTopVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineBottomVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/d_select_presentation_flying_frame"
+        android:nextFocusLeft="@id/rvVideoList"
+        android:nextFocusDown="@id/rvAppList"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/baseLineBottomVideoView"
+        app:layout_constraintLeft_toLeftOf="@+id/baseLineLeftVideoView"
+        app:layout_constraintRight_toRightOf="@+id/baseLineRightVideoView"
+        app:layout_constraintTop_toTopOf="@+id/baseLineTopVideoView" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/baseLineTopApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAppList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/d_select_presentation_flying_frame"
+        android:nextFocusLeft="@id/rvVideoList"
+        android:nextFocusUp="@id/videoView"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/baseLineBottomVideoList"
+        app:layout_constraintLeft_toLeftOf="@+id/baseLineLeftVideoView"
+        app:layout_constraintRight_toRightOf="@+id/baseLineRightVideoView"
+        app:layout_constraintTop_toTopOf="@+id/baseLineTopApp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

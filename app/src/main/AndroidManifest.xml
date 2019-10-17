@@ -39,7 +39,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".test_processor.TestProcessorActivity"
+            android:name=".test_different_display.DifferentDisplayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -147,7 +147,6 @@
             android:value="GlideModule" />
 
 
-        <activity android:name=".test_different_display.DifferentDisplayActivity"/>
     </application>
 
 </manifest>
