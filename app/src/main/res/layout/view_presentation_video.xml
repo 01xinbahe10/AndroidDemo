@@ -32,7 +32,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/d_select_presentation_flying_frame"
-        android:nextFocusRight="@id/videoView"
+        android:nextFocusRight="@id/rlVideoView"
+        android:nextFocusDown="@id/rvAppList"
         android:orientation="vertical"
         android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/baseLineBottomVideoList"
@@ -70,19 +71,26 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.7" />
 
-    <VideoView
-        android:id="@+id/videoView"
+    <RelativeLayout
+        android:id="@+id/rlVideoView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/d_select_presentation_flying_frame"
         android:nextFocusLeft="@id/rvVideoList"
         android:nextFocusDown="@id/rvAppList"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/baseLineBottomVideoView"
         app:layout_constraintLeft_toLeftOf="@+id/baseLineLeftVideoView"
         app:layout_constraintRight_toRightOf="@+id/baseLineRightVideoView"
-        app:layout_constraintTop_toTopOf="@+id/baseLineTopVideoView" />
+        app:layout_constraintTop_toTopOf="@+id/baseLineTopVideoView">
 
+        <SurfaceView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/baseLineTopApp"

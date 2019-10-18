@@ -66,16 +66,16 @@ public class ControlBoardUtil {
         }
     });
 
-    public static ControlBoardUtil init(ViewGroup rootViewGroup,String firstChildTag) {
-        return new ControlBoardUtil(rootViewGroup,firstChildTag);
+    public static ControlBoardUtil init(ViewGroup rootViewGroup, String firstChildTag) {
+        return new ControlBoardUtil(rootViewGroup, firstChildTag);
     }
 
 
-    public static ControlBoardUtil init(ViewGroup rootViewGroup,int firstChildId) {
-        return new ControlBoardUtil(rootViewGroup,firstChildId);
+    public static ControlBoardUtil init(ViewGroup rootViewGroup, int firstChildId) {
+        return new ControlBoardUtil(rootViewGroup, firstChildId);
     }
 
-    private ControlBoardUtil(ViewGroup rootViewGroup,String firstChildTag) {
+    private ControlBoardUtil(ViewGroup rootViewGroup, String firstChildTag) {
         this.rootViewGroup = rootViewGroup;
         this.level = new LinkedList<>();
         this.level.addFirst(this.rootViewGroup);
@@ -88,7 +88,7 @@ public class ControlBoardUtil {
 
     }
 
-    private ControlBoardUtil(ViewGroup rootViewGroup,int firstChildId) {
+    private ControlBoardUtil(ViewGroup rootViewGroup, int firstChildId) {
         this.rootViewGroup = rootViewGroup;
         this.level = new LinkedList<>();
         this.level.addFirst(this.rootViewGroup);
@@ -184,7 +184,7 @@ public class ControlBoardUtil {
                     this.tempViewGroup = this.level.getLast();
                     if (this.tempViewGroup.getChildCount() > 0) {
                         view = this.tempViewGroup.getChildAt(0);
-                        Log.e("TAG", "setAction: "+tempViewGroup.getChildCount());
+                        Log.e("TAG", "setAction: " + tempViewGroup.getChildCount());
                     }
                 }
                 break;
@@ -215,7 +215,7 @@ public class ControlBoardUtil {
         if (view != null) {
             if (this.eventCall == null)
                 return;
-            Log.e("TAG", "setAction:?????????//////////   "+tempViewGroup.indexOfChild(view));
+            Log.e("TAG", "setAction:?????????//////////   " + tempViewGroup.indexOfChild(view));
             //验证当前选中的视图是否在当前的视图容器中
             if (this.tempViewGroup.indexOfChild(view) == -1)
                 return;
@@ -228,7 +228,7 @@ public class ControlBoardUtil {
         }
 
         if (eventCall != null)
-            eventCall.onAction(action, this.tempChildView.getId());
+            eventCall.onAction(action, this.tempViewGroup, this.tempChildView);
 
     }
 
@@ -236,7 +236,7 @@ public class ControlBoardUtil {
     public interface EventCall {
         void onViewChange(int viewOperationSequence, ViewGroup currentViewGroup, View preChildView, View currentChildView);
 
-        void onAction(int action, int currentViewId);
+        void onAction(int action, View currentViewGroup, View currentChildView);
     }
 
 }

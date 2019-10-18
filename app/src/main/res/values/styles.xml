@@ -15,6 +15,14 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="translucent2" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/fully_transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <!--<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
 
 
@@ -40,7 +48,5 @@
         <item name="android:thumbOffset">5dip</item>
         <item name="android:focusable">true</item>
     </style>
-
-
 
 </resources>

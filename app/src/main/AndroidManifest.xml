@@ -30,6 +30,12 @@
         tools:ignore="ProtectedPermissions" />
 
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 显示系统窗口权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 在 屏幕最顶部显示addview-->
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
     <application
         android:name=".test_gif_anim.MyApplication"
         android:allowBackup="true"
@@ -41,6 +47,8 @@
         <activity
             android:name=".test_different_display.DifferentDisplayActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/translucent2"
+            android:configChanges="orientation"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -145,6 +153,10 @@
         <meta-data
             android:name="hxb.xb_testandroidfunction.test_pic_crop.glide.XiayuGlideModule"
             android:value="GlideModule" />
+
+
+
+        <service android:name=".test_different_display.presentation.VideoService"/>
 
 
     </application>

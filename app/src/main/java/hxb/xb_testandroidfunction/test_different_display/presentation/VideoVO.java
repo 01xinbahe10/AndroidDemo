@@ -7,6 +7,9 @@ public class VideoVO {
         //简介
         private String movieIntroduction = "";
 
+        //url
+        private String url = "";
+
         public String getMovieTitle() {
             return movieTitle;
         }
@@ -21,6 +24,14 @@ public class VideoVO {
 
         public void setMovieIntroduction(String movieIntroduction) {
             this.movieIntroduction = movieIntroduction;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 

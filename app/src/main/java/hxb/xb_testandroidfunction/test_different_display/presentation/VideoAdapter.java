@@ -106,6 +106,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     }
 
 
+    public List<VideoVO.MovieListVO> getMovieListVOS() {
+        return movieListVOS;
+    }
+
+    public List<VideoVO.AppListVO> getAppListVOS() {
+        return appListVOS;
+    }
+
     public void refresh() {
         notifyDataSetChanged();
     }
@@ -121,13 +129,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
             switch (itemType) {
                 case ITEM_MOVIE_LIST:
                     llMovieItemParent = itemView.findViewById(R.id.llMovieItemParent);
-                    llMovieItemParent.setSelected(false);
                     tvMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
                     tvMovieIntroduction = itemView.findViewById(R.id.tvMovieIntroduction);
                     break;
                 case ITEM_APP_LIST:
                     llAppItemParent = itemView.findViewById(R.id.llAppItemParent);
-                    llAppItemParent.setSelected(false);
                     ivAppIcon = itemView.findViewById(R.id.ivAppIcon);
                     break;
             }
