@@ -168,4 +168,8 @@
     <!--图片裁剪属性>>>>>>>>>>>>>end-->
 
 
+    <declare-styleable name="RegLinkFocusView">
+        <attr name="regIds" format="string"/>
+    </declare-styleable>
+
 </resources>

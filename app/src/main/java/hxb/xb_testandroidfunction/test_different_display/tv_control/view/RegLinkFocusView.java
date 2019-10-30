@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import hxb.xb_testandroidfunction.R.styleable;
 
-import hyper.bobii.tv3.R.styleable;
 
 /**
  * 注册关联焦点的view

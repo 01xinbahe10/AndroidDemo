@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import hyper.bobii.tv3.tv_control.view.RegLinkFocusView;
+import hxb.xb_testandroidfunction.test_different_display.tv_control.view.RegLinkFocusView;
+
 
 public class TVControl {
     public static final long CLOSE_DELAYED = -1L;
