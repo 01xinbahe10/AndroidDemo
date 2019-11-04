@@ -12,14 +12,16 @@ import com.example.aac.base_frame.BaseActivity;
 import com.example.aac.base_frame.adapter.BaseRecycler2Adapter;
 import com.example.aac.data.vo.CityVO;
 import com.example.aac.databinding.ActivityMainBinding;
+import com.example.aac.databinding.ItemMainBinding;
 import com.example.aac.home.adapter.MainAdapter;
+import com.example.aac.view_model.ItemViewModel;
 import com.example.aac.view_model.MainViewModel;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
 
     private MainAdapter adapter;
 
-    private BaseRecycler2Adapter adapter2;
+    private BaseRecycler2Adapter<ItemMainBinding, ItemViewModel> adapter2;
     @Override
     protected int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_main;
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 //        viewDataBinding.setAdapter(new BindingRecyclerViewAdapter());
 
 
-        adapter2 = new BaseRecycler2Adapter(this);
+        adapter2 = new BaseRecycler2Adapter<>(this);
         viewDataBinding.setAdapter2(adapter2);
 
         baseViewModel.getData();

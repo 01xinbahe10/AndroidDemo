@@ -16,7 +16,7 @@ public class BindingRecyclerViewAdapters {
     // RecyclerView
     @SuppressWarnings("unchecked")
     @BindingAdapter(value = {"itemBinding", "adapter"}, requireAll = false)
-    public static <V extends ViewDataBinding,VM extends BaseViewModel> void setAdapter(RecyclerView recyclerView, AdapterBinding<V,VM> adapterBinding, BaseRecycler2Adapter<V,VM> adapter) {
+    public static  void setAdapter(RecyclerView recyclerView, AdapterBinding adapterBinding, BaseRecycler2Adapter adapter) {
         if (adapterBinding == null) {
             throw new IllegalArgumentException("itemBinding must not be null");
         }
