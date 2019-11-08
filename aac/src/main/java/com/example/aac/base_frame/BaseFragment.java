@@ -32,7 +32,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     protected V viewDataBinding;
     private int baseViewModelId;
     protected VM baseViewModel;
-    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+//    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         super.onViewCreated(view, savedInstanceState);
         //注入观察生命周期（针对数据在不同的生命周期中的操作）
 //        lifecycleRegistry.markState(Lifecycle.State.CREATED);
-        lifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
+//        lifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
 
         //私有的初始化Databinding和ViewModel方法
         initViewDataBinding();
@@ -68,28 +68,28 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public void onStart() {
         super.onStart();
 //        lifecycleRegistry.markState(Lifecycle.State.STARTED);
-        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
+//        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 //        lifecycleRegistry.markState(Lifecycle.State.RESUMED);
-        lifecycleRegistry.setCurrentState(Lifecycle.State.RESUMED);
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
+//        lifecycleRegistry.setCurrentState(Lifecycle.State.RESUMED);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
     }
 
     @Override
@@ -102,8 +102,8 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public void onDestroyView() {
         super.onDestroyView();
 //        lifecycleRegistry.markState(Lifecycle.State.DESTROYED);
-        lifecycleRegistry.setCurrentState(Lifecycle.State.DESTROYED);
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
+//        lifecycleRegistry.setCurrentState(Lifecycle.State.DESTROYED);
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
 
         if (null != viewDataBinding) {
             viewDataBinding.unbind();
