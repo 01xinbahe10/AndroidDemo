@@ -1,5 +1,6 @@
 package hxb.xb_testandroidfunction.test_about_recyclerview;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,17 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.widget.RecyclerView;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import hxb.xb_testandroidfunction.R;
 import hxb.xb_testandroidfunction.test_about_recyclerview.ItemHelper.ItemTouchHelper;
 import hxb.xb_testandroidfunction.test_about_recyclerview.adapter.RecyclerAdapter;
+import hxb.xb_testandroidfunction.test_about_recyclerview.view.FastScrollRecyclerView;
 
 /**
  * Created by hxb on 2019/4/9.
  */
 public class TestAboutRecyclerViewActivity extends FragmentActivity {
-    private RecyclerView mRecyclerView;
+//    private RecyclerView mRecyclerView;
+    private FastScrollRecyclerView mRecyclerView;
     private ItemTouchHelper mItemTouchHelper;
     private RecyclerAdapter mAdapter;
     private View mllGeneralParent;
@@ -80,9 +84,28 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity {
         BitmapDrawable drawable = new BitmapDrawable(getResources(), bitmap);
         drawable.draw(canvas);
         mllGeneralParent.setBackground(drawable);
+        /**-------------------------------------*/
 
+
+        mRecyclerView.setFastScrollListener(new FastScrollRecyclerView.FastScrollListener() {
+            @Override
+            public void startScroll(int direction) {
+
+            }
+
+            @Override
+            public void stopScroll(int direction) {
+
+            }
+
+            @Override
+            public void scrollToEnd() {
+
+            }
+        });
 
     }
+
 
     private ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
 

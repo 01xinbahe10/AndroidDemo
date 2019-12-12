@@ -402,6 +402,13 @@ public final class FragmentPersistence {
         return false;
     }
 
+    /*
+     * 清除界面流转流程
+     * */
+    public void clearPatternContainer(){
+        mConfig.patternContainer.clear();
+    }
+
     public void onDestroy2() {
         mConfig = null;
         transaction = null;
