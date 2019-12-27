@@ -34,6 +34,8 @@ public class CustomizeRecyclerView extends RecyclerView {
     private int mCurrentFocusPosition = 0;
     //是否滚动
     private boolean isScrolling = false;
+    //临时记录当前焦点的view
+    private View[] mTempRecordFocusViews = new View[2];
 
     public CustomizeRecyclerView(@NonNull Context context) {
         this(context, null, 0);
@@ -94,6 +96,7 @@ public class CustomizeRecyclerView extends RecyclerView {
         return view;
     }
 
+
     @Override
     public void requestChildFocus(View child, View focused) {
         Log.i(TAG, "nextchild= " + child + ",focused = " + focused);
@@ -104,9 +107,11 @@ public class CustomizeRecyclerView extends RecyclerView {
             }
         }
         Log.i(TAG, "focusPos 2= " + mCurrentFocusPosition);
-        int focusPosition =  getChildViewHolder(child).getAdapterPosition();
+        int focusPosition =  getChildViewHolder(child).getLayoutPosition();
         Log.i(TAG, "focusPos = " + focusPosition);
         if (Math.abs(mCurrentFocusPosition - focusPosition) > 2){
+            mTempRecordFocusViews[0] = child;
+            mTempRecordFocusViews[1] = focused;
             smoothScrollToCenter(mCurrentFocusPosition);
         }else {
             super.requestChildFocus(child, focused);//执行过super.requestChildFocus之后hasFocus会变成true
@@ -140,12 +145,12 @@ public class CustomizeRecyclerView extends RecyclerView {
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
         View focusedChild = getFocusedChild();
-        Log.i(TAG, "focusedChild =" + focusedChild);
+        /*Log.i(TAG, "focusedChild =" + (focusedChild == null));*/
         if (focusedChild == null) {
             return super.getChildDrawingOrder(childCount, i);
         } else {
             int index = indexOfChild(focusedChild);
-            Log.i(TAG, " index = " + index + ",i=" + i + ",count=" + childCount);
+            /*Log.i(TAG, " index = " + index + ",i=" + i + ",count=" + childCount);*/
             if (i == childCount - 1) {
                 return index;
             }
@@ -196,7 +201,10 @@ public class CustomizeRecyclerView extends RecyclerView {
 
         @Override
         protected void onStop() {
-            // TODO: 2019/12/26 还需要将前一个view 焦点给清除掉 
+//            clearAllChildFocus();
+            for (View view:mTempRecordFocusViews){
+                view.clearFocus();
+            }
             View targetView = findViewByPosition(getTargetPosition());
             if (targetView != null) {
                 targetView.requestFocus();
@@ -232,6 +240,17 @@ public class CustomizeRecyclerView extends RecyclerView {
         }
 
         return null;
+    }
+
+    private void clearAllChildFocus(){
+        int childCount = this.getChildCount();
+        for (int i = 0; i <childCount ; i++) {
+            View view = this.getChildAt(i);
+            if (null == view){
+                continue;
+            }
+            view.clearFocus();
+        }
     }
 
     public boolean isCanFocusOutVertical() {
