@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -18,7 +19,9 @@ import hxb.xb_testandroidfunction.R;
 public class TestAboutRecyclerViewActivity extends FragmentActivity implements View.OnFocusChangeListener {
 
     private Button mBtn1,mBtn2,mBtn3,mBtn4;
+    private ListView mListView;
     private RecyclerView mRecyclerView;
+    private ListViewAdapter mListAdapter;
     private RecyclerAdapter mAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +31,12 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
         mBtn2 = findViewById(R.id.btn2);
         mBtn3 = findViewById(R.id.btn3);
         mBtn4 = findViewById(R.id.btn4);
+        mListView = findViewById(R.id.listView);
+        mListView.setItemsCanFocus(true);
         mRecyclerView = findViewById(R.id.recyclerView);
+
+        mListAdapter = new ListViewAdapter();
+        mListView.setAdapter(mListAdapter);
 
         CustomGridLayoutManager gridLayoutManager = new CustomGridLayoutManager(this,2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -59,5 +67,10 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
                 mBtn4.setBackgroundColor(hasFocus?Color.RED:Color.WHITE);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

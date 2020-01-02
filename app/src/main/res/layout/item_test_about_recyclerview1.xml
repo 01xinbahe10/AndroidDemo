@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/viewVideo"
+        android:layout_width="240dp"
+        android:layout_height="135dp"
+        android:background="#FF9800"
+        android:nextFocusRight="@id/viewAd1" />
+
+    <View
+        android:id="@+id/viewAd1"
+        android:layout_width="match_parent"
+        android:layout_height="67.5dp"
+        android:layout_toRightOf="@+id/viewVideo"
+        android:background="#4CAF50"
+        android:nextFocusLeft="@id/viewVideo"
+        android:nextFocusDown="@id/viewAd2" />
+
+    <View
+        android:id="@+id/viewAd2"
+        android:layout_width="match_parent"
+        android:layout_height="67.5dp"
+        android:layout_below="@+id/viewAd1"
+        android:layout_toRightOf="@+id/viewVideo"
+        android:background="#673AB7"
+        android:nextFocusLeft="@id/viewVideo"
+        android:nextFocusUp="@id/viewAd1" />
+</RelativeLayout>
