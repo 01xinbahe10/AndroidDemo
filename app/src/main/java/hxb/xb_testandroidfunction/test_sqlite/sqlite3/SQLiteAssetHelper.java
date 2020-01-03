@@ -11,31 +11,14 @@ import java.util.regex.Pattern;
  * Created by hxb on 2019/1/29
  */
 public class SQLiteAssetHelper extends SQLiteOpenHelper implements ISQLiteHelper {
-    /**
-     * mUpgradeSate :在打包apk下一个版本时，告诉其更新数据表的状态
-     * mUpgradeTableName：在打包apk下一个版本时,告诉需要更新数据表的名字
-     * mVersion ：在打包apk下一个版本时，版本变动，只能递增
-     */
-    private static final int mUpgradeSate = ISQLiteHelper.UPDATE_DATA_TYPE_TABLE_FIELD;
-    private static final String mUpgradeTableName = ISQLiteHelper.TABLE_NAME_LOG;
-    private static final int mVersion = 1;
-
     //特殊字符
     public static final String SPECIAL_CHAR = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？ 0123456789]";
 
-    private static ISQLiteHelper mSqLiteOpenHelper = null;
-    private ISQLiteHelper.SQLiteInit mSqliteInit = null;
+    private SQLiteInit mSqliteInit = null;
 
     private SQLiteDatabase mSqLiteData = null;
 
-    public static ISQLiteHelper init(Context context) {
-        if (null == mSqLiteOpenHelper) {
-            mSqLiteOpenHelper = new SQLiteAssetHelper(context, ISQLiteHelper.DB_NAME_LOG, null, mVersion);
-        }
-        return mSqLiteOpenHelper;
-    }
-
-    public static ISQLiteHelper init(Context context, ISQLiteHelper.SQLiteInit sqLiteInit) {
+    public static ISQLiteHelper init(Context context, SQLiteInit sqLiteInit) {
         return new SQLiteAssetHelper(context, sqLiteInit.databaseName(), null, sqLiteInit.databaseVersion(), sqLiteInit);
     }
 
@@ -47,7 +30,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper implements ISQLiteHelper
         super(context, name, factory, version, errorHandler);
     }
 
-    private SQLiteAssetHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, ISQLiteHelper.SQLiteInit sqLiteInit) {
+    private SQLiteAssetHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, SQLiteInit sqLiteInit) {
         super(context, name, factory, version);
         mSqliteInit = sqLiteInit;
     }
@@ -74,18 +57,16 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper implements ISQLiteHelper
     }
 
     @Override
-    public void carriedOutWritable(SQLiteDataAction action) {
+    public synchronized void carriedOutWritable(SQLiteDataAction action) {
         if (null == action) {
             return;
         }
-
-        mSqLiteData = getWritableDatabase();
-        if (mSqLiteData.inTransaction()) {//防止别的线程开启事务而未结束事务
-            mSqLiteData.endTransaction();
-        }
-        mSqLiteData.beginTransaction();
-
         try {
+            mSqLiteData = getWritableDatabase();
+            if(mSqLiteData.inTransaction()){//防止别的线程开启事务而未结束事务
+                mSqLiteData.endTransaction();
+            }
+            mSqLiteData.beginTransaction();
             action.action(mSqLiteData);
             if (null != mSqLiteData) {
                 mSqLiteData.setTransactionSuccessful();
@@ -98,25 +79,23 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper implements ISQLiteHelper
             if (null != mSqLiteData) {
                 mSqLiteData.endTransaction();
                 mSqLiteData.close();
+                mSqLiteData = null;
             }
-            mSqLiteData = null;
         }
 
     }
 
     @Override
-    public void carriedOutReadable(SQLiteDataAction action) {
+    public synchronized void carriedOutReadable(SQLiteDataAction action) {
         if (null == action) {
             return;
         }
-
-        mSqLiteData = getReadableDatabase();
-        if (mSqLiteData.inTransaction()) {//防止别的线程开启事务而未结束事务
-            mSqLiteData.endTransaction();
-        }
-        mSqLiteData.beginTransaction();
-
         try {
+            mSqLiteData = getReadableDatabase();
+            if(mSqLiteData.inTransaction()){//防止别的线程开启事务而未结束事务
+                mSqLiteData.endTransaction();
+            }
+            mSqLiteData.beginTransaction();
             action.action(mSqLiteData);
             if (null != mSqLiteData) {
                 mSqLiteData.setTransactionSuccessful();
