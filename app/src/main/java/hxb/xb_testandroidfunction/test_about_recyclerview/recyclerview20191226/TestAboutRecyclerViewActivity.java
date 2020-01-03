@@ -2,25 +2,29 @@ package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import hxb.xb_testandroidfunction.R;
+import hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.CustomizeGridRecyclerView;
+import hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.OnChildSelectedListener;
 
 /**
  * Created by hxb on  2019/12/26
  */
 public class TestAboutRecyclerViewActivity extends FragmentActivity implements View.OnFocusChangeListener {
+    private static final String TAG = "TestAboutRecyclerView";
 
     private Button mBtn1,mBtn2,mBtn3,mBtn4;
     private ListView mListView;
-    private RecyclerView mRecyclerView;
+    private CustomizeGridRecyclerView mRecyclerView;
     private ListViewAdapter mListAdapter;
     private RecyclerAdapter mAdapter;
     @Override
@@ -38,12 +42,11 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
         mListAdapter = new ListViewAdapter();
         mListView.setAdapter(mListAdapter);
 
-        CustomGridLayoutManager gridLayoutManager = new CustomGridLayoutManager(this,2);
-        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-
+        mRecyclerView.managerConfig().setOrientation(RecyclerView.VERTICAL).setSpanCount(2).done();
         mAdapter = new RecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setCanFocusOutVertical(false);
+        mRecyclerView.setCanFocusOutHorizontal(true);
 
         mBtn1.setOnFocusChangeListener(this);
         mBtn2.setOnFocusChangeListener(this);
@@ -72,5 +75,26 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
     @Override
     protected void onResume() {
         super.onResume();
+        mRecyclerView.setOnChildSelectedListener(new OnChildSelectedListener() {
+            @Override
+            public void onChildSelected(ViewGroup parent, View view, int position, long id) {
+                Log.e(TAG, "onChildSelected: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  " +position);
+            }
+        });
+
+        mRecyclerView.setGainFocusListener(new CustomizeGridRecyclerView.FocusGainListener() {
+            @Override
+            public void onFocusGain(View child, View focued) {
+                Log.e(TAG, "onFocusGain: >>>>>>>>>  焦点进入    " );
+            }
+        });
+
+        mRecyclerView.setFocusLostListener(new CustomizeGridRecyclerView.FocusLostListener() {
+            @Override
+            public void onFocusLost(View lastFocusChild, int direction) {
+                Log.e(TAG, "onFocusLost: >>>>>>>>>>  焦点移出   " );
+            }
+        });
+
     }
 }

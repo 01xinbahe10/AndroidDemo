@@ -3,15 +3,10 @@ package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
-import android.view.FocusFinder;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -76,7 +71,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
                     if (type == 0){
-                        currentView[0] = holder.viewVideo;
+                        if (null == currentView[0]) {
+                            currentView[0] = holder.viewVideo;
+                        }
                         revertViewStatus(currentView[0],false);
                     }else {
                         revertViewStatus(currentView[0],true);
@@ -89,75 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             }
         });
        if (type == 0){
-           holder.itemView.setOnKeyListener(new View.OnKeyListener() {
-               @Override
-               public boolean onKey(View v, int keyCode, KeyEvent event) {
-                   if (event.getAction() != KeyEvent.ACTION_DOWN){
-                       return false;
-                   }
-                   Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   " + keyCode);
-
-                   switch (keyCode) {
-                       case KeyEvent.KEYCODE_DPAD_LEFT:
-//                           View viewLeft = FocusFinder.getInstance().findNextFocus((ViewGroup) holder.itemView, currentView[0], View.FOCUS_LEFT);
-                           View viewLeft = findNextFocusView(holder.itemView,currentView[0],View.FOCUS_LEFT);
-                           Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   LEFT1" );
-                           if (null != viewLeft){
-                               revertViewStatus(currentView[0],true);
-                               revertViewStatus(viewLeft,false);
-                               currentView[0] = viewLeft;
-                               Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   LEFT2" );
-                               return true;
-                           }
-                           break;
-                       case KeyEvent.KEYCODE_DPAD_RIGHT:
-//                           View viewRight = FocusFinder.getInstance().findNextFocus((ViewGroup) holder.itemView, currentView[0], View.FOCUS_RIGHT);
-                           /*if (null == currentView[0]){
-                               currentView[0] = holder.viewVideo;
-                               revertViewStatus(currentView[0],false);
-                               return true;
-                           }*/
-                           View viewRight = findNextFocusView(holder.itemView,currentView[0],View.FOCUS_RIGHT);
-                           Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   RIGHT1" );
-                           if (null != viewRight){
-                               revertViewStatus(currentView[0],true);
-                               revertViewStatus(viewRight,false);
-                               currentView[0] = viewRight;
-                               Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   RIGHT2" );
-                               return true;
-                           }
-                           break;
-                       case KeyEvent.KEYCODE_DPAD_UP:
-//                           View viewUp = FocusFinder.getInstance().findNextFocus((ViewGroup) holder.itemView, currentView[0], View.FOCUS_UP);
-                           View viewUp = findNextFocusView(holder.itemView,currentView[0],View.FOCUS_UP);
-                           Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   UP1" );
-                           if (null != viewUp){
-                               revertViewStatus(currentView[0],true);
-                               revertViewStatus(viewUp,false);
-                               currentView[0] = viewUp;
-                               Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   UP2" );
-                               return true;
-                           }
-                           break;
-                       case KeyEvent.KEYCODE_DPAD_DOWN:
-//                           View viewDown = FocusFinder.getInstance().findNextFocus((ViewGroup) holder.itemView, currentView[0], View.FOCUS_DOWN);
-                           View viewDown = findNextFocusView(holder.itemView,currentView[0],View.FOCUS_DOWN);
-                           Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   DOWN1" );
-                           if (null != viewDown){
-                               revertViewStatus(currentView[0],true);
-                               revertViewStatus(viewDown,false);
-                               currentView[0] = viewDown;
-                               Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   DOWN2" );
-                               return true;
-                           }
-                           break;
-
-                   }
-                   revertViewStatus(currentView[0],true);
-                   currentView[0] = null;
-                   return false;
-               }
-           });
+           holder.itemView.setOnKeyListener(new KeyListener(holder.itemView));
        }else {
            holder.itemView.setOnKeyListener(null);
            holder.textView.setText(("第："+i+"个"));
@@ -167,7 +96,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return 60;
+        return 100;
     }
 
     @Override
@@ -274,4 +203,77 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 break;
         }
     }
+
+    private class KeyListener implements View.OnKeyListener{
+        View root;
+        public KeyListener(View root){
+            this.root = root;
+        }
+
+        public void setViewRoot(View root){
+            this.root = root;
+        }
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            int action = event.getAction();
+            if (action == KeyEvent.ACTION_DOWN){
+                Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   " + keyCode);
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        View viewLeft = findNextFocusView(root,currentView[0],View.FOCUS_LEFT);
+                        Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   LEFT1" );
+                        if (null != viewLeft){
+                           /* if (viewLeft.getId() == R.id.viewBoundary){
+                                return true;
+                            }*/
+                            revertViewStatus(currentView[0],true);
+                            revertViewStatus(viewLeft,false);
+                            currentView[0] = viewLeft;
+                            Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   LEFT2" );
+                            return true;
+                        }
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        View viewRight = findNextFocusView(root,currentView[0],View.FOCUS_RIGHT);
+                        Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   RIGHT1" );
+                        if (null != viewRight){
+                            revertViewStatus(currentView[0],true);
+                            revertViewStatus(viewRight,false);
+                            currentView[0] = viewRight;
+                            Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   RIGHT2" );
+                            return true;
+                        }
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        View viewUp = findNextFocusView(root,currentView[0],View.FOCUS_UP);
+                        Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   UP1" );
+                        if (null != viewUp){
+                            revertViewStatus(currentView[0],true);
+                            revertViewStatus(viewUp,false);
+                            currentView[0] = viewUp;
+                            Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   UP2" );
+                            return true;
+                        }
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        View viewDown = findNextFocusView(root,currentView[0],View.FOCUS_DOWN);
+                        Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   DOWN1" );
+                        if (null != viewDown){
+                            revertViewStatus(currentView[0],true);
+                            revertViewStatus(viewDown,false);
+                            currentView[0] = viewDown;
+                            Log.e("TAG", "onKey: >>>>>>>>>>>>>>>>>>>>>>拉拉   DOWN2" );
+                            return true;
+                        }
+                        revertViewStatus(currentView[0],true);
+//                        currentView[0] = null;
+                        break;
+
+                }
+
+            }
+            return false;
+        }
+    }
+
 }
