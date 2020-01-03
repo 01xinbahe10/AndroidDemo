@@ -38,10 +38,13 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     private OnTouchInterceptListener mOnTouchInterceptListener;
     private OnMotionInterceptListener mOnMotionInterceptListener;
     private OnKeyInterceptListener mOnKeyInterceptListener;
+    private OnScrolledListener mOnScrolledListener;
     //默认第一次选中第一个位置
     private int mCurrentFocusPosition = 0;
     //是否滚动
     private boolean isScrolling = false;
+    //记录滚动状态
+    private int mScrolledStatus = OnScrolledListener.NO_SCROLLED;
     //临时记录当前焦点的view
     private View[] mTempRecordFocusViews = new View[2];
 
@@ -114,17 +117,17 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             }
         }
         Log.i(TAG, "focusPos 2= " + mCurrentFocusPosition);
-        int focusPosition =  getChildViewHolder(child).getLayoutPosition();
+        int focusPosition = getChildViewHolder(child).getLayoutPosition();
         Log.i(TAG, "focusPos = " + focusPosition);
         /*
-        * 当上一次选中的position 和 当前带有焦点的position 的绝对值大于spanCount
-        * 则认为已远离上一次position的位置，需要滚动到上一次选中的position。
-        * */
-        if (Math.abs(mCurrentFocusPosition - focusPosition) > mGridLayoutManager.getSpanCount()){
+         * 当上一次选中的position 和 当前带有焦点的position 的绝对值大于spanCount
+         * 则认为已远离上一次position的位置，需要滚动到上一次选中的position。
+         * */
+        if (Math.abs(mCurrentFocusPosition - focusPosition) > mGridLayoutManager.getSpanCount()) {
             mTempRecordFocusViews[0] = child;
             mTempRecordFocusViews[1] = focused;
-           mGridLayoutManager.smoothScrollToCenter(mCurrentFocusPosition,true);
-        }else {
+            mGridLayoutManager.smoothScrollToCenter(mCurrentFocusPosition, true);
+        } else {
             super.requestChildFocus(child, focused);//执行过super.requestChildFocus之后hasFocus会变成true
             mCurrentFocusPosition = focusPosition;
         }
@@ -203,25 +206,61 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         return super.dispatchGenericFocusedEvent(event);
     }
 
+    @Override
+    public void onScrolled(int dx, int dy) {
+//        super.onScrolled(dx, dy);
+        if (mGridLayoutManager.getOrientation() == RecyclerView.HORIZONTAL) {
+            Log.d(TAG, "onScrolled: HORIZONTAL:      " + this.canScrollHorizontally(dx) + "    dx=" + dx);
+        } else {
+            if (dy < 0) {//往上滚动
+                mScrolledStatus = !this.canScrollVertically(dy) ? mScrolledStatus = OnScrolledListener.SCROLLED_START : OnScrolledListener.CAN_SCROLLED;
+                dispatchScrolled();
+                Log.d(TAG, "onScrolled: VERTICAL:  往上滚动    " + this.canScrollVertically(dy) + "       dy=" + dy);
+            } else if (dy > 0) {//往下滚动
+                mScrolledStatus = !this.canScrollVertically(dy) ? mScrolledStatus = OnScrolledListener.SCROLLED_END : OnScrolledListener.CAN_SCROLLED;
+                dispatchScrolled();
+                Log.d(TAG, "onScrolled: VERTICAL:  往下滚动    " + this.canScrollVertically(dy) + "       dy=" + dy);
+            }
+        }
+//        Log.e(TAG, "onScrolled: >>>>>>>>>>>>>>>>>>>     是否到达底部 = "+isSlideToBottom() +"    "+dy);
+    }
 
     /**
      * LayoutManager配置
-     * */
-    private CustomGridLayoutManager getGridLayoutManager(){
-        if (null == mManagerConfig){//没有配置则默认
+     */
+    private CustomGridLayoutManager getGridLayoutManager() {
+        if (null == mManagerConfig) {//没有配置则默认
             mManagerConfig = new ManagerConfig();
-            mGridLayoutManager = new CustomGridLayoutManager(mContext,mManagerConfig.spanCount);
+            mGridLayoutManager = new CustomGridLayoutManager(mContext, mManagerConfig.spanCount);
             mGridLayoutManager.setOrientation(mManagerConfig.orientation);
-        }else {
-            mGridLayoutManager = new CustomGridLayoutManager(mContext,mManagerConfig.spanCount);
+        } else {
+            mGridLayoutManager = new CustomGridLayoutManager(mContext, mManagerConfig.spanCount);
             mGridLayoutManager.setOrientation(mManagerConfig.orientation);
         }
         return mGridLayoutManager;
     }
 
     /**
+     * 是否到达底部
+     */
+    private boolean isSlideToBottom() {
+        return this.computeVerticalScrollExtent() + this.computeVerticalScrollOffset()
+                >= this.computeVerticalScrollRange();
+    }
+
+    /**
+     * 回调滚动状态
+     */
+    private void dispatchScrolled() {
+        if (null == mOnScrolledListener) {
+            return;
+        }
+        mOnScrolledListener.onScrolled(mScrolledStatus);
+    }
+
+    /**
      * 接口
-     * */
+     */
     public interface FocusLostListener {
         void onFocusLost(View lastFocusChild, int direction);
     }
@@ -237,7 +276,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         /*
          * Returns true if the touch dispatch event should be consumed.
          */
-         boolean onInterceptTouchEvent(MotionEvent event);
+        boolean onInterceptTouchEvent(MotionEvent event);
     }
 
     /*
@@ -247,7 +286,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         /*
          * Returns true if the touch dispatch event should be consumed.
          */
-         boolean onInterceptMotionEvent(MotionEvent event);
+        boolean onInterceptMotionEvent(MotionEvent event);
     }
 
     /*
@@ -257,12 +296,24 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         /*
          * Returns true if the key dispatch event should be consumed.
          */
-         boolean onInterceptKeyEvent(KeyEvent event);
+        boolean onInterceptKeyEvent(KeyEvent event);
+    }
+
+    /*
+     * 监听滚动状态（滚动中，滚动到顶，滚动到底）
+     * */
+    public interface OnScrolledListener {
+        int NO_SCROLLED = -1;//无滚动状态
+        int SCROLLED_START = 1;//滚动停止在列表开始位置
+        int SCROLLED_END = 2;//滚动停止在列表末尾位置
+        int CAN_SCROLLED = 3;//可以滚动
+
+        void onScrolled(int scrolled);
     }
 
     /**
      * 屏蔽焦点纵向移出recyclerview
-     * */
+     */
     public void setCanFocusOutVertical(boolean canFocusOutVertical) {
         mCanFocusOutVertical = canFocusOutVertical;
     }
@@ -273,7 +324,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     /**
      * 屏蔽焦点横向移出recyclerview
-     * */
+     */
     public void setCanFocusOutHorizontal(boolean canFocusOutHorizontal) {
         mCanFocusOutHorizontal = canFocusOutHorizontal;
     }
@@ -284,45 +335,45 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     /**
      * 焦点移出recyclerview的事件监听
-     * */
+     */
     public void setFocusLostListener(FocusLostListener focusLostListener) {
         this.mFocusLostListener = focusLostListener;
     }
 
     /**
      * 焦点移入recyclerview的事件监听
-     * */
+     */
     public void setGainFocusListener(FocusGainListener focusListener) {
         this.mFocusGainListener = focusListener;
     }
 
     /**
      * 获取当前选中的脚标
-     * */
-    public int getCurrentFocusPosition(){
+     */
+    public int getCurrentFocusPosition() {
         return mCurrentFocusPosition;
     }
 
     /**
      * 临时记录当前有焦点的view
-     * */
-    protected View[] getTempRecordFocusViews(){
+     */
+    protected View[] getTempRecordFocusViews() {
         return mTempRecordFocusViews;
     }
 
     /**
      * 根据脚标在当前显示的item个数中 找到对应的item，没有则为null
-     * */
-    public View findViewByPosition(int position){
+     */
+    public View findViewByPosition(int position) {
         int childCount = this.getChildCount();
         int midCount = childCount >>> 1;//相当于childCount / 2;
-        for (int i = 0; i <= midCount ; i++) {
+        for (int i = 0; i <= midCount; i++) {
             View view = this.getChildAt(i);
-            if (this.getChildLayoutPosition(view) == position){
+            if (this.getChildLayoutPosition(view) == position) {
                 return view;
             }
             View view2 = this.getChildAt((childCount - 1 - i));
-            if (this.getChildLayoutPosition(view2) == position){
+            if (this.getChildLayoutPosition(view2) == position) {
                 return view2;
             }
         }
@@ -332,7 +383,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     /**
      * 监听选中回调
-     * */
+     */
     public void setOnChildSelectedListener(OnChildSelectedListener listener) {
         mGridLayoutManager.setOnChildSelectedListener(listener);
     }
@@ -358,11 +409,17 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         mOnKeyInterceptListener = listener;
     }
 
+    /**
+     * 设置监听滚动状态
+     */
+    public void setOnScrolledListener(OnScrolledListener listener) {
+        mOnScrolledListener = listener;
+    }
 
     /**
      * 配置项设置接口
-     * */
-    public ManagerConfig managerConfig(){
+     */
+    public ManagerConfig managerConfig() {
         mManagerConfig = new ManagerConfig();
         return mManagerConfig;
     }
@@ -370,21 +427,25 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     /**
      * LayoutManager配置类
      * 拓展业务时可以在配置类增加其它配置项
-     * */
-    public final class ManagerConfig{
+     */
+    public final class ManagerConfig {
         public int orientation = RecyclerView.VERTICAL;//默认
         public int spanCount = 1;//默认
-        private ManagerConfig(){}
-        public ManagerConfig setOrientation(@RecyclerView.Orientation int orientation){
+
+        private ManagerConfig() {
+        }
+
+        public ManagerConfig setOrientation(@RecyclerView.Orientation int orientation) {
             this.orientation = orientation;
             return this;
         }
-        public ManagerConfig setSpanCount(@IntRange(from = 1) int spanCount){
+
+        public ManagerConfig setSpanCount(@IntRange(from = 1) int spanCount) {
             this.spanCount = spanCount;
             return this;
         }
 
-        public void done(){
+        public void done() {
             setLayoutManager(getGridLayoutManager());
         }
     }

@@ -27,6 +27,7 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
     private CustomizeGridRecyclerView mRecyclerView;
     private ListViewAdapter mListAdapter;
     private RecyclerAdapter mAdapter;
+    private View mViewMainVideo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
         mListView = findViewById(R.id.listView);
         mListView.setItemsCanFocus(true);
         mRecyclerView = findViewById(R.id.recyclerView);
+        mViewMainVideo = findViewById(R.id.viewMainVideo);
 
         mListAdapter = new ListViewAdapter();
         mListView.setAdapter(mListAdapter);
@@ -93,6 +95,32 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
             @Override
             public void onFocusLost(View lastFocusChild, int direction) {
                 Log.e(TAG, "onFocusLost: >>>>>>>>>>  焦点移出   " );
+            }
+        });
+
+        mRecyclerView.setOnScrolledListener(new CustomizeGridRecyclerView.OnScrolledListener() {
+            @Override
+            public void onScrolled(int scrolled) {
+                String text = "";
+                switch (scrolled){
+                    case SCROLLED_START:
+                        text = "滚动到顶";
+                        if (mViewMainVideo.getVisibility() == View.INVISIBLE) {
+                            mViewMainVideo.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case SCROLLED_END:
+                        text = "滚动到底";
+                        break;
+                    case CAN_SCROLLED:
+                        text = "可以滚动";
+                        if (mViewMainVideo.getVisibility() == View.VISIBLE) {
+                            mViewMainVideo.setVisibility(View.INVISIBLE);
+                        }
+                        break;
+                }
+
+                Log.e(TAG, "onScrolled: >>>>>>>>>>>>> 滚动的状态 = "+text );
             }
         });
 
