@@ -215,11 +215,11 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             return true;
         }
 
-        if (isConsumeFocus){
+        if (super.dispatchKeyEvent(event)) {
             return true;
         }
 
-        if (super.dispatchKeyEvent(event)) {
+        if (isConsumeFocus){
             return true;
         }
         return false;
