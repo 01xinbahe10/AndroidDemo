@@ -28,6 +28,8 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     private static ManagerConfig mManagerConfig = null;
     //LayoutManager
     private CustomGridLayoutManager mGridLayoutManager;
+    //按键快速滚动增量
+    private int fastScrollIncrement = 1;
     //是否可以纵向移出
     private boolean mCanFocusOutVertical = true;
     //是否可以横向移出
@@ -186,7 +188,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             View nextFocusView = null;
             try {
                 // 通过findNextFocus获取下一个需要得到焦点的view
-                switch (keyCode){
+                switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                         nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_LEFT);
                         break;
@@ -208,6 +210,33 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             if (nextFocusView == null) {
                 focusedView.requestFocus();
                 isConsumeFocus = true;
+
+                /*
+                 * 目的是为了解决:
+                 * 以至于怎么按键方向操作，都不能获取下一个焦点view，而采取用滚动距离的办法使隐藏的view绘制显示出来。
+                 * 出现的原因：
+                 * 1，按键快速操作recyclerview的item滚动时，会飞掉焦点，这是因为下一个view 未绘制好，就没有焦点，
+                 * 事件就重新给系统去分配。
+                 * 2，按键操作recyclerview的item滚动时，滚动的距离刚好使下一个item卡在滚动方向上的边界上，
+                 * 而下一个完全遮挡的view是没有绘制，也就没有焦点的。
+                 * */
+                fastScrollIncrement += fastScrollIncrement;
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        this.scrollBy(-fastScrollIncrement, 0);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        this.scrollBy(fastScrollIncrement, 0);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        this.scrollBy(0, -fastScrollIncrement);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        this.scrollBy(0, fastScrollIncrement);
+                        break;
+                }
+            }else {
+                fastScrollIncrement = 1;//还原
             }
         }
 
@@ -219,7 +248,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             return true;
         }
 
-        if (isConsumeFocus){
+        if (isConsumeFocus) {
             return true;
         }
         return false;
