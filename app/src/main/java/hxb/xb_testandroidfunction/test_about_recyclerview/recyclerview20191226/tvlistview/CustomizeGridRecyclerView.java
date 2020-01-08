@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -177,9 +178,47 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        /*防止焦点飞掉*/
+        boolean isConsumeFocus = false;
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            int keyCode = event.getKeyCode();
+            View focusedView = getFocusedChild();// 获取当前获得焦点的view
+            View nextFocusView = null;
+            try {
+                // 通过findNextFocus获取下一个需要得到焦点的view
+                switch (keyCode){
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_LEFT);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_RIGHT);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_UP);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_DOWN);
+                        break;
+                }
+
+            } catch (Exception e) {
+                nextFocusView = null;
+            }
+            // 如果获取失败（也就是说需要交给系统来处理焦点， 消耗掉事件，不让系统处理， 并让先前获取焦点的view获取焦点）
+            if (nextFocusView == null) {
+                focusedView.requestFocus();
+                isConsumeFocus = true;
+            }
+        }
+
         if (mOnKeyInterceptListener != null && mOnKeyInterceptListener.onInterceptKeyEvent(event)) {
             return true;
         }
+
+        if (isConsumeFocus){
+            return true;
+        }
+
         if (super.dispatchKeyEvent(event)) {
             return true;
         }

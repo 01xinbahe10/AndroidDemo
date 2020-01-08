@@ -121,7 +121,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 if (position == 0){
                     return spanSize;
                 }else {
-                    return spanSize/2;
+                    return 1;
                 }
 
             }

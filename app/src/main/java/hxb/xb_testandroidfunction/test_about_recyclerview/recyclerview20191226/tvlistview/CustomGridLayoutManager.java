@@ -144,7 +144,11 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
      * @param isRequestFocus 滚动到指定位置是否请求焦点
      * */
     public void smoothScrollToCenter(int position, boolean isRequestFocus) {
+        if (isScrolling){
+            return;
+        }
         isScrolling = true;
+        recyclerView().stopScroll();
         RecyclerView.SmoothScroller smoothScroller = new CenterScroller(mContext, isRequestFocus);
         smoothScroller.setTargetPosition(position);
         startSmoothScroll(smoothScroller);
@@ -161,7 +165,7 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
     /**自定义滚动效果的Scroller*/
     private class CenterScroller extends LinearSmoothScroller {
 
-        private static final float MILLISECONDS_PER_INCH = 50f; //default is 25f (bigger = slower)
+        private static final float MILLISECONDS_PER_INCH = 25f; //default is 25f (bigger = slower)
         private boolean isRequestFocus;
 
         public CenterScroller(Context context, boolean isRequestFocus) {

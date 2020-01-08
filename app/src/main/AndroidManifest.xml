@@ -45,7 +45,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".test_about_recyclerview.recyclerview20191226.TestAboutRecyclerViewActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="reverseLandscape"
             android:theme="@style/translucent2"
             android:configChanges="orientation"
             android:windowSoftInputMode="adjustPan">

@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -41,11 +41,10 @@
             android:text="按钮四"
             android:visibility="gone" />
 
-        <ListView
+        <hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.CustomizeGridRecyclerView
             android:id="@+id/listView"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:focusable="true" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <RelativeLayout

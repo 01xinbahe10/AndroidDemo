@@ -3,6 +3,7 @@ package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,11 +24,12 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
     private static final String TAG = "TestAboutRecyclerView";
 
     private Button mBtn1,mBtn2,mBtn3,mBtn4;
-    private ListView mListView;
+    private CustomizeGridRecyclerView mListView;
     private CustomizeGridRecyclerView mRecyclerView;
-    private ListViewAdapter mListAdapter;
+    private Recycler2Adapter mAdapter2;
     private RecyclerAdapter mAdapter;
     private View mViewMainVideo;
+    private int mCurrentPosition = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +39,19 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
         mBtn3 = findViewById(R.id.btn3);
         mBtn4 = findViewById(R.id.btn4);
         mListView = findViewById(R.id.listView);
-        mListView.setItemsCanFocus(true);
+
         mRecyclerView = findViewById(R.id.recyclerView);
         mViewMainVideo = findViewById(R.id.viewMainVideo);
 
-        mListAdapter = new ListViewAdapter();
-        mListView.setAdapter(mListAdapter);
+        mAdapter2 = new Recycler2Adapter(this);
+        mListView.managerConfig().setOrientation(RecyclerView.VERTICAL).setSpanCount(1).done();
+        mListView.setAdapter(mAdapter2);
 
-        mRecyclerView.managerConfig().setOrientation(RecyclerView.VERTICAL).setSpanCount(2).done();
+        mRecyclerView.managerConfig().setOrientation(RecyclerView.VERTICAL).setSpanCount(4).done();
         mAdapter = new RecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setCanFocusOutVertical(false);
-        mRecyclerView.setCanFocusOutHorizontal(true);
+        mRecyclerView.setCanFocusOutHorizontal(false);
 
         mBtn1.setOnFocusChangeListener(this);
         mBtn2.setOnFocusChangeListener(this);
@@ -81,6 +84,7 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
             @Override
             public void onChildSelected(ViewGroup parent, View view, int position, long id) {
                 Log.e(TAG, "onChildSelected: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  " +position);
+                mCurrentPosition = position;
             }
         });
 
@@ -121,6 +125,26 @@ public class TestAboutRecyclerViewActivity extends FragmentActivity implements V
                 }
 
                 Log.e(TAG, "onScrolled: >>>>>>>>>>>>> 滚动的状态 = "+text );
+            }
+        });
+
+        mRecyclerView.setOnKeyInterceptListener(new CustomizeGridRecyclerView.OnKeyInterceptListener() {
+            @Override
+            public boolean onInterceptKeyEvent(KeyEvent event) {
+                int action = event.getAction();
+                int keyCode = event.getKeyCode();
+                if (action == KeyEvent.ACTION_DOWN){
+                    switch (keyCode){
+                        case KeyEvent.KEYCODE_DPAD_LEFT:
+                            if (mCurrentPosition%4 == 1){
+                                mRecyclerView.clearFocus();
+                                mListView.requestFocus();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+                return false;
             }
         });
 

@@ -8,15 +8,15 @@
 
     <View
         android:id="@+id/viewVideo"
-        android:layout_width="480dp"
-        android:layout_height="270dp"
+        android:layout_width="720dp"
+        android:layout_height="405dp"
         android:background="#FF9800"
         android:nextFocusRight="@id/viewAd1" />
 
     <View
         android:id="@+id/viewAd1"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="202.5dp"
         android:layout_toRightOf="@+id/viewVideo"
         android:background="#4CAF50"
         android:nextFocusLeft="@id/viewVideo"
@@ -25,7 +25,7 @@
     <View
         android:id="@+id/viewAd2"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="202.5dp"
         android:layout_below="@+id/viewAd1"
         android:layout_toRightOf="@+id/viewVideo"
         android:background="#673AB7"
