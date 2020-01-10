@@ -221,6 +221,9 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
                  * 而下一个完全遮挡的view是没有绘制，也就没有焦点的。
                  * */
                 fastScrollIncrement += fastScrollIncrement;
+                if (mGridLayoutManager.isSmoothScrolling()){
+                    return isConsumeFocus;
+                }
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                         this.scrollBy(-fastScrollIncrement, 0);
@@ -248,10 +251,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             return true;
         }
 
-        if (isConsumeFocus) {
-            return true;
-        }
-        return false;
+        return isConsumeFocus;
     }
 
     @Override
