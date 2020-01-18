@@ -44,7 +44,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".test_web.TestWebActivity"
+            android:name=".test_thread_pool.TestThreadPool3Activity"
             android:screenOrientation="reverseLandscape"
             android:theme="@style/translucent2"
             android:configChanges="orientation"
