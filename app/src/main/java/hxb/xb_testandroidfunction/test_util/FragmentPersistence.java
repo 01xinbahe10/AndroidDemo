@@ -362,9 +362,15 @@ public final class FragmentPersistence {
 
     public void freedFragment(Class<? extends Fragment>... clazzs) {
         for (Class<? extends Fragment> c : clazzs) {
-            if (mConfig.linkedMap.get(c) != null) {
-                mConfig.linkedMap.put(c, null);
+            Fragment fragment = mConfig.linkedMap.get(c);
+            if (null != fragment && fragment.isAdded()) {
+                transaction = mConfig.manager.beginTransaction();
+//                Log.e("TAG", "goBack: ---------------------------   "+mConfig.manager.getBackStackEntryCount());
+                //移出并销毁 FragmentTransaction中的Fragment对象
+                transaction.remove(fragment).commit();
             }
+            //释放掉实例化的Fragment
+            mConfig.linkedMap.remove(c);
         }
     }
 
@@ -403,9 +409,22 @@ public final class FragmentPersistence {
     }
 
     /*
-     * 清除界面流转流程
+     * 清除界面流转流程及Fragment实例;
      * */
-    public void clearPatternContainer(){
+    public void clearPatternContainer(boolean clearInitFragment) {
+        if (clearInitFragment) {
+            //是需要保留最后一个
+            for (int i = mConfig.patternContainer.size() - 1; i > 0; i--) {
+                Class<? extends Fragment> clazz = mConfig.patternContainer.get(i);
+                Fragment fragment = mConfig.linkedMap.get(clazz);
+                if (null != fragment && fragment.isAdded()) {
+                    transaction = mConfig.manager.beginTransaction();
+                    //移出并销毁 FragmentTransaction中的Fragment对象
+                    transaction.remove(fragment).commit();
+                }
+                mConfig.linkedMap.remove(clazz);
+            }
+        }
         mConfig.patternContainer.clear();
     }
 
