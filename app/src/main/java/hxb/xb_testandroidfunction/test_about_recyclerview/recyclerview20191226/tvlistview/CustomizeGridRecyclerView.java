@@ -2,6 +2,7 @@ package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -9,10 +10,12 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -63,16 +66,54 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
         mContext = context;
 
-        setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+        /*setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         setChildrenDrawingOrderEnabled(true);
         setItemAnimator(null);
-        this.setFocusable(true);
+        this.setFocusable(true);*/
+
+
+        setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
+        setHasFixedSize(true);
+        setWillNotDraw(true);
+        setOverScrollMode(View.OVER_SCROLL_NEVER);
+        setChildrenDrawingOrderEnabled(true);
+
+        setClipChildren(false);
+        setClipToPadding(false);
+
+        setClickable(false);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        /**
+         防止RecyclerView刷新时焦点不错乱bug的步骤如下:
+         (1)adapter执行setHasStableIds(true)方法
+         (2)重写getItemId()方法,让每个view都有各自的id
+         (3)RecyclerView的动画必须去掉
+         */
+        setItemAnimator(null);
+    }
+
+
+    /**
+     * 解决4.4版本抢焦点的问题
+     *
+     * @return
+     */
+    @Override
+    public boolean isInTouchMode() {
+        if (Build.VERSION.SDK_INT == 19) {
+            return !(hasFocus() && !super.isInTouchMode());
+        } else {
+            return super.isInTouchMode();
+        }
     }
 
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, @Nullable Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
     }
+
+
 
     @Override
     public View focusSearch(int direction) {
@@ -141,7 +182,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     @Override
     public void addFocusables(ArrayList<View> views, int direction, int focusableMode) {
         View view = null;
-        if (this.hasFocus() || mCurrentFocusPosition < 0 || (view = getLayoutManager().findViewByPosition(mCurrentFocusPosition)) == null) {
+        if (this.hasFocus()  || (view = getLayoutManager().findViewByPosition(mCurrentFocusPosition)) == null) {
             super.addFocusables(views, direction, focusableMode);
         } else if (view.isFocusable()) {
             //将当前的view放到Focusable views列表中，再次移入焦点时会取到该view,实现焦点记忆功能
@@ -162,12 +203,12 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
         View focusedChild = getFocusedChild();
-        /*Log.i(TAG, "focusedChild =" + (focusedChild == null));*/
+        Log.i(TAG, "focusedChild =" + (focusedChild == null));
         if (focusedChild == null) {
             return super.getChildDrawingOrder(childCount, i);
         } else {
             int index = indexOfChild(focusedChild);
-            /*Log.i(TAG, " index = " + index + ",i=" + i + ",count=" + childCount);*/
+            Log.i(TAG, " index = " + index + ",i=" + i + ",count=" + childCount);
             if (i == childCount - 1) {
                 return index;
             }
@@ -180,69 +221,74 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+
         /*防止焦点飞掉*/
         boolean isConsumeFocus = false;
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             int keyCode = event.getKeyCode();
-            View focusedView = getFocusedChild();// 获取当前获得焦点的view
+            View focusedView = getFocusedChild();  // 获取当前获得焦点的view
             View nextFocusView = null;
-            try {
-                // 通过findNextFocus获取下一个需要得到焦点的view
-                switch (keyCode) {
-                    case KeyEvent.KEYCODE_DPAD_LEFT:
-                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_LEFT);
-                        break;
-                    case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_RIGHT);
-                        break;
-                    case KeyEvent.KEYCODE_DPAD_UP:
-                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_UP);
-                        break;
-                    case KeyEvent.KEYCODE_DPAD_DOWN:
-                        nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_DOWN);
-                        break;
-                }
-
-            } catch (Exception e) {
-                nextFocusView = null;
+            boolean isNextFocusView = true;
+            // 通过findNextFocus获取下一个需要得到焦点的view
+            switch (keyCode){
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_LEFT);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_RIGHT);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_UP);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    nextFocusView = FocusFinder.getInstance().findNextFocus(this, focusedView, View.FOCUS_DOWN);
+                    break;
+                default:
+                    isNextFocusView = false;//如果不是找下一个view的操作，就为false
+                    break;
             }
+
             // 如果获取失败（也就是说需要交给系统来处理焦点， 消耗掉事件，不让系统处理， 并让先前获取焦点的view获取焦点）
-            if (nextFocusView == null) {
+            if (nextFocusView == null && isNextFocusView) {
                 focusedView.requestFocus();
                 isConsumeFocus = true;
 
                 /*
-                 * 目的是为了解决:
-                 * 以至于怎么按键方向操作，都不能获取下一个焦点view，而采取用滚动距离的办法使隐藏的view绘制显示出来。
-                 * 出现的原因：
-                 * 1，按键快速操作recyclerview的item滚动时，会飞掉焦点，这是因为下一个view 未绘制好，就没有焦点，
-                 * 事件就重新给系统去分配。
-                 * 2，按键操作recyclerview的item滚动时，滚动的距离刚好使下一个item卡在滚动方向上的边界上，
-                 * 而下一个完全遮挡的view是没有绘制，也就没有焦点的。
-                 * */
-                fastScrollIncrement += fastScrollIncrement;
+                * 目的是为了解决:
+                * 以至于怎么按键方向操作，都不能获取下一个焦点view，而采取用滚动距离的办法使隐藏的view绘制显示出来。
+                * 出现的原因：
+                * 1，按键快速操作recyclerview的item滚动时，会飞掉焦点，这是因为下一个view 未绘制好，就没有焦点，
+                * 事件就重新给系统去分配。
+                * 2，按键操作recyclerview的item滚动时，滚动的距离刚好使下一个item卡在滚动方向上的边界上，
+                * 而下一个完全遮挡的view是没有绘制，也就没有焦点的。
+                * */
+                fastScrollIncrement+=fastScrollIncrement;
                 if (mGridLayoutManager.isSmoothScrolling()){
                     return isConsumeFocus;
                 }
-                switch (keyCode) {
+                switch (keyCode){
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        this.scrollBy(-fastScrollIncrement, 0);
+                        isScrolling = true;
+                        this.scrollBy(-fastScrollIncrement,0);
                         break;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        this.scrollBy(fastScrollIncrement, 0);
+                        isScrolling = true;
+                        this.scrollBy(fastScrollIncrement,0);
                         break;
                     case KeyEvent.KEYCODE_DPAD_UP:
-                        this.scrollBy(0, -fastScrollIncrement);
+                        isScrolling = true;
+                        this.scrollBy(0,-fastScrollIncrement);
                         break;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
-                        this.scrollBy(0, fastScrollIncrement);
+                        isScrolling = true;
+                        this.scrollBy(0,fastScrollIncrement);
                         break;
                 }
             }else {
+                isScrolling = false;
                 fastScrollIncrement = 1;//还原
             }
         }
-
         if (mOnKeyInterceptListener != null && mOnKeyInterceptListener.onInterceptKeyEvent(event)) {
             return true;
         }
@@ -499,6 +545,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     public final class ManagerConfig {
         public int orientation = RecyclerView.VERTICAL;//默认
         public int spanCount = 1;//默认
+        public ItemDecoration itemDecoration = null;
 
         private ManagerConfig() {
         }

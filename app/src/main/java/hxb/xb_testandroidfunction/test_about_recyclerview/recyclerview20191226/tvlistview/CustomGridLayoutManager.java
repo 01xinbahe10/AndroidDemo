@@ -85,7 +85,7 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
         if (position == NO_POSITION) {
             return true;
         }
-        if (!isInLayout && !isScrolling) {
+        if (!isInLayout) {
             smoothScrollToCenter(position, false);
         }
         return true;
@@ -176,18 +176,23 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
         // 这里计算滚动到中部的偏移量
         @Override
         public int calculateDtToFit(int viewStart, int viewEnd, int boxStart, int boxEnd, int snapPreference) {
-            return (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2);
+            float rollingDistance = (boxStart + (boxEnd - boxStart) / 2f) - (viewStart + (viewEnd - viewStart) / 2f);
+            return (int) rollingDistance;
+
         }
 
         // 滚动速度控制
         @Override
         protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-            return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
+           /* float ll = MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
+            Log.e(TAG, "calculateSpeedPerPixel: >>>>>>>>>>>>>>>>>>>>>>    "+ll +"      "+displayMetrics.densityDpi);*/
+            return 0.20f;
         }
 
         @Override
         protected void onTargetFound(View targetView, RecyclerView.State state, Action action) {
             super.onTargetFound(targetView, state, action);
+
         }
 
         @Override
@@ -199,10 +204,12 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
                     }
                     view.clearFocus();
                 }
+
                 View targetView = findViewByPosition(getTargetPosition());
                 if (targetView != null) {
                     targetView.requestFocus();
                 }
+
             }
 
             super.onStop();
@@ -213,6 +220,25 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
                 dispatchChildSelected();
             }
         }
+    }
+
+    protected int getFocusPosition(){
+        return mFocusPosition;
+    }
+
+    private int getPositionByIndex(int index) {
+        return getPositionByView(getChildAt(index));
+    }
+
+    private int findImmediateChildIndex(View view) {
+        while (view != null && view != recyclerView()) {
+            int index = recyclerView().indexOfChild(view);
+            if (index >= 0) {
+                return index;
+            }
+            view = (View) view.getParent();
+        }
+        return NO_POSITION;
     }
 
 }
