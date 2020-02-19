@@ -65,7 +65,7 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
             if (getFocusedChild() != null && !isScrolling) {
                 int position = getPosition(getFocusedChild());
                 if (getChildCount() - position >= getSpanCount()) {
-                    smoothScrollToCenter(position, false);
+                    smoothScrollToPosition(position, false);
                 }
             }
         } catch (IndexOutOfBoundsException ignored) {
@@ -86,9 +86,14 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
             return true;
         }
         if (!isInLayout) {
-            smoothScrollToCenter(position, false);
+            smoothScrollToPosition(position, false);
         }
         return true;
+    }
+
+    @Override
+    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
+        smoothScrollToCenter(position,this.isRequestFocus);
     }
 
     /**
@@ -143,11 +148,17 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
      * @param position 指定位置
      * @param isRequestFocus 滚动到指定位置是否请求焦点
      * */
-    public void smoothScrollToCenter(int position, boolean isRequestFocus) {
-        if (isScrolling){
+    private boolean isRequestFocus = false;//滚动完是否请求焦点
+    public void smoothScrollToPosition(int position, boolean isRequestFocus){
+        if (isScrolling || isSmoothScrolling()){
             return;
         }
         isScrolling = true;
+        this.isRequestFocus = isRequestFocus;
+        recyclerView().smoothScrollToPosition(position);
+    }
+
+    private void smoothScrollToCenter(int position, boolean isRequestFocus) {
         recyclerView().stopScroll();
         RecyclerView.SmoothScroller smoothScroller = new CenterScroller(mContext, isRequestFocus);
         smoothScroller.setTargetPosition(position);
@@ -186,6 +197,7 @@ public final class CustomGridLayoutManager extends GridLayoutManager {
         protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
            /* float ll = MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
             Log.e(TAG, "calculateSpeedPerPixel: >>>>>>>>>>>>>>>>>>>>>>    "+ll +"      "+displayMetrics.densityDpi);*/
+            /*return super.calculateSpeedPerPixel(displayMetrics);*/
             return 0.20f;
         }
 

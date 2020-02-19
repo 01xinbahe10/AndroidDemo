@@ -3,25 +3,29 @@ package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 /**
  * Created by hxb on  2019/12/26
+ *
+ * 问题：当该CustomizeGridRecyclerView 中有一定数量的子view时
+ * 且 布局未完成\状态为View.GONE时 会有很大几率造成焦点飞掉。
+ * 假想优化：保证CustomizeGridRecyclerView 中一定数量的子view 能快速布局\绘制完成。
+ * 解决状态：未解决
+ *
  */
 public final class CustomizeGridRecyclerView extends RecyclerView {
     private static final String TAG = "CustomizeRecyclerView";
@@ -32,7 +36,8 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     //LayoutManager
     private CustomGridLayoutManager mGridLayoutManager;
     //按键快速滚动增量
-    private int fastScrollIncrement = 1;
+    private final int FAST_SCROLL_INR = 1;
+    private int fastScrollIncrement = FAST_SCROLL_INR;
     //是否可以纵向移出
     private boolean mCanFocusOutVertical = true;
     //是否可以横向移出
@@ -53,6 +58,10 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
     private int mScrolledStatus = OnScrolledListener.NO_SCROLLED;
     //临时记录当前焦点的view
     private View[] mTempRecordFocusViews = new View[2];
+    //检测是否有手触碰选单
+    private boolean isFinger = false;
+    //记录上一次时间（limitKeySpeed()）
+    private long beforeTime = 0;
 
     public CustomizeGridRecyclerView(@NonNull Context context) {
         this(context, null, 0);
@@ -166,11 +175,12 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
         /*
          * 当上一次选中的position 和 当前带有焦点的position 的绝对值大于spanCount
          * 则认为已远离上一次position的位置，需要滚动到上一次选中的position。
+         * 如果有手势操作则放弃这次操作。
          * */
-        if (Math.abs(mCurrentFocusPosition - focusPosition) > mGridLayoutManager.getSpanCount()) {
+        if (Math.abs(mCurrentFocusPosition - focusPosition) > mGridLayoutManager.getSpanCount() && !isFinger) {
             mTempRecordFocusViews[0] = child;
             mTempRecordFocusViews[1] = focused;
-            mGridLayoutManager.smoothScrollToCenter(mCurrentFocusPosition, true);
+            mGridLayoutManager.smoothScrollToPosition(mCurrentFocusPosition, true);
         } else {
             super.requestChildFocus(child, focused);//执行过super.requestChildFocus之后hasFocus会变成true
             mCurrentFocusPosition = focusPosition;
@@ -217,15 +227,38 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             }
             return i + 1;
         }
+
     }
+
+    @Override
+    protected void dispatchVisibilityChanged(View changedView, int visibility) {
+        super.dispatchVisibilityChanged(changedView, visibility);
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        Log.d(TAG, "onVisibilityChanged: 显示是否改变  "+visibility );
+        super.onVisibilityChanged(changedView, visibility);
+
+
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        Log.d(TAG, "onWindowFocusChanged: 窗口是否有焦点 "+hasWindowFocus );
+        super.onWindowFocusChanged(hasWindowFocus);
+    }
+
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 
         /*防止焦点飞掉*/
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
         boolean isConsumeFocus = false;
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            int keyCode = event.getKeyCode();
+        if (action == KeyEvent.ACTION_DOWN) {
             View focusedView = getFocusedChild();  // 获取当前获得焦点的view
             View nextFocusView = null;
             boolean isNextFocusView = true;
@@ -248,11 +281,17 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
                     break;
             }
 
-            // 如果获取失败（也就是说需要交给系统来处理焦点， 消耗掉事件，不让系统处理， 并让先前获取焦点的view获取焦点）
-            if (nextFocusView == null && isNextFocusView) {
+            //检测是否请求过布局操作
+            if (this.isLayoutRequested() && isNextFocusView){
                 focusedView.requestFocus();
-                isConsumeFocus = true;
+                return true;
+            }
 
+
+            // 如果获取失败（也就是说需要交给系统来处理焦点， 消耗掉事件，不让系统处理， 并让先前获取焦点的view获取焦点）
+            if ((nextFocusView == null) && isNextFocusView) {
+                isConsumeFocus = true;
+                focusedView.requestFocus();
                 /*
                 * 目的是为了解决:
                 * 以至于怎么按键方向操作，都不能获取下一个焦点view，而采取用滚动距离的办法使隐藏的view绘制显示出来。
@@ -262,33 +301,23 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
                 * 2，按键操作recyclerview的item滚动时，滚动的距离刚好使下一个item卡在滚动方向上的边界上，
                 * 而下一个完全遮挡的view是没有绘制，也就没有焦点的。
                 * */
-                fastScrollIncrement+=fastScrollIncrement;
                 if (mGridLayoutManager.isSmoothScrolling()){
                     return isConsumeFocus;
                 }
                 switch (keyCode){
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        isScrolling = true;
-                        this.scrollBy(-fastScrollIncrement,0);
-                        break;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        isScrolling = true;
-                        this.scrollBy(fastScrollIncrement,0);
-                        break;
                     case KeyEvent.KEYCODE_DPAD_UP:
-                        isScrolling = true;
-                        this.scrollBy(0,-fastScrollIncrement);
-                        break;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                         isScrolling = true;
-                        this.scrollBy(0,fastScrollIncrement);
+                        mGridLayoutManager.smoothScrollToPosition(mCurrentFocusPosition,false);
                         break;
                 }
-            }else {
-                isScrolling = false;
-                fastScrollIncrement = 1;//还原
+//                Log.e(TAG, "dispatchKeyEvent: ...................   "+fastScrollIncrement+"      "+focusedView.getVisibility());
             }
+//            Log.e(TAG, "dispatchKeyEvent: IIIIIIIIIIII   "+(nextFocusView == null)+"    "+this.isLayoutRequested() +"    "+this.isInLayout()+"   "+this.isComputingLayout());
         }
+
         if (mOnKeyInterceptListener != null && mOnKeyInterceptListener.onInterceptKeyEvent(event)) {
             return true;
         }
@@ -302,6 +331,7 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        isFinger = event.getToolType(0) == MotionEvent.TOOL_TYPE_FINGER;
         if (mOnTouchInterceptListener != null) {
             if (mOnTouchInterceptListener.onInterceptTouchEvent(event)) {
                 return true;
@@ -337,6 +367,33 @@ public final class CustomizeGridRecyclerView extends RecyclerView {
             }
         }
 //        Log.e(TAG, "onScrolled: >>>>>>>>>>>>>>>>>>>     是否到达底部 = "+isSlideToBottom() +"    "+dy);
+    }
+
+    @Override
+    public void onScrollStateChanged(int state) {
+        super.onScrollStateChanged(state);
+        if (state == CustomizeGridRecyclerView.SCROLL_STATE_IDLE){
+            isScrolling = false;
+            fastScrollIncrement = FAST_SCROLL_INR;//还原
+        }
+        if (state == CustomizeGridRecyclerView.SCROLL_STATE_DRAGGING){
+            isScrolling = true;
+        }
+    }
+
+
+    /**
+     * 限制按键速度
+     * */
+    private boolean limitKeySpeed(long limitTime){
+        long nowTime = SystemClock.elapsedRealtime();
+        if(nowTime - beforeTime <= limitTime) {
+            Log.d(TAG, "limitKeySpeed: ........限制住了" );
+            return true;
+        }
+        Log.d(TAG, "limitKeySpeed: 没限制住" );
+        beforeTime = SystemClock.elapsedRealtime();
+        return false;
     }
 
     /**
