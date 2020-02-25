@@ -1,4 +1,4 @@
-package hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview;
+package hxb.xb_testandroidfunction.test_about_recyclerview.tvlistview;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -41,7 +41,7 @@
             android:text="按钮四"
             android:visibility="gone" />
 
-        <hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.CustomizeGridRecyclerView
+        <hxb.xb_testandroidfunction.test_about_recyclerview.tvlistview.CustomizeGridRecyclerView
             android:id="@+id/listView"
             android:layout_width="100dp"
             android:layout_height="match_parent" />
@@ -52,7 +52,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="15dp">
 
-        <hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.CustomizeGridRecyclerView
+        <hxb.xb_testandroidfunction.test_about_recyclerview.tvlistview.CustomizeGridRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

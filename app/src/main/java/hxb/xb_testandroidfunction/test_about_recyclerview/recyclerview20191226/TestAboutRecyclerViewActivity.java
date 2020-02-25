@@ -7,15 +7,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import hxb.xb_testandroidfunction.R;
-import hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.CustomizeGridRecyclerView;
-import hxb.xb_testandroidfunction.test_about_recyclerview.recyclerview20191226.tvlistview.OnChildSelectedListener;
+import hxb.xb_testandroidfunction.test_about_recyclerview.tvlistview.CustomizeGridRecyclerView;
+import hxb.xb_testandroidfunction.test_about_recyclerview.tvlistview.OnChildSelectedListener;
 
 /**
  * Created by hxb on  2019/12/26
