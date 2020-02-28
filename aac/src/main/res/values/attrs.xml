@@ -2,18 +2,18 @@
 <resources>
     <declare-styleable name="AdapterView">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
-        <attr name="itemView" />
+        <attr name="itemView" format="reference"/>
         <!-- require List<ViewModel> bind to ItemView to presentation.-->
-        <attr name="items" />
+        <attr name="items" format="reference"/>
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
-        <attr name="adapter" />
+        <attr name="adapter" format="reference"/>
         <attr name="dropDownItemView" format="reference" />
         <attr name="itemIds" format="reference" />
         <attr name="itemIsEnabled" format="reference" />
         <!-- require BindingCommand<Integer> -->
-        <attr name="onScrollStateChangedCommand" />
+        <attr name="onScrollStateChangedCommand" format="reference"/>
         <!-- require BindingCommand<ListViewScrollDataWrapper> -->
-        <attr name="onScrollChangeCommand" />
+        <attr name="onScrollChangeCommand" format="reference"/>
         <!-- require BindingCommand<Integer> count of list items-->
         <attr name="onLoadMoreCommand" format="reference" />
     </declare-styleable>
