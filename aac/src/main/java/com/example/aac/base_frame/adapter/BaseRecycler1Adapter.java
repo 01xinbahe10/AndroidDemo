@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by hxb on 2019-08-28.
- *
+ * <p>
  * BaseRecycler1Adapter：
  * 优点：1，使用ViewDataBinding 省略findViewById和ViewHolder 。
- *      2，数据模型泛型化不必为了修改数据模型在Adapter中多处修改
- *      3，可自定义
+ * 2，数据模型泛型化不必为了修改数据模型在Adapter中多处修改
+ * 3，可自定义
  * 作用：1，针对特殊的适配效果，业务逻辑跟普通使用的Adapter一样也是大部分集中在该Adapter中处理。
- *      2，也是为了辅助 @see BaseRecycler2Adapter 不能达到的效果
- *
+ * 2，也是为了辅助 @see BaseRecycler2Adapter 不能达到的效果
  */
 public abstract class BaseRecycler1Adapter<V extends ViewDataBinding, VO> extends RecyclerView.Adapter {
 
@@ -47,7 +46,7 @@ public abstract class BaseRecycler1Adapter<V extends ViewDataBinding, VO> extend
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         V binding = DataBindingUtil.getBinding(holder.itemView);
-        this.onBindItem(binding, this.itemsVO.get(position));
+        this.onBindItem(binding, this.itemsVO.size() == getItemCount() ? this.itemsVO.get(position) : null, position);
     }
 
     @Override
@@ -129,7 +128,7 @@ public abstract class BaseRecycler1Adapter<V extends ViewDataBinding, VO> extend
 
     protected abstract int viewModelId();
 
-    protected abstract void onBindItem(V viewBinding, VO itemVO);
+    protected abstract void onBindItem(V viewBinding, VO itemVO, int position);
 
     public ObservableArrayList<VO> getItemsVO() {
         return itemsVO;

@@ -4,6 +4,9 @@ import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.Observer;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 
 import com.example.aac.BR;
@@ -35,18 +38,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void initData() {
-//        viewDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
-//        adapter  = new MainAdapter(this);
-//        viewDataBinding.recyclerView.setAdapter(adapter);
+        viewDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
+        adapter  = new MainAdapter(this);
+        viewDataBinding.recyclerView.setAdapter(adapter);
 
 //        viewDataBinding.setAdapter(new BindingRecyclerViewAdapter());
 
 
-        adapter2 = new BaseRecycler2Adapter<>(this);
-        viewDataBinding.setAdapter2(adapter2);
-
-        baseViewModel.getData();
-
+        /*adapter2 = new BaseRecycler2Adapter<>(this);
+        viewDataBinding.setAdapter2(adapter2);*/
     }
 
     @Override
@@ -71,10 +71,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             @Override
             public void onChanged(ObservableArrayList<CityVO> cityVOS) {
                 Log.e("TAG", "onChanged: ???????????????????   "+cityVOS.size() );
-//                adapter.getItemsVO().addAll(cityVOS);
-//                adapter.notifyDataSetChanged();
+                adapter.getItemsVO().addAll(cityVOS);
+                adapter.notifyDataSetChanged();
 
-                adapter2.notifyDataSetChanged();
+//                adapter2.notifyDataSetChanged();
             }
         });
     }
