@@ -27,28 +27,33 @@ public class BaseApplication extends Application {
      */
     public static synchronized void setApplication(@NonNull Application application) {
         sInstance = application;
+        StackManager.init();
         //注册监听每个activity的生命周期,便于堆栈式管理
         application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                AppManager.getAppManager().addActivity(activity);
+                StackManager.putActivity(activity,StackManager.ActivesStatus.CREATED);
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
+                StackManager.putActivity(activity,StackManager.ActivesStatus.STARTED);
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
+                StackManager.putActivity(activity,StackManager.ActivesStatus.RESUMED);
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
+                StackManager.putActivity(activity,StackManager.ActivesStatus.PAUSED);
             }
 
             @Override
             public void onActivityStopped(Activity activity) {
+                StackManager.putActivity(activity,StackManager.ActivesStatus.STOPPED);
             }
 
             @Override
@@ -57,7 +62,7 @@ public class BaseApplication extends Application {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                AppManager.getAppManager().removeActivity(activity);
+                StackManager.removeActivity(activity.getClass());
             }
         });
     }

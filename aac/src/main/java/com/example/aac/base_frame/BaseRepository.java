@@ -20,7 +20,6 @@ public class BaseRepository implements IBaseRepository {
     @Override
     public void onCleared() {
         map.clear();
-        map = null;
     }
 
     public void addNotifyUpdate(String key, IBaseRepository.Notify notify) {

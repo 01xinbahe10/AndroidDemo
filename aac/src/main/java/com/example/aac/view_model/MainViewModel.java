@@ -60,14 +60,19 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         repository.onCleared();
+        super.onDestroy();
     }
 
     @Override
@@ -83,6 +88,11 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
         }
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        Log.e(TAG, "onCleared: .............////////////////  " );
+    }
 
     /*
     * 设置 观察者观察view
@@ -100,6 +110,7 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
     * 获取数据
     * */
     public void getData(){
+        Log.e(TAG, "getData: KKKKKKKKKKKKKKKKKKKKK    "+arrayList.size() );
         repository.addNotifyUpdate("11", new IBaseRepository.Notify() {
             @Override
             public void onDataChange(String key) {
