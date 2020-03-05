@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -68,7 +69,7 @@ public class DataUtil {
      *
      * @param typeToken 使用方法： TypeToken<T> typeToken = new TypeToken<T>(){};
      * */
-    private static <T> T jsonFileToObject(Context context, String fileName, TypeToken<T> typeToken) {
+    public static <T> T jsonFileToObject(Context context, String fileName, TypeToken<T> typeToken) {
         if (TextUtils.isEmpty(fileName)){
             return null;
         }
@@ -90,5 +91,17 @@ public class DataUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**
+     * 数组合并
+     * */
+    public static <T>Object[] arrayMerge(T[] firstArray, T[] twoArray) {
+        int firstLength = firstArray.length;
+        int twoLength = twoArray.length;
+        T[] newArray = Arrays.copyOf(firstArray, (firstLength + twoLength));
+        System.arraycopy(twoArray, 0, newArray, firstLength, twoLength);
+        return newArray;
     }
 }

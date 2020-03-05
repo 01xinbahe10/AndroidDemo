@@ -7,7 +7,6 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aac.base_frame.BaseViewModel;
-import com.example.aac.base_frame.sample2_adapter.LayoutManagers;
 
 /**
  * Created by hxb on 2019-08-29.

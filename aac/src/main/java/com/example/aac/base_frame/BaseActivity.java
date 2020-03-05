@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -174,60 +175,9 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
      * @param <T>
      * @return
      */
-    public <T extends ViewModel> T createViewModel(Class<T> viewModelCls) {
-        BaseFactory baseFactory = new BaseFactory(getApplication(), viewModelCls);
+    public <T extends BaseViewModel> T createViewModel(Class<T> viewModelCls) {
+        com.example.aac.base_frame.BaseFactory baseFactory = com.example.aac.base_frame.BaseFactory.instance(getApplication());
         Log.v(TAG, "createViewModel: 通过ViewModelProvider获取已缓存的ViewModel，没有则自动通过BaseFactory中创建");
         return new ViewModelProvider(this, baseFactory).get(viewModelCls);
-    }
-
-
-    private final static class BaseFactory extends ViewModelProvider.NewInstanceFactory {
-        /**
-         * 说明：测试发现当屏幕发生旋转或Activity显示隐藏或Fragment显示隐藏，
-         * 当前页的ViewModel才在缓存在ViewModelStore中；所以需要注意的是
-         * ViewModel中的数据是需要合理清理，不然会造成数据重复
-         */
-        @NonNull
-        private final Application application;
-        @NonNull
-        private final Class viewModelClass;
-
-        public BaseFactory(@NonNull Application application, @NonNull Class viewModelClass) {
-            this.application = application;
-            this.viewModelClass = viewModelClass;
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            Log.v(TAG, "BaseFactory create(Class<T> modelClass): 创建新的viewModel");
-            BaseViewModel baseViewModel = null;
-            try {
-                Class modelClazz = viewModelClass;
-                Type type1 = modelClazz.getGenericSuperclass();
-                if (type1 instanceof ParameterizedType) {//判断当前BaseViewModel是否有泛型
-                    Type[] params1 = ((ParameterizedType) type1).getActualTypeArguments();
-                    Class repositoryClass1 = (Class) params1[0];//获取BaseViewModel<?> 泛型类
-                    //根据反射 实例化(VM)BaseViewModel 及 泛型类
-                    baseViewModel = (BaseViewModel) modelClazz.getConstructor(Application.class, repositoryClass1)
-                            .newInstance(application, repositoryClass1.newInstance());
-                } else {
-                    baseViewModel = (BaseViewModel) modelClass.newInstance();
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-
-            if (null != baseViewModel) {
-                return (T) baseViewModel;
-            }
-            return super.create(modelClass);
-        }
     }
 }

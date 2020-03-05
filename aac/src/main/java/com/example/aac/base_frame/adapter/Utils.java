@@ -8,8 +8,6 @@ import androidx.annotation.LayoutRes;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.example.aac.base_frame.sample2_adapter.BindingCollectionAdapter;
-import com.example.aac.base_frame.sample2_adapter.ItemBinding;
 
 /**
  * Helper databinding utilities. May be made public some time in the future if they prove to be
@@ -43,12 +41,12 @@ class Utils {
     /**
      * Constructs a binding adapter class from it's class name using reflection.
      */
-    @SuppressWarnings("unchecked")
-    static <VM, A extends BindingCollectionAdapter<VM>> A createClass(Class<? extends BindingCollectionAdapter> adapterClass, ItemBinding<VM> itemBinding) {
-        try {
-            return (A) adapterClass.getConstructor(ItemBinding.class).newInstance(itemBinding);
-        } catch (Exception e1) {
-            throw new RuntimeException(e1);
-        }
-    }
+//    @SuppressWarnings("unchecked")
+//    static <VM, A extends BindingCollectionAdapter<VM>> A createClass(Class<? extends BindingCollectionAdapter> adapterClass, ItemBinding<VM> itemBinding) {
+//        try {
+//            return (A) adapterClass.getConstructor(ItemBinding.class).newInstance(itemBinding);
+//        } catch (Exception e1) {
+//            throw new RuntimeException(e1);
+//        }
+//    }
 }
