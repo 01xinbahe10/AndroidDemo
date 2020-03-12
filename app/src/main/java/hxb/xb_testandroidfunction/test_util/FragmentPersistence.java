@@ -1,12 +1,12 @@
 package hxb.xb_testandroidfunction.test_util;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import android.util.Log;
 
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import hxb.xb_testandroidfunction.R;
+
 
 /**
  * Created by hxb on 2018/3/22.
@@ -237,14 +238,28 @@ public final class FragmentPersistence {
     }
 
     public void switchFragment2(Class<? extends Fragment> clazz) {
-        switchFragment2(clazz, null, false);
+        switchFragment2(clazz, null, true, false);
     }
 
     public void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle) {
-        switchFragment2(clazz, bundle, false);
+        switchFragment2(clazz, bundle, true, false);
     }
 
-    private void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isGoBack) {
+
+    public void switchFragment2(Class<? extends Fragment> clazz, boolean isInStack) {
+        switchFragment2(clazz, null, isInStack, false);
+    }
+
+    public void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isInStack) {
+        switchFragment2(clazz, bundle, isInStack, false);
+    }
+
+    /**
+     * @param isStartMode 是否开启页面的启动模式，
+     * 目前只有一种模式 跟Activity的standard(标准模式)一样。
+     * @param isGoBack    是否是开启栈底出栈
+     */
+    private void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isStartMode, boolean isGoBack) {
         currentFragmentClass = clazz;
         if (null == mConfig.linkedMap.get(clazz)) {
             ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
@@ -324,6 +339,17 @@ public final class FragmentPersistence {
         }
 
         /*
+        * 如果没有开启启动模式 (页面流程记录)，
+        * 后面则不执行 入栈记录 或 出栈等释放操作。
+        * */
+        if (!isStartMode){
+            if (null != beforeFragment) {
+                beforeFragment.onDestroyView();
+            }
+            return;
+        }
+
+        /*
          * 如果是返回动作，则不记录fragment页面之间的流程。
          * 如果当前fragment 和 patternContainer的最后一个相同则不记录。
          * */
@@ -331,14 +357,19 @@ public final class FragmentPersistence {
         Class<? extends Fragment> lastClass = null;
         if (size > 0) {
             lastClass = mConfig.patternContainer.get(size - 1);
-            //同时将前一个进行视图销毁
+        }
+        //表示入栈操作
+        if (!isGoBack && clazz != lastClass) {
+            mConfig.patternContainer.add(clazz);
+            return;
+        }
+        //表示出栈操作
+        if (isGoBack && null != lastClass) {
+            //同时将最后一个进行视图销毁
             Fragment preLastFragment = mConfig.linkedMap.get(lastClass);
             if (null != preLastFragment) {
                 preLastFragment.onDestroyView();
             }
-        }
-        if (!isGoBack && clazz != lastClass) {
-            mConfig.patternContainer.add(clazz);
         }
 
     }
@@ -382,6 +413,9 @@ public final class FragmentPersistence {
         return currentFragment;
     }
 
+    /*
+    * goBack() 方法必须是出栈方式操作
+    * */
     public boolean goBack() {
         return goBack(null);
     }
@@ -390,7 +424,7 @@ public final class FragmentPersistence {
         int lastIndex = mConfig.patternContainer.size() - 1;
 //        Log.e("TAG", "goBack: -----------------11  "+lastIndex );
         if (lastIndex > 0) {//大于0 是需要保留最后一个
-            switchFragment2(mConfig.patternContainer.get(lastIndex - 1), bundle, true);//选择前一个
+            switchFragment2(mConfig.patternContainer.get(lastIndex - 1), bundle, true, true);//选择前一个
             Class<? extends Fragment> clazz = mConfig.patternContainer.get(lastIndex);
 //            Log.e("TAG", "goBack: -----------------22  "+lastIndex +"     "+clazz.getName());
             Fragment fragment = mConfig.linkedMap.get(clazz);
@@ -400,7 +434,6 @@ public final class FragmentPersistence {
                 //移出并销毁 FragmentTransaction中的Fragment对象
                 transaction.remove(fragment).commit();
             }
-//            mConfig.linkedMap.put(clazz, null);//释放掉引用
             mConfig.linkedMap.remove(clazz);
             mConfig.patternContainer.remove(clazz);//移出最后一个
             return true;
@@ -409,8 +442,8 @@ public final class FragmentPersistence {
     }
 
     /*
-     * 清除界面流转流程及Fragment实例;
-     * */
+    * 清除界面流转流程及Fragment实例;
+    * */
     public void clearPatternContainer(boolean clearInitFragment) {
         if (clearInitFragment) {
             //是需要保留最后一个
