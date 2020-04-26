@@ -8,30 +8,31 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
 
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!--定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--录屏-->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT"
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.CAPTURE_AUDIO_OUTPUT"
         tools:ignore="ProtectedPermissions" />
 
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 显示系统窗口权限 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 在 屏幕最顶部显示addview-->
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
@@ -45,15 +46,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".test_about_recyclerview.recyclerview20191226.TestAboutRecyclerViewActivity"
+            android:configChanges="orientation"
             android:screenOrientation="reverseLandscape"
             android:theme="@style/translucent2"
-            android:configChanges="orientation"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity">
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
         </activity>
 
         <activity android:name="com.cdct.cmdim.activity.ChatScreenActivity" />
@@ -65,7 +67,8 @@
         <activity
             android:name=".test_list_refresh_load.utils.ChangeAvatarActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyDialogActivityStyle" />
+            android:theme="@style/MyDialogActivityStyle"
+            tools:ignore="LockedOrientationActivity" />
         <!--<activity android:name=".test_scrollview.activity.TestScrollView1Activity"-->
         <!--android:screenOrientation="portrait"/>-->
         <service
@@ -85,10 +88,14 @@
         </provider>
 
 
-        <activity android:name=".test_surface_view.surface_view_ondraw.TestSurfaceViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".test_surface_view.surface_view_play_video.TestPlayVideoActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".test_surface_view.surface_view_ondraw.TestSurfaceViewActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".test_surface_view.surface_view_play_video.TestPlayVideoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
 
         <receiver android:name=".test_listen_net_state.net_state.NetBroadcastReceiver">
@@ -98,7 +105,8 @@
         </receiver>
 
 
-        <receiver android:name=".test_xg_fcm_push.xg_push.XGPushReceiver"
+        <receiver
+            android:name=".test_xg_fcm_push.xg_push.XGPushReceiver"
             android:exported="true">
             <intent-filter>
                 <!-- 接收消息透传 -->
@@ -110,18 +118,16 @@
 
 
         <!-- [START firebase_service] -->
-        <service
-            android:name=".test_xg_fcm_push.fcm_push.MyFirebaseMessagingService">
+        <service android:name=".test_xg_fcm_push.fcm_push.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".test_xg_fcm_push.fcm_push.MyFirebaseInstanceIDService">
+        <service android:name=".test_xg_fcm_push.fcm_push.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
@@ -130,18 +136,29 @@
         <!--<service android:name=".test_language_change.service.KillSelfService"/>-->
 
         <!--测试Scheme自定义URL   start-->
+        <activity
+            android:name=".test_scheme.TestSchemeActivity"
+            android:theme="@style/translucent2"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".test_scheme.TestScheme1Activity">
             <!--要想在别的App上能成功调起App，必须添加intent过滤器-->
             <intent-filter>
                 <!--协议部分，随便设置-->
-                <data android:scheme="xb"
+                <data
                     android:host="test_function"
+                    android:path="/test_scheme"
                     android:port="1"
-                    android:path="/test_scheme"/>
+                    android:scheme="xb" />
                 <!--下面这几行也必须得设置-->
-                <category android:name="android.intent.category.DEFAULT"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
 
@@ -154,8 +171,7 @@
             android:value="GlideModule" />
 
 
-
-        <service android:name=".test_different_display.presentation.VideoService"/>
+        <service android:name=".test_different_display.presentation.VideoService" />
 
 
     </application>
