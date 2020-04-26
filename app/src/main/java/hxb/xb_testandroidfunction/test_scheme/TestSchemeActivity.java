@@ -1,6 +1,9 @@
 package hxb.xb_testandroidfunction.test_scheme;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.List;
 
 /**
  * Created by hxb on 2018/10/22
@@ -54,6 +59,20 @@ public class TestSchemeActivity extends FragmentActivity{
                 startActivity(intent2);*/
             }
         });
+    }
+
+
+    /**
+     * 通过scheme uri判断某个app是否安装
+     *
+     * @return
+     */
+    public static boolean checkUrlScheme(Activity activity,Uri schemeUri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, schemeUri);
+
+        PackageManager packageManager = activity.getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+        return !activities.isEmpty();
     }
 
 }
