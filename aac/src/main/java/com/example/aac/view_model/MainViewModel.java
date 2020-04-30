@@ -19,7 +19,6 @@ import com.example.aac.R;
 import com.example.aac.base_frame.BaseViewModel;
 import com.example.aac.base_frame.IBaseRepository;
 import com.example.aac.base_frame.SingleLiveEvent;
-import com.example.aac.base_frame.StackManager;
 import com.example.aac.base_frame.adapter.AdapterBinding;
 import com.example.aac.base_frame.adapter.IAdapterBinding;
 import com.example.aac.base_frame.sample2_adapter.ItemBinding;
@@ -27,7 +26,6 @@ import com.example.aac.base_frame.sample2_adapter.OnItemBind;
 import com.example.aac.data.repository.MainRepository;
 import com.example.aac.data.vo.CityVO;
 import com.example.aac.databinding.ItemMainBinding;
-import com.example.aac.home.MainActivity;
 
 
 /**

@@ -1,10 +1,10 @@
-package com.example.aac.base_frame;
+package com.example.aac.base_frame.utils;
 
 import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Stack;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by hxb on  2020/1/2
@@ -13,7 +13,7 @@ import java.util.Stack;
 public class StackManager {
 
     private static StackManager stackManager = null;
-    private Stack<Activity> mStackActivity;
+    private CopyOnWriteArrayList<Activity> mStackActivity;
 
     @IntDef({ActivesStatus.CREATED,
             ActivesStatus.STARTED,
@@ -33,7 +33,8 @@ public class StackManager {
     }
 
     private StackManager(){
-        mStackActivity = new Stack<>();
+//        mStackActivity = new Stack<>();
+        mStackActivity = new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -68,20 +69,51 @@ public class StackManager {
     /**
      * 移除指定的Activity
      */
-    private boolean _removeActivity(Class<?> clazz, boolean isFinish) {
-        for (Activity a:mStackActivity) {
-            if (null == a || null == a.activity){
-                continue;
-            }
-            if (clazz == a.activity.getClass()){
-                if (isFinish && !a.activity.isFinishing()){
-                    a.activity.finish();
+    private boolean _removeActivity(boolean isFinish, Class<?>... clazz) {
+        int isSuccess = 0;//成功次数
+        int length = clazz.length;
+        for (Class<?> clas : clazz) {
+            for (Activity a : mStackActivity) {
+                if (null == a || null == a.activity) {
+                    continue;
                 }
-                return mStackActivity.remove(a);
+                if (clas == a.activity.getClass()) {
+                    mStackActivity.remove(a);
+                    if (isFinish && !a.activity.isFinishing()) {
+                        a.activity.finish();
+                    }
+                    isSuccess++;
+                    break;
+                }
             }
         }
+        return length == isSuccess;
+    }
 
-        return false;
+    /**
+     * 移除/关闭未指定的Activity
+     *
+     * 例如：[1Act,2Act,3Act,...] ---> _removeUnspecifiedActivity(true/false,2Act);
+     *      除了2Act不关闭其它的都要关闭或移除。
+     * */
+    private void _removeUnspecifiedActivity(boolean isFinish, Class<?>... clazz) {
+        if (clazz.length == 0){//表示必须要指定不需要关闭的activity
+            return;
+        }
+        for (Activity a: mStackActivity) {
+            int sameNum = 0;//相同数
+            for (Class<?> clas : clazz) {
+                if (clas == a.activity.getClass()){
+                    sameNum ++;
+                }
+            }
+            if (sameNum == 0) {//表示没有匹配到相同
+                mStackActivity.remove(a);
+                if (isFinish && !a.activity.isFinishing()) {
+                    a.activity.finish();
+                }
+            }
+        }
     }
 
     /**
@@ -122,13 +154,13 @@ public class StackManager {
      */
     private void _finishAllActivity() {
         for (int i = 0, size = mStackActivity.size(); i < size; i++) {
-           Activity a = mStackActivity.get(i);
-           if (null == a || null == a.activity){
-               continue;
-           }
-           if (!a.activity.isFinishing()){
-               a.activity.finish();
-           }
+            Activity a = mStackActivity.get(i);
+            if (null == a || null == a.activity){
+                continue;
+            }
+            if (!a.activity.isFinishing()){
+                a.activity.finish();
+            }
         }
         mStackActivity.clear();
     }
@@ -137,10 +169,10 @@ public class StackManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public static Activity getCurrentActivity(){
-        if (null == stackManager){
+        if (null == stackManager || stackManager.mStackActivity.size() == 0){
             return null;
         }
-        return stackManager.mStackActivity.lastElement();
+        return stackManager.mStackActivity.get(stackManager.mStackActivity.size() - 1);
     }
 
 
@@ -162,7 +194,7 @@ public class StackManager {
         if (null == stackManager){
             return false;
         }
-        return stackManager._removeActivity(clazz,false);
+        return stackManager._removeActivity(false,clazz);
     }
 
     public static Activity getActivity(Class<?> clazz){
@@ -173,11 +205,21 @@ public class StackManager {
     }
 
 
-    public static void finishActivity(Class<?> clazz){
+    public static void finishActivity(Class<?>...clazz){
         if (null == stackManager){
             return;
         }
-        stackManager._removeActivity(clazz,true);
+        stackManager._removeActivity(true,clazz);
+    }
+
+    /*
+     * 关闭未指定的activity
+     * */
+    public static void finishUnspecifiedActivity(Class<?>...clazz){
+        if (null == stackManager){
+            return;
+        }
+        stackManager._removeUnspecifiedActivity(true,clazz);
     }
 
     public static void AppExit(){
