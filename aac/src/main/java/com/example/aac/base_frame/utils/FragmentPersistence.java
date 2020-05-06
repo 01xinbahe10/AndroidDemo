@@ -1,8 +1,6 @@
 package com.example.aac.base_frame.utils;
 
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.fragment.app.Fragment;
@@ -13,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 
 
 /**
@@ -221,8 +220,8 @@ public final class FragmentPersistence {
             if (isGoBack) {
                 Bundle bundle1 = currentFragment.getArguments();
                 if (null == bundle1) {
-                    //表示初始化fragment没有设置bundle ，也就导致在GoBack时不能设置
-                    Log.e(TAG, "If you need to pass in a bundle when returning, you must pass in the bundle when the fragment is initialized.");
+                    //表示初始化fragment没有设置bundle
+                    currentFragment.setArguments(bundle);
                 } else {
                     bundle1.putAll(bundle);
                 }
@@ -246,18 +245,18 @@ public final class FragmentPersistence {
                 transaction.setCustomAnimations(anims[0], anims[1], anims[2], anims[3]);
             }
 
-
-            if (!currentFragment.isAdded()) { // 先判断是否被add过
+            String currentFragmentTag = "TAG"+currentFragment.getClass().getName();
+            if (!currentFragment.isAdded() && null == mConfig.manager.findFragmentByTag(currentFragmentTag)) { // 先判断是否被add过
                 if (beforeFragment == null) {
-                    transaction.add(mConfig.fragmentId, currentFragment).commit();
+                    transaction.add(mConfig.fragmentId, currentFragment,currentFragmentTag).commitNow();
                 } else {
-                    transaction.hide(beforeFragment).add(mConfig.fragmentId, currentFragment).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                    transaction.hide(beforeFragment).add(mConfig.fragmentId, currentFragment,currentFragmentTag).commitNow(); // 隐藏当前的fragment，add下一个到Activity中
                 }
             } else {
                 if (beforeFragment == null) {
-                    transaction.show(currentFragment).commit();
+                    transaction.show(currentFragment).commitNow();
                 } else {
-                    transaction.hide(beforeFragment).show(currentFragment).commit(); // 隐藏当前的fragment，显示下一个
+                    transaction.hide(beforeFragment).show(currentFragment).commitNow(); // 隐藏当前的fragment，显示下一个
                 }
             }
             beforeFragment = currentFragment;
@@ -265,9 +264,9 @@ public final class FragmentPersistence {
         }
 
         /*
-        * 如果没有开启启动模式 (页面流程记录)，
-        * 后面则不执行 入栈记录 或 出栈等释放操作。
-        * */
+         * 如果没有开启启动模式 (页面流程记录)，
+         * 后面则不执行 入栈记录 或 出栈等释放操作。
+         * */
         if (!isStartMode){
             if (null != beforeFragment) {
                 beforeFragment.onDestroyView();
@@ -324,7 +323,7 @@ public final class FragmentPersistence {
                 transaction = mConfig.manager.beginTransaction();
 //                Log.e("TAG", "goBack: ---------------------------   "+mConfig.manager.getBackStackEntryCount());
                 //移出并销毁 FragmentTransaction中的Fragment对象
-                transaction.remove(fragment).commit();
+                transaction.remove(fragment).commitNow();
             }
             //释放掉实例化的Fragment
             mConfig.linkedMap.remove(c);
@@ -340,8 +339,8 @@ public final class FragmentPersistence {
     }
 
     /*
-    * goBack() 方法必须是出栈方式操作
-    * */
+     * goBack() 方法必须是出栈方式操作
+     * */
     public boolean goBack() {
         return goBack(null);
     }
@@ -358,7 +357,7 @@ public final class FragmentPersistence {
                 transaction = mConfig.manager.beginTransaction();
 //                Log.e("TAG", "goBack: ---------------------------   "+mConfig.manager.getBackStackEntryCount());
                 //移出并销毁 FragmentTransaction中的Fragment对象
-                transaction.remove(fragment).commit();
+                transaction.remove(fragment).commitNow();
             }
             mConfig.linkedMap.remove(clazz);
             mConfig.patternContainer.remove(clazz);//移出最后一个
@@ -368,8 +367,8 @@ public final class FragmentPersistence {
     }
 
     /*
-    * 清除界面流转流程及Fragment实例;
-    * */
+     * 清除界面流转流程及Fragment实例;
+     * */
     public void clearPatternContainer(boolean clearInitFragment) {
         if (clearInitFragment) {
             //是需要保留最后一个
@@ -379,7 +378,7 @@ public final class FragmentPersistence {
                 if (null != fragment && fragment.isAdded()) {
                     transaction = mConfig.manager.beginTransaction();
                     //移出并销毁 FragmentTransaction中的Fragment对象
-                    transaction.remove(fragment).commit();
+                    transaction.remove(fragment).commitNow();
                 }
                 mConfig.linkedMap.remove(clazz);
             }
