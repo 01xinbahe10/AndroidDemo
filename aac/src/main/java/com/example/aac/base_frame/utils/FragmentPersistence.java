@@ -154,11 +154,17 @@ public final class FragmentPersistence {
         public Class<? extends Fragment> aClass;
         public Class[] classes;
         public Object[] objects;
+        public Bundle bundle;
 
         public ClazzParam(Class<? extends Fragment> aClass, Class[] classes, Object[] objects) {
             this.aClass = aClass;
             this.classes = classes;
             this.objects = objects;
+        }
+
+        //预设Bundle数据
+        public void setDefaultBundle(Bundle bundle){
+            this.bundle = bundle;
         }
     }
 
@@ -185,12 +191,20 @@ public final class FragmentPersistence {
      * @param isGoBack    是否是开启栈底出栈
      */
     private void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isStartMode, boolean isGoBack) {
+        ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
+        if (null == clazzParam) {//如果在noInitLinkedMap中，未找到某个类，则放弃本次操作
+            return;
+        }
         currentFragmentClass = clazz;
-        if (null == mConfig.linkedMap.get(clazz)) {
-            ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
-            if (null == clazzParam) {//如果在noInitLinkedMap中，未找到某个类，则放弃本次操作
-                return;
+        if (null != clazzParam.bundle){
+            if (null == bundle) {
+                bundle = new Bundle();
             }
+            bundle.putAll(clazzParam.bundle);
+            clazzParam.bundle = null;//释放默认设置的bundle数据
+        }
+
+        if (null == mConfig.linkedMap.get(clazz)) {
             try {
                 //初始化
                 if (clazzParam.classes != null) {
@@ -299,6 +313,18 @@ public final class FragmentPersistence {
 
     }
 
+
+    /**
+     * 预设Bundle数据
+     * 作用是:例如A界面没有显示时,当用户切换到该界面时,就将之前预设的数据传给A界面
+     * */
+    public void setDelBundle(Class<? extends Fragment> clazz,Bundle bundle){
+        ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
+        if (null == clazzParam){
+            return;
+        }
+        clazzParam.setDefaultBundle(bundle);
+    }
 
     public FragmentPersistence setInOutAnim2(@Size(2) int[] anims) {
         this.anims = anims;
