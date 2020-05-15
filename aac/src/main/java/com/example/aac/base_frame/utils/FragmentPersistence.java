@@ -260,7 +260,7 @@ public final class FragmentPersistence {
             }
 
             String currentFragmentTag = "TAG"+currentFragment.getClass().getName();
-            if (!currentFragment.isAdded() && null == mConfig.manager.findFragmentByTag(currentFragmentTag)) { // 先判断是否被add过
+            if (!currentFragment.isAdded() || null == mConfig.manager.findFragmentByTag(currentFragmentTag)) { // 先判断是否被add过
                 if (beforeFragment == null) {
                     transaction.add(mConfig.fragmentId, currentFragment,currentFragmentTag).commitNow();
                 } else {
