@@ -51,7 +51,7 @@
             android:theme="@style/translucent2"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity">
-            <!-- <intent-filter>
+             <!--<intent-filter>
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
@@ -140,11 +140,11 @@
             android:name=".test_scheme.TestSchemeActivity"
             android:theme="@style/translucent2"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".test_scheme.TestScheme1Activity">
             <!--要想在别的App上能成功调起App，必须添加intent过滤器-->
@@ -163,6 +163,20 @@
         </activity>
 
         <!--测试Scheme自定义URL   end-->
+
+        <activity
+            android:name=".test_sqlite.TestSQLite2Activity"
+            android:theme="@style/translucent2"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+        </activity>
+
 
 
         <!--注册自定义GlideModule-->
