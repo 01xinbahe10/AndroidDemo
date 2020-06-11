@@ -30,7 +30,7 @@ public class MainAdapter extends BaseRecycler1Adapter<ItemMainBinding, CityVO> {
     }
 
     @Override
-    protected void viewListener(ItemMainBinding viewBinding) {
+    protected  void viewInstance(ItemMainBinding viewBinding) {
 
     }
 

@@ -126,7 +126,7 @@ public abstract class BaseRecycler1Adapter<V extends ViewDataBinding, VO> extend
     @LayoutRes
     protected abstract int getLayoutResId(int viewType);
 
-    protected abstract void viewListener(V viewBinding);
+    protected void viewInstance(V viewBinding){}
 
     protected abstract int viewModelId();
 
@@ -141,7 +141,7 @@ public abstract class BaseRecycler1Adapter<V extends ViewDataBinding, VO> extend
         public BaseBindingViewHolder(View itemView) {
             super(itemView);
             V binding = DataBindingUtil.getBinding(itemView);
-            viewListener(binding);
+            viewInstance(binding);
         }
     }
 
