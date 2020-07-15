@@ -318,7 +318,7 @@ public final class FragmentPersistence {
      * 预设Bundle数据
      * 作用是:例如A界面没有显示时,当用户切换到该界面时,就将之前预设的数据传给A界面
      * */
-    public void setDelBundle(Class<? extends Fragment> clazz,Bundle bundle){
+    public void setAdvanceBundle(Class<? extends Fragment> clazz,Bundle bundle){
         ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
         if (null == clazzParam){
             return;
