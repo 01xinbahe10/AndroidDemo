@@ -3,6 +3,7 @@ package hxb.xb_testandroidfunction.test_web;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -59,7 +61,24 @@ public class TestWebActivity extends FragmentActivity implements AdvancedWebView
                 super.onPageFinished(view, url);
                 Toast.makeText(TestWebActivity.this, "Finished loading", Toast.LENGTH_SHORT).show();
                 String info2 = "[{\"NAME\": \"未完成\", \"VALUE\":36 }, {\"NAME\": \"已完成\", \"VALUE\":25 }, {\"NAME\": \"超时完成\", \"VALUE\":25 }, {\"NAME\": \"已取消\", \"VALUE\":25 } ]";
-                mWebView.loadUrl("javascript:workplan('" + info2 + "')");
+//                mWebView.loadUrl("javascript:workplan('" + info2 + "')");
+
+                StringBuilder builder = new StringBuilder();
+                builder.append("javascript:");
+                builder.append("workplan");
+                builder.append("('");
+                builder.append(info2);
+                builder.append("')");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    mWebView.evaluateJavascript(builder.toString(), new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+
+                        }
+                    });
+                }else {
+                    mWebView.loadUrl(builder.toString());
+                }
             }
 
             @Override

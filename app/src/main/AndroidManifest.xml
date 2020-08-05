@@ -45,17 +45,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".test_about_recyclerview.recyclerview20191226.TestAboutRecyclerViewActivity"
+            android:name=".test_web.TestWebActivity"
             android:configChanges="orientation"
             android:screenOrientation="reverseLandscape"
             android:theme="@style/translucent2"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity">
-             <!--<intent-filter>
+             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
+             </intent-filter>
         </activity>
 
         <activity android:name="com.cdct.cmdim.activity.ChatScreenActivity" />
