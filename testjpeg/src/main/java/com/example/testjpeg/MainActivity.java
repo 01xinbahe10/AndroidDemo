@@ -4,15 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
+
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
 
 import java.io.File;
 
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 6.0 权限申请
      */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED ||
@@ -56,4 +54,5 @@ public class MainActivity extends AppCompatActivity {
 //            new Thread(new WritePictureRunnable()).start();
         }
     }
+
 }
