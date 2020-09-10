@@ -42,7 +42,11 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewDataBinding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
-        return viewDataBinding.getRoot();
+        if (null != viewDataBinding) {
+            return viewDataBinding.getRoot();
+        }
+
+        return LayoutInflater.from(container.getContext()).inflate(initContentView(inflater, container, savedInstanceState),container,false);
     }
 
     @Override
@@ -126,7 +130,9 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             baseViewModel = (VM) createViewModel(BaseViewModel.class);
         }
 
-        viewDataBinding.setVariable(baseViewModelId, baseViewModel);
+        if (null != viewDataBinding) {
+            viewDataBinding.setVariable(baseViewModelId, baseViewModel);
+        }
         //让ViewModel拥有View的生命周期感应
         getLifecycle().addObserver(baseViewModel);
     }

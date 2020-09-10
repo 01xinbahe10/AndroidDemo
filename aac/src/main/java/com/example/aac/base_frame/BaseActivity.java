@@ -125,7 +125,9 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         }
 
         //关联ViewModel
-        viewDataBinding.setVariable(baseViewModelId, baseViewModel);
+        if (null != viewDataBinding) {
+            viewDataBinding.setVariable(baseViewModelId, baseViewModel);
+        }
         //让ViewModel拥有View的生命周期感应
         getLifecycle().addObserver(baseViewModel);
 
