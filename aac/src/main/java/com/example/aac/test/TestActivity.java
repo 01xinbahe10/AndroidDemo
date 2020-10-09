@@ -27,12 +27,12 @@ public class TestActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
-        persistence = FragmentPersistence.init2()
+        persistence = FragmentPersistence.init()
                 .setFragmentId(R.id.fl_test)
                 .setManager(getSupportFragmentManager())
                 .putFragment(RvPageTurningEffectFt.class)
                 .build();
 
-        persistence.switchFragment2(RvPageTurningEffectFt.class);
+        persistence.switchFragment(RvPageTurningEffectFt.class);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.aac.base_frame.utils;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.fragment.app.Fragment;
@@ -11,7 +12,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 
 
 /**
@@ -42,20 +42,15 @@ public final class FragmentPersistence {
     }
 
     /**
-     * 新方法
-     * 解释：
-     * 由于原方法(FragmentPersistence init(FragmentManager manager, int idRes, ArrayList<Fragment> list))
-     * 是将Fragment全部实例化才能使用，造成Activity初始化时会有卡顿。
-     * <p>
      * 优化：1,多个Fragment 可以部分实例化,未实例化的在使用时初始化
      * 2,可根据Class类型，指定Fragment,也可随意插入新的Fragment;避免原方法根据脚标进行盲找
      */
-    public static Config init2() {
-        return init2(3);
+    public static Config init() {
+        return init(3);
 
     }
 
-    public static Config init2(int initNum) {
+    public static Config init(int initNum) {
         return new Config(initNum);
     }
 
@@ -163,40 +158,40 @@ public final class FragmentPersistence {
         }
 
         //预设Bundle数据
-        public void setDefaultBundle(Bundle bundle){
+        public void setDefaultBundle(Bundle bundle) {
             this.bundle = bundle;
         }
     }
 
-    public void switchFragment2(Class<? extends Fragment> clazz) {
-        switchFragment2(clazz, null, true, false);
+    public void switchFragment(Class<? extends Fragment> clazz) {
+        switchFragment(clazz, null, true, false);
     }
 
-    public void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle) {
-        switchFragment2(clazz, bundle, true, false);
+    public void switchFragment(Class<? extends Fragment> clazz, Bundle bundle) {
+        switchFragment(clazz, bundle, true, false);
     }
 
 
-    public void switchFragment2(Class<? extends Fragment> clazz, boolean isInStack) {
-        switchFragment2(clazz, null, isInStack, false);
+    public void switchFragment(Class<? extends Fragment> clazz, boolean isInStack) {
+        switchFragment(clazz, null, isInStack, false);
     }
 
-    public void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isInStack) {
-        switchFragment2(clazz, bundle, isInStack, false);
+    public void switchFragment(Class<? extends Fragment> clazz, Bundle bundle, boolean isInStack) {
+        switchFragment(clazz, bundle, isInStack, false);
     }
 
     /**
      * @param isStartMode 是否开启页面的启动模式，
-     * 目前只有一种模式 跟Activity的standard(标准模式)一样。
+     *                    目前只有一种模式 跟Activity的standard(标准模式)一样。
      * @param isGoBack    是否是开启栈底出栈
      */
-    private void switchFragment2(Class<? extends Fragment> clazz, Bundle bundle, boolean isStartMode, boolean isGoBack) {
+    private void switchFragment(Class<? extends Fragment> clazz, Bundle bundle, boolean isStartMode, boolean isGoBack) {
         ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
         if (null == clazzParam) {//如果在noInitLinkedMap中，未找到某个类，则放弃本次操作
             return;
         }
         currentFragmentClass = clazz;
-        if (null != clazzParam.bundle){
+        if (null != clazzParam.bundle) {
             if (null == bundle) {
                 bundle = new Bundle();
             }
@@ -251,20 +246,20 @@ public final class FragmentPersistence {
             transaction = mConfig.manager.beginTransaction();
 //            Log_Mvp.e("测试", "switchFragment:   beforeFragment:"+(beforeFragment == null)+"   transaction:"+(transaction == null)+"  fragments:"+(fragments.get(i) == null ));
 
-            if (mIsStartAnim && (null != anims && anims.length == 2)) {
-                transaction.setCustomAnimations(anims[0], anims[1]);
+            if (mIsStartAnim && null != anims) {
+                if (anims.length == 2) {
+                    transaction.setCustomAnimations(anims[0], anims[1]);
+                } else if (anims.length == 4) {
+                    transaction.setCustomAnimations(anims[0], anims[1], anims[2], anims[3]);
+                }
             }
 
-            if (mIsStartAnim && (null != anims && anims.length == 4)) {
-                transaction.setCustomAnimations(anims[0], anims[1], anims[2], anims[3]);
-            }
-
-            String currentFragmentTag = "TAG"+currentFragment.getClass().getName();
+            String currentFragmentTag = "TAG" + currentFragment.getClass().getName();
             if (!currentFragment.isAdded() || null == mConfig.manager.findFragmentByTag(currentFragmentTag)) { // 先判断是否被add过
                 if (beforeFragment == null) {
-                    transaction.add(mConfig.fragmentId, currentFragment,currentFragmentTag).commitNow();
+                    transaction.add(mConfig.fragmentId, currentFragment, currentFragmentTag).commitNow();
                 } else {
-                    transaction.hide(beforeFragment).add(mConfig.fragmentId, currentFragment,currentFragmentTag).commitNow(); // 隐藏当前的fragment，add下一个到Activity中
+                    transaction.hide(beforeFragment).add(mConfig.fragmentId, currentFragment, currentFragmentTag).commitNow(); // 隐藏当前的fragment，add下一个到Activity中
                 }
             } else {
                 if (beforeFragment == null) {
@@ -281,7 +276,7 @@ public final class FragmentPersistence {
          * 如果没有开启启动模式 (页面流程记录)，
          * 后面则不执行 入栈记录 或 出栈等释放操作。
          * */
-        if (!isStartMode){
+        if (!isStartMode) {
             if (null != beforeFragment) {
                 beforeFragment.onDestroyView();
             }
@@ -317,10 +312,10 @@ public final class FragmentPersistence {
     /**
      * 预设Bundle数据
      * 作用是:例如A界面没有显示时,当用户切换到该界面时,就将之前预设的数据传给A界面
-     * */
-    public void setAdvanceBundle(Class<? extends Fragment> clazz,Bundle bundle){
+     */
+    public void setAdvanceBundle(Class<? extends Fragment> clazz, Bundle bundle) {
         ClazzParam clazzParam = mConfig.noInitLinkedMap.get(clazz.getName());
-        if (null == clazzParam){
+        if (null == clazzParam) {
             return;
         }
         clazzParam.setDefaultBundle(bundle);
@@ -375,7 +370,7 @@ public final class FragmentPersistence {
         int lastIndex = mConfig.patternContainer.size() - 1;
 //        Log.e("TAG", "goBack: -----------------11  "+lastIndex );
         if (lastIndex > 0) {//大于0 是需要保留最后一个
-            switchFragment2(mConfig.patternContainer.get(lastIndex - 1), bundle, true, true);//选择前一个
+            switchFragment(mConfig.patternContainer.get(lastIndex - 1), bundle, true, true);//选择前一个
             Class<? extends Fragment> clazz = mConfig.patternContainer.get(lastIndex);
 //            Log.e("TAG", "goBack: -----------------22  "+lastIndex +"     "+clazz.getName());
             Fragment fragment = mConfig.linkedMap.get(clazz);
