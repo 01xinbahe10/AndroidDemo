@@ -275,7 +275,7 @@ public class Sqlite1DBControl {
 
     public boolean delTable(String tableName) {
         final boolean[] is = {false};
-        mHelper.carriedOutWritable(new ISQLiteHelper.SQLiteDataAction() {
+        mHelper.carriedOut(new ISQLiteHelper.SQLiteDataAction() {
             @Override
             public void action(SQLiteDatabase db) {
                 String sql = "drop table " + tableName;
@@ -298,7 +298,7 @@ public class Sqlite1DBControl {
 
     public boolean saveData(int numbering, String name, @Size(150) int age) {
         final boolean[] is = {false};
-        mHelper.carriedOutWritable(new ISQLiteHelper.SQLiteDataAction() {
+        mHelper.carriedOut(new ISQLiteHelper.SQLiteDataAction() {
             @Override
             public void action(SQLiteDatabase db) {
                 TABLE_NAME = DBVersion.tableName + DBVersion.version;

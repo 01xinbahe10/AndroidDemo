@@ -21,8 +21,7 @@ public interface ISQLiteHelper {
     String T_F_ACTIVITYNAME_NEW = "activityN";//表示字段更改名字
 
     SQLiteOpenHelper getHelper();
-    void carriedOutWritable(SQLiteDataAction action);
-    void carriedOutReadable(SQLiteDataAction action);
+    void carriedOut(SQLiteDataAction action);
 
     /**
      * SQLite初始化回调

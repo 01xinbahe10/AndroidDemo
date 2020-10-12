@@ -1,0 +1,9 @@
+*.iml
+/app/.cxx/
+/app/.externalNativeBuild/
+/app/build/
+/aac/build/
+/.gradle/
+/chatLibrary/build/
+/processor/build/
+/.idea/

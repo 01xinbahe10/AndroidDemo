@@ -125,7 +125,7 @@ public class Sqlite3UseDBController {
 
 
     public void insert0() {
-        mILog.carriedOutWritable(new ISQLiteHelper.SQLiteDataAction() {
+        mILog.carriedOut(new ISQLiteHelper.SQLiteDataAction() {
             @Override
             public void action(SQLiteDatabase db) {
                 String sql = "insert into " + DBVersion0.tableName + "(activityName) values(?)";
@@ -152,7 +152,7 @@ public class Sqlite3UseDBController {
      * 测试 表字段改名 增加字段名
      */
     public void query0_1() {
-        mILog.carriedOutReadable(new ISQLiteHelper.SQLiteDataAction() {
+        mILog.carriedOut(new ISQLiteHelper.SQLiteDataAction() {
             @Override
             public void action(SQLiteDatabase db) {
                 String sql = "select * from " + DBVersion0.tableName;
@@ -199,7 +199,7 @@ public class Sqlite3UseDBController {
 
 
     public void query0_2() {
-        mILog.carriedOutReadable(new ISQLiteHelper.SQLiteDataAction() {
+        mILog.carriedOut(new ISQLiteHelper.SQLiteDataAction() {
             @Override
             public void action(SQLiteDatabase db) {
                 String sql = "select * from " + DBVersion0.tableName;
