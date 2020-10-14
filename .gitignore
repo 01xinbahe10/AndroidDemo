@@ -8,3 +8,14 @@
 /processor/build/
 /.idea/
 /local.properties
+/testjpeg/.cxx/
+/testjpeg/.externalNativeBuild/
+/testjpeg/build/
+/testjpeg/src/androidTest/
+/testjpeg/src/test/
+/chatLibrary/src/androidTest/
+/chatLibrary/src/test/
+/app/src/androidTest/
+/app/src/test/
+/aac/src/androidTest/
+/aac/src/test/

@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.xinge:mipush:3.2.4-beta@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/89281bb76339e0369d15746b5203440d/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/89281bb76339e0369d15746b5203440d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/89281bb76339e0369d15746b5203440d/jars/libs/MiPush_SDK_Client_3_2_2.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/89281bb76339e0369d15746b5203440d/jars/libs/Xg4xmpush-v3.2.4_20180503_1537.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9df5b711585e8b608cbc8c75cefec90e/jetified-mipush-3.2.4-beta/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9df5b711585e8b608cbc8c75cefec90e/jetified-mipush-3.2.4-beta/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9df5b711585e8b608cbc8c75cefec90e/jetified-mipush-3.2.4-beta/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9df5b711585e8b608cbc8c75cefec90e/jetified-mipush-3.2.4-beta/jars/libs/MiPush_SDK_Client_3_2_2.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9df5b711585e8b608cbc8c75cefec90e/jetified-mipush-3.2.4-beta/jars/libs/Xg4xmpush-v3.2.4_20180503_1537.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.xinge/mipush/3.2.4-beta/82f02881cdb8866e6a5ca1801c8e24ac16fb0c89/mipush-3.2.4-beta-javadoc.jar!/" />
