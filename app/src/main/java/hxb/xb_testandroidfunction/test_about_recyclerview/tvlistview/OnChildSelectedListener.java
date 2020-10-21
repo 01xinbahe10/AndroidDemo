@@ -5,7 +5,11 @@ import android.view.ViewGroup;
 
 /**
  * Created by hxb on  2020/1/3
+ *
+ * 弃用  2020-10-21
  */
+
+@Deprecated
 public interface OnChildSelectedListener {
     /**
      * Callback method to be invoked when a child of this ViewGroup has been

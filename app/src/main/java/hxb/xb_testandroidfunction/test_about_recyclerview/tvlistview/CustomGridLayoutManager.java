@@ -17,7 +17,10 @@ import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
 /**
  * Created by hxb on  2019/12/26
+ *
+ * 弃用  2020-10-21
  */
+@Deprecated
 public final class CustomGridLayoutManager extends GridLayoutManager {
     private static final String TAG = "CustomGridLayoutManager";
 

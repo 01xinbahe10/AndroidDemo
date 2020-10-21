@@ -26,7 +26,9 @@ import java.util.ArrayList;
  * 假想优化：保证CustomizeGridRecyclerView 中一定数量的子view 能快速布局\绘制完成。
  * 解决状态：未解决
  *
+ * 弃用  2020-10-21
  */
+@Deprecated
 public final class CustomizeGridRecyclerView extends RecyclerView {
     private static final String TAG = "CustomizeRecyclerView";
 
