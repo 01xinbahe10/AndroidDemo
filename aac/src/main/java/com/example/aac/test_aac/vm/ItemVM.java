@@ -1,4 +1,4 @@
-package com.example.aac.view_model;
+package com.example.aac.test_aac.vm;
 
 import android.app.Application;
 
@@ -10,13 +10,13 @@ import com.example.aac.base_frame.BaseViewModel;
 /**
  * Created by hxb on 2019-08-28.
  */
-public class ItemViewModel extends BaseViewModel {
+public class ItemVM extends BaseViewModel {
 
     public ObservableField<String> cityName = new ObservableField<>("");
 
     public ObservableField<String> cityId = new ObservableField<>("");
 
-    public ItemViewModel(@NonNull Application application)
+    public ItemVM(@NonNull Application application)
     {
         super(application);
 

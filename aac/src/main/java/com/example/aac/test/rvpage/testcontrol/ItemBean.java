@@ -1,4 +1,4 @@
-package com.example.aac.test.rvpage.vo;
+package com.example.aac.test.rvpage.testcontrol;
 
 /**
  * @author ht

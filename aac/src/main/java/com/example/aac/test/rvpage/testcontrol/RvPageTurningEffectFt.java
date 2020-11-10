@@ -1,4 +1,4 @@
-package com.example.aac.test.rvpage;
+package com.example.aac.test.rvpage.testcontrol;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.example.aac.test.rvpage.snaprecycleview.GravitySnapHelper;
 import com.example.aac.test.rvpage.snaprecycleview.GridPagerUtils;
 import com.example.aac.test.rvpage.snaprecycleview.InvertRowColumnDataTransform;
 import com.example.aac.test.rvpage.snaprecycleview.PageIndicatorHelper;
-import com.example.aac.test.rvpage.vo.ItemBean;
 import com.example.aac.test.rvpage.view.CircleRecyclerPageIndicator;
 
 import java.util.ArrayList;

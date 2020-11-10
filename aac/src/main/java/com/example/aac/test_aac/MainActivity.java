@@ -1,4 +1,4 @@
-package com.example.aac.home;
+package com.example.aac.test_aac;
 
 import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.Observer;
@@ -13,18 +13,18 @@ import com.example.aac.BR;
 import com.example.aac.R;
 import com.example.aac.base_frame.BaseActivity;
 import com.example.aac.base_frame.adapter.BaseRecycler2Adapter;
-import com.example.aac.data.vo.CityVO;
+import com.example.aac.test_aac.data.vo.CityVO;
 import com.example.aac.databinding.ActivityMainBinding;
 import com.example.aac.databinding.ItemMainBinding;
-import com.example.aac.home.adapter.MainAdapter;
-import com.example.aac.view_model.ItemViewModel;
-import com.example.aac.view_model.MainViewModel;
+import com.example.aac.test_aac.adapter.MainAdapter;
+import com.example.aac.test_aac.vm.ItemVM;
+import com.example.aac.test_aac.vm.MainVM;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainVM> {
 
     private MainAdapter adapter;
 
-    private BaseRecycler2Adapter<ItemMainBinding, ItemViewModel> adapter2;
+    private BaseRecycler2Adapter<ItemMainBinding, ItemVM> adapter2;
     @Override
     protected int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_main;

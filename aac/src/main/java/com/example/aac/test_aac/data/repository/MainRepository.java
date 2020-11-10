@@ -1,12 +1,12 @@
-package com.example.aac.data.repository;
+package com.example.aac.test_aac.data.repository;
 
 import androidx.databinding.ObservableArrayList;
 import android.util.Log;
 
 import com.example.aac.base_frame.BaseRepository;
-import com.example.aac.data.network.IApiCallBack;
-import com.example.aac.data.network.Simulation;
-import com.example.aac.data.vo.CityVO;
+import com.example.aac.test_aac.data.network.IApiCallBack;
+import com.example.aac.test_aac.data.network.Simulation;
+import com.example.aac.test_aac.data.vo.CityVO;
 
 /**
  * Created by hxb on 2019-08-23.

@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.MainActivity"/>
+        <activity android:name=".test_aac.MainActivity"/>
 
         <activity android:name=".test.TestActivity"/>
     </application>

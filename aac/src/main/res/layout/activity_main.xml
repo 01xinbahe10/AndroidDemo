@@ -9,7 +9,7 @@
 
         <variable
             name="mainViewModel"
-            type="com.example.aac.view_model.MainViewModel" />
+            type="com.example.aac.test_aac.vm.MainVM" />
 
         <variable
             name="adapter"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".home.MainActivity">
+        tools:context=".test_aac.MainActivity">
 
 
         <TextView

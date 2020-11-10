@@ -1,4 +1,4 @@
-package com.example.aac.view_model;
+package com.example.aac.test_aac.vm;
 
 
 import android.app.Application;
@@ -23,16 +23,16 @@ import com.example.aac.base_frame.adapter.AdapterBinding;
 import com.example.aac.base_frame.adapter.IAdapterBinding;
 import com.example.aac.base_frame.sample2_adapter.ItemBinding;
 import com.example.aac.base_frame.sample2_adapter.OnItemBind;
-import com.example.aac.data.repository.MainRepository;
-import com.example.aac.data.vo.CityVO;
+import com.example.aac.test_aac.data.repository.MainRepository;
+import com.example.aac.test_aac.data.vo.CityVO;
 import com.example.aac.databinding.ItemMainBinding;
 
 
 /**
  * Created by hxb on 2019-08-23.
  */
-public class MainViewModel extends BaseViewModel<MainRepository> implements View.OnClickListener{
-    private String TAG = "MainViewModel";
+public class MainVM extends BaseViewModel<MainRepository> implements View.OnClickListener{
+    private String TAG = "MainVM";
 
     private Handler handler = new Handler();
 
@@ -48,7 +48,7 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
 
     public View.OnClickListener onClickListener;
 
-    public MainViewModel(@NonNull Application application, MainRepository repository) {
+    public MainVM(@NonNull Application application, MainRepository repository) {
         super(application, repository);
         test.set(" 核心板");
         onClickListener = this;
@@ -136,16 +136,16 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
         repository.getData();
 
         for (int i = 0; i < 100; i++) {
-            ItemViewModel itemViewModel = new ItemViewModel(getApplication());
-            itemViewModel.cityName.set("name:  "+i);
-            itemViewModel.cityId.set("id:   "+i);
-            observableList.add(itemViewModel);
+            ItemVM itemVM = new ItemVM(getApplication());
+            itemVM.cityName.set("name:  "+i);
+            itemVM.cityId.set("id:   "+i);
+            observableList.add(itemVM);
         }
     }
 
 
 
-    public ItemBinding<ItemViewModel> itemBinding = ItemBinding.of(new OnItemBind<ItemViewModel>() {
+    public ItemBinding<ItemVM> itemBinding = ItemBinding.of(new OnItemBind<ItemVM>() {
         @Override
         public int itemCount() {
             return 10;
@@ -153,21 +153,21 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
 
         @Override
         public void onItemBind(ItemBinding itemBinding, int position) {
-            itemBinding.set(BR.itemViewModel, R.layout.item_main);
+            itemBinding.set(BR._all, R.layout.item_main);
         }
 
         @Override
-        public ItemViewModel viewModel(int position) {
-            ItemViewModel itemViewModel = new ItemViewModel(getApplication());
-            itemViewModel.cityName.set("name:  "+position);
-            itemViewModel.cityId.set("id:   "+position);
-            return itemViewModel;
+        public ItemVM viewModel(int position) {
+            ItemVM itemVM = new ItemVM(getApplication());
+            itemVM.cityName.set("name:  "+position);
+            itemVM.cityId.set("id:   "+position);
+            return itemVM;
         }
 
     });
 
     //给RecyclerView添加ObservableList
-    public ObservableList<ItemViewModel> observableList = new ObservableArrayList<>();
+    public ObservableList<ItemVM> observableList = new ObservableArrayList<>();
 
 
 
@@ -175,7 +175,7 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
 
 
     private ObservableArrayList<CityVO> arrayList = new ObservableArrayList<>();
-    public AdapterBinding<ItemMainBinding,ItemViewModel> itemBinding2 = AdapterBinding.of(new IAdapterBinding<ItemMainBinding,ItemViewModel>() {
+    public AdapterBinding<ItemMainBinding, ItemVM> itemBinding2 = AdapterBinding.of(new IAdapterBinding<ItemMainBinding, ItemVM>() {
         @Override
         public int itemCount() {
             return arrayList.size();
@@ -183,7 +183,7 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
 
         @Override
         public void itemViewType(AdapterBinding adapterBinding, int position) {
-            adapterBinding.set(BR.itemViewModel,R.layout.item_main);
+            adapterBinding.set(BR._all,R.layout.item_main);
         }
 
         @Override
@@ -199,17 +199,17 @@ public class MainViewModel extends BaseViewModel<MainRepository> implements View
         }
 
         @Override
-        public ItemViewModel viewModel(int position) {
+        public ItemVM viewModel(int position) {
 
 
             CityVO cityVO = arrayList.get(position);
-            ItemViewModel itemViewModel = new ItemViewModel(getApplication());
-            itemViewModel.cityName.set(cityVO.getCityName());
-            itemViewModel.cityId.set(cityVO.getCityId());
+            ItemVM itemVM = new ItemVM(getApplication());
+            itemVM.cityName.set(cityVO.getCityName());
+            itemVM.cityId.set(cityVO.getCityId());
 
 
 
-            return itemViewModel;
+            return itemVM;
         }
     });
 

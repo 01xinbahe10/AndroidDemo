@@ -1,8 +1,8 @@
-package com.example.aac.data.network;
+package com.example.aac.test_aac.data.network;
 
 import androidx.databinding.ObservableArrayList;
 
-import com.example.aac.data.vo.CityVO;
+import com.example.aac.test_aac.data.vo.CityVO;
 
 /**
  * Created by hxb on 2019-08-23.

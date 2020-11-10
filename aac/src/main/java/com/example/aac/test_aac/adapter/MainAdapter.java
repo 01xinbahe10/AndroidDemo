@@ -1,4 +1,4 @@
-package com.example.aac.home.adapter;
+package com.example.aac.test_aac.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,9 +8,9 @@ import com.example.aac.BR;
 import com.example.aac.R;
 import com.example.aac.base_frame.BaseApplication;
 import com.example.aac.base_frame.adapter.BaseRecycler1Adapter;
-import com.example.aac.data.vo.CityVO;
+import com.example.aac.test_aac.data.vo.CityVO;
 import com.example.aac.databinding.ItemMainBinding;
-import com.example.aac.view_model.ItemViewModel;
+import com.example.aac.test_aac.vm.ItemVM;
 
 /**
  * Created by hxb on 2019-08-27.
@@ -36,7 +36,7 @@ public class MainAdapter extends BaseRecycler1Adapter<ItemMainBinding, CityVO> {
 
     @Override
     protected int viewModelId() {
-        return BR.itemViewModel;
+        return BR._all;
     }
 
     @Override
@@ -52,10 +52,10 @@ public class MainAdapter extends BaseRecycler1Adapter<ItemMainBinding, CityVO> {
         switch (ITEM_ADAPTER_FUN){
             case 1:
                 //方法一(这种可以进行根据activity的生命周期进行管理item显示的数据)
-                ItemViewModel itemViewModel = new ItemViewModel(BaseApplication.getInstance());
-                viewBinding.setItemViewModel(itemViewModel);
-                itemViewModel.cityName.set(itemVO.getCityName());
-                itemViewModel.cityId.set(itemVO.getCityId());
+                ItemVM itemVM = new ItemVM(BaseApplication.getInstance());
+                viewBinding.setItemVM(itemVM);
+                itemVM.cityName.set(itemVO.getCityName());
+                itemVM.cityId.set(itemVO.getCityId());
                 break;
             case 2:
                 //方法二(这种直接将数据交给item显示，如需使用则需移除xml中的<data>标签及控件调用了<data>中的对象)
