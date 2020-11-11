@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.example.aac.test.surfaceview.view.DrawingView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.example.aac.test.surfaceview.view.DrawingView2
+            android:id="@+id/drawing_view2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.example.aac.test.surfaceview.view.DrawingView3
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+        <Button
+            android:id="@+id/bt_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#F10505"
+            android:text="clear"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
