@@ -4,18 +4,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.example.aac.test.surfaceview.view.DrawingView
+        <com.example.aac.test.surfaceview.view.draw.DrawingView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
-        <com.example.aac.test.surfaceview.view.DrawingView2
+        <com.example.aac.test.surfaceview.view.draw.DrawingView2
             android:id="@+id/drawing_view2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
-        <com.example.aac.test.surfaceview.view.DrawingView3
+        <com.example.aac.test.surfaceview.view.draw.DrawingView3
+            android:id="@+id/drawing_view3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"/>

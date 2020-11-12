@@ -44,13 +44,18 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
     @Override
     public void onResume() {
         super.onResume();
-        viewDataBinding.drawingView2.onResume();
+        viewDataBinding.drawingView3.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        viewDataBinding.drawingView2.onPause();
+        viewDataBinding.drawingView3.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

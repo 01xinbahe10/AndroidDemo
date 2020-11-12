@@ -2,6 +2,7 @@ package com.example.aac.test.surfaceview.view.draw_style;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 import android.util.SparseArray;
 
 import java.nio.ByteBuffer;
@@ -45,7 +46,7 @@ public class GLQuadrilateral extends GLStyle{
         return new GLQuadrilateral(context);
     }
 
-    public void onCreated(GL10 gl) {
+    public GLStyleManager.Fun1 onCreated(GL10 gl) {
         //按初始化顶点 本地字节缓存（注意：这里只能是系统级的内存分配，不然GL会报错）
         ByteBuffer pointByteBuffer = ByteBuffer.allocateDirect(quadrilateralCoords.length * Float.BYTES);    //顶点数 * sizeof(float)
         pointByteBuffer.order(ByteOrder.nativeOrder());
@@ -62,24 +63,25 @@ public class GLQuadrilateral extends GLStyle{
         indexBuffer.put(indexCoords);
         indexBuffer.position(0);
 
-        //编译shader
-        String vertexShaderCode = readGLSL(context, "VertexShaderCode2.glsl");
-        String fragmentShaderCode = readGLSL(context, "FragmentShaderCode.glsl");
-        SparseArray<String> sparseArray = new SparseArray<>();
-        sparseArray.put(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
-        sparseArray.put(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
-        mProgram = createAndLinkProgram(sparseArray);
+        String vertexShaderCode = GLStyleManager.readGLSLFile(context, Shader.VertexShaderCode2.shaderCode);
+        String fragmentShaderCode = GLStyleManager.readGLSLFile(context, Shader.FragmentShaderCode.shaderCode);
+        GLStyleManager.putShader(Shader.VertexShaderCode2.key,Shader.VertexShaderCode2.shaderType,vertexShaderCode);
+        GLStyleManager.putShader(Shader.FragmentShaderCode.key,Shader.FragmentShaderCode.shaderType,fragmentShaderCode);
+        //提供编译shader函数
+        return GLStyleManager::createAndLinkProgram;
     }
 
     public void onDraw(){
+        mProgram = GLStyleManager.program();
+        Log.e(TAG, "onCreated: 四边形》》Program: "+mProgram );
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(mProgram);
         //获取变换矩阵vMatrix成员句柄
 //        mMatrixHandler = GLES20.glGetUniformLocation(mProgram, "vMatrix");
         //获取顶点着色器的vPosition成员句柄
-        int positionHandler = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        int positionHandler = GLES20.glGetAttribLocation(mProgram, Shader.KeyWorld.vPosition);
         //获取片元着色器的vColor成员的句柄
-        int colorHandler = GLES20.glGetUniformLocation(mProgram, "vColor");
+        int colorHandler = GLES20.glGetUniformLocation(mProgram, Shader.KeyWorld.vColor);
 
         ///////////////////////////////////////////////////////////////////////////
         if (null != pointBuffer) {

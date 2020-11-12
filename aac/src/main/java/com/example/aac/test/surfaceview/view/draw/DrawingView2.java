@@ -1,4 +1,4 @@
-package com.example.aac.test.surfaceview.view;
+package com.example.aac.test.surfaceview.view.draw;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
