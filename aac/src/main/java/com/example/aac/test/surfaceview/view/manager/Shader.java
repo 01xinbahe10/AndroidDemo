@@ -1,4 +1,4 @@
-package com.example.aac.test.surfaceview.view.draw_style;
+package com.example.aac.test.surfaceview.view.manager;
 
 import android.opengl.GLES20;
 

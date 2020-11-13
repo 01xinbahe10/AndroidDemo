@@ -1,4 +1,4 @@
-package com.example.aac.test.surfaceview.view.draw_style;
+package com.example.aac.test.surfaceview.view.graphics;
 
 import android.util.Log;
 
@@ -92,4 +92,18 @@ public class GLLine extends GLStyle{
         }
     }
 
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onDraw() {
+
+    }
+
+    @Override
+    public void onClear() {
+
+    }
 }

@@ -1,8 +1,11 @@
-package com.example.aac.test.surfaceview.view.draw_style;
+package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
+
+import com.example.aac.test.surfaceview.view.manager.GLESManager;
+import com.example.aac.test.surfaceview.view.manager.Shader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -19,12 +22,6 @@ public class GLLine2 extends GLStyle {
     private FloatBuffer pointBuffer = null;
     //默认数组长度
     private int defArrayLength = 1024;
-    //设置线条顶点数组
-    private final float lineCoords[] = {
-            0.0f, 0.1f, 0.0f, // 第一点
-            0.0f, 0.0f, 0.0f, // 第二点
-            0.1f, 0.0f, 0.0f
-    };
 
     private AtomicInteger arrayPosition = new AtomicInteger();//记录数组的脚标
 
@@ -39,46 +36,33 @@ public class GLLine2 extends GLStyle {
         this.context = context;
     }
 
-    public GLStyleManager.Fun1 onCreate() {
-      /*  ByteBuffer lineByteBuffer = ByteBuffer.allocateDirect(lineCoords.length * Float.BYTES);
-        lineByteBuffer.order(ByteOrder.nativeOrder());
-        pointBuffer = lineByteBuffer.asFloatBuffer();
-        pointBuffer.put(lineCoords);
-        pointBuffer.position(0);*/
-
-
+    public synchronized void onCreate() {
         pointByteBuffer = ByteBuffer.allocateDirect(defArrayLength * Float.BYTES);
         pointByteBuffer.order(ByteOrder.nativeOrder());
         pointBuffer = pointByteBuffer.asFloatBuffer();
         pointBuffer.position(0);
-
-
-        String vertexShaderCode = GLStyleManager.readGLSLFile(context, Shader.VertexShaderCode2.shaderCode);
-        String fragmentShaderCode = GLStyleManager.readGLSLFile(context, Shader.FragmentShaderCode.shaderCode);
-        GLStyleManager.putShader(Shader.VertexShaderCode2.key, Shader.VertexShaderCode2.shaderType, vertexShaderCode);
-        GLStyleManager.putShader(Shader.FragmentShaderCode.key, Shader.FragmentShaderCode.shaderType, fragmentShaderCode);
-        return GLStyleManager::createAndLinkProgram;
     }
 
-    public void addLinePath(float[] lineCoords) {
-        if (arrayPosition.get() + lineCoords.length >= defArrayLength - 1) {
+    public synchronized void addLinePath(float[] lineCoords) {
+        if (arrayPosition.get() >= defArrayLength - lineCoords.length) {
             defArrayLength += 1024;
             ByteBuffer lineByteBuffer = ByteBuffer.allocateDirect(defArrayLength * Float.BYTES);
-            System.arraycopy(pointByteBuffer.array(), 0, lineByteBuffer.array(), 0, (arrayPosition.get() + 1));
+            lineByteBuffer.order(ByteOrder.nativeOrder());
+            byte[] arrays = pointByteBuffer.array();
+            System.arraycopy(arrays, 0, lineByteBuffer.array(), 0,arrays.length);
             pointByteBuffer = lineByteBuffer;
             pointBuffer = pointByteBuffer.asFloatBuffer();
-            pointBuffer.position(0);
         }
         for (int i = 0; i < lineCoords.length; i++) {
             pointBuffer.put(arrayPosition.get(), lineCoords[i]);
             arrayPosition.incrementAndGet();
         }
-        Log.e("TAG", "addLinePath: 当前脚标  " + arrayPosition.get() + "  ");
+//        Log.e("TAG", "addLinePath: 当前脚标  " + arrayPosition.get() + "  ");
     }
 
 
-    public void onDraw() {
-        int program = GLStyleManager.program();
+    public synchronized void onDraw() {
+        int program = GLESManager.program();
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(program);
         //获取变换矩阵vMatrix成员句柄
@@ -88,7 +72,9 @@ public class GLLine2 extends GLStyle {
         //获取片元着色器的vColor成员的句柄
         int colorHandler = GLES20.glGetUniformLocation(program, Shader.KeyWorld.vColor);
 
+        Log.e("TAG", "addLinePath: 当前脚标2222222222  " + arrayPosition.get() + "  ");
         if (null != pointBuffer) {
+            pointBuffer.position(0);
             //启用顶点属性数组
             GLES20.glEnableVertexAttribArray(positionHandler);
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
@@ -103,9 +89,22 @@ public class GLLine2 extends GLStyle {
         GLES20.glDisableVertexAttribArray(positionHandler);
     }
 
+    @Override
+    public void onClear() {
+        if (null != pointBuffer){
+            pointBuffer.clear();
+        }
+        if (null != pointByteBuffer){
+            pointByteBuffer.clear();
+        }
+        pointBuffer = null;
+        pointByteBuffer = null;
+        arrayPosition.set(0);
+    }
+
 
     public void onDrawTest() {
-        int program = GLStyleManager.program();
+        int program = GLESManager.program();
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(program);
         //获取变换矩阵vMatrix成员句柄

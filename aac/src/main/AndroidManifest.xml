@@ -18,9 +18,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".test_aac.MainActivity"/>
+        <activity android:name=".test_aac.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard|navigation"/>
 
-        <activity android:name=".test.TestActivity"/>
+        <activity android:name=".test.TestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard|navigation"/>
     </application>
 
 </manifest>

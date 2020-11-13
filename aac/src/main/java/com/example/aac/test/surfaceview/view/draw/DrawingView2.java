@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.aac.test.surfaceview.view.draw_style.GLLine;
+import com.example.aac.test.surfaceview.view.graphics.GLLine;
 
 import java.util.ArrayList;
 import java.util.List;

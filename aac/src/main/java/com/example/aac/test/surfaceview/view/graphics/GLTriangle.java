@@ -1,14 +1,15 @@
-package com.example.aac.test.surfaceview.view.draw_style;
+package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import com.example.aac.test.surfaceview.view.manager.GLESManager;
+import com.example.aac.test.surfaceview.view.manager.Shader;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by hxb on  2020/11/10
@@ -47,8 +48,13 @@ public class GLTriangle extends GLStyle{
     }
 
 
+    public void onChanged(int width, int height) {
 
-    public GLStyleManager.Fun1 onCreated(GL10 gl) {
+    }
+
+
+    @Override
+    public void onCreate() {
         //按初始化顶点 本地字节缓存（注意：这里只能是系统级的内存分配，不然GL会报错）
         pointByteBuffer = ByteBuffer.allocateDirect(triangleCoords.length * 4);    //顶点数 * sizeof(float)
         pointByteBuffer.order(ByteOrder.nativeOrder());
@@ -58,25 +64,11 @@ public class GLTriangle extends GLStyle{
         pointBuffer.put(triangleCoords);
         //设置buffer从第一个坐标开始读
         pointBuffer.position(0);
-
-        ///////////////////////////////////////////////////
-
-        String vertexShaderCode = GLStyleManager.readGLSLFile(context, Shader.VertexShaderCode2.shaderCode);
-        String fragmentShaderCode = GLStyleManager.readGLSLFile(context, Shader.FragmentShaderCode.shaderCode);
-        GLStyleManager.putShader(Shader.VertexShaderCode2.key,Shader.VertexShaderCode2.shaderType, vertexShaderCode);
-        GLStyleManager.putShader(Shader.FragmentShaderCode.key,Shader.FragmentShaderCode.shaderType, fragmentShaderCode);
-        // 提供编译shader代码函数
-        return GLStyleManager::createAndLinkProgram;
     }
 
-
-    public void onChanged(int width, int height) {
-
-    }
-
-
+    @Override
     public void onDraw() {
-        mProgram = GLStyleManager.program();
+        mProgram = GLESManager.program();
         Log.e(TAG, "onCreated: 三角形》》Program: "+mProgram );
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(mProgram);
@@ -96,12 +88,12 @@ public class GLTriangle extends GLStyle{
             GLES20.glVertexAttribPointer(positionHandler, 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
 
             /*
-            * 按点数绘制图形
-            * GLES20.glDrawArrays(param1, param1, param3);
-            * param1:表示你绘制的基本图元是什么（基本图元 ：点，线，三角形）
-            * param2:从顶点数据读取数据的起点位置(以点作为单位，而非向量)
-            * param3:绘制的顶点数(以点作为单位，而非向量)
-            * */
+             * 按点数绘制图形
+             * GLES20.glDrawArrays(param1, param1, param3);
+             * param1:表示你绘制的基本图元是什么（基本图元 ：点，线，三角形）
+             * param2:从顶点数据读取数据的起点位置(以点作为单位，而非向量)
+             * param3:绘制的顶点数(以点作为单位，而非向量)
+             * */
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
             //设置绘制图元颜色
             GLES20.glUniform4fv(colorHandler, 1, color, 0);
@@ -112,5 +104,10 @@ public class GLTriangle extends GLStyle{
 
         //禁止顶点数组的句柄
         GLES20.glDisableVertexAttribArray(positionHandler);
+    }
+
+    @Override
+    public void onClear() {
+
     }
 }

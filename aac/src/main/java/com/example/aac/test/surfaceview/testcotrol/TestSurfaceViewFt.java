@@ -1,5 +1,6 @@
 package com.example.aac.test.surfaceview.testcotrol;
 
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 
 import com.example.aac.R;
 import com.example.aac.base_frame.BaseFragment;
 import com.example.aac.base_frame.BaseViewModel;
+import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.databinding.FtTestSurfaceViewBinding;
+import com.example.aac.test.G;
+import com.example.aac.test.surfaceview.view.manager.GLESManager;
 
 /**
  * Created by hxb on  2020/11/10
@@ -38,6 +43,9 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
     @Override
     public void initViewObservable() {
         super.initViewObservable();
+        sub();
+        viewDataBinding.btSave.setOnClickListener(this);
+        viewDataBinding.btLine.setOnClickListener(this);
         viewDataBinding.btClear.setOnClickListener(this);
     }
 
@@ -61,9 +69,37 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_save:
+                viewDataBinding.drawingView3.savePic();
+                break;
+
+            case R.id.bt_line:
+                GLESManager.setGraphicStyle(GLESManager.LINE);
+                break;
             case R.id.bt_clear:
-                viewDataBinding.drawingView2.clearAll();
+//                viewDataBinding.drawingView2.clearAll();
+                viewDataBinding.drawingView3.clearAll();
                 break;
         }
+    }
+
+    private void sub(){
+        LiveDataBus.get().with(G.TestA.SUB_SURFACE_VIEW_FT,Object[].class).observe(this, new Observer<Object[]>() {
+            @Override
+            public void onChanged(Object[] objects) {
+                if (null == objects || objects.length != 2){
+                    return;
+                }
+                String tag = (String) objects[0];
+                Object value = objects[1];
+                switch (tag){
+                    case G.TestA.tGetBitmap:
+                        if (value instanceof Bitmap){
+                            viewDataBinding.ivReview.setImageBitmap((Bitmap) value);
+                        }
+                        break;
+                }
+            }
+        });
     }
 }

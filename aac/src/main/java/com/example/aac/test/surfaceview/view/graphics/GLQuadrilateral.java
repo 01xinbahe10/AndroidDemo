@@ -1,16 +1,16 @@
-package com.example.aac.test.surfaceview.view.draw_style;
+package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
-import android.util.SparseArray;
+
+import com.example.aac.test.surfaceview.view.manager.GLESManager;
+import com.example.aac.test.surfaceview.view.manager.Shader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by hxb on  2020/11/11
@@ -27,15 +27,15 @@ public class GLQuadrilateral extends GLStyle{
     private ShortBuffer indexBuffer = null;
     //四边形四点坐标
     private final float[] quadrilateralCoords = {
-            -0.5f,0.5f,0f,//v0(x,y,z)
-            0.5f,0.5f,0f,//v1
-            0.5f,-0.5f,0,//v2
-            -0.5f,-0.5f,0//v3
+            -1f,1f,0f,//v0(x,y,z)
+            1f,1f,0f,//v1
+            1f,-1f,0,//v2
+            -1f,-1f,0//v3
     };
     //根据四边形推算出的索引坐标
     private final short[] indexCoords = {0,1,3,1,2,3};
     //颜色r g b a
-    private final float[] color = {1f,0f,1f,255f};
+    private final float[] color = {255f,255f,255f,255f};
 
     private GLQuadrilateral(Context context){
         this.context = context;
@@ -46,7 +46,8 @@ public class GLQuadrilateral extends GLStyle{
         return new GLQuadrilateral(context);
     }
 
-    public GLStyleManager.Fun1 onCreated(GL10 gl) {
+    @Override
+    public void onCreate() {
         //按初始化顶点 本地字节缓存（注意：这里只能是系统级的内存分配，不然GL会报错）
         ByteBuffer pointByteBuffer = ByteBuffer.allocateDirect(quadrilateralCoords.length * Float.BYTES);    //顶点数 * sizeof(float)
         pointByteBuffer.order(ByteOrder.nativeOrder());
@@ -62,17 +63,11 @@ public class GLQuadrilateral extends GLStyle{
         indexBuffer = indexByteBuffer.asShortBuffer();
         indexBuffer.put(indexCoords);
         indexBuffer.position(0);
-
-        String vertexShaderCode = GLStyleManager.readGLSLFile(context, Shader.VertexShaderCode2.shaderCode);
-        String fragmentShaderCode = GLStyleManager.readGLSLFile(context, Shader.FragmentShaderCode.shaderCode);
-        GLStyleManager.putShader(Shader.VertexShaderCode2.key,Shader.VertexShaderCode2.shaderType,vertexShaderCode);
-        GLStyleManager.putShader(Shader.FragmentShaderCode.key,Shader.FragmentShaderCode.shaderType,fragmentShaderCode);
-        //提供编译shader函数
-        return GLStyleManager::createAndLinkProgram;
     }
 
-    public void onDraw(){
-        mProgram = GLStyleManager.program();
+    @Override
+    public void onDraw() {
+        mProgram = GLESManager.program();
         Log.e(TAG, "onCreated: 四边形》》Program: "+mProgram );
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(mProgram);
@@ -113,5 +108,10 @@ public class GLQuadrilateral extends GLStyle{
 
         //禁止顶点数组的句柄
         GLES20.glDisableVertexAttribArray(positionHandler);
+    }
+
+    @Override
+    public void onClear() {
+
     }
 }
