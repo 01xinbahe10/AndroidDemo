@@ -2,7 +2,6 @@ package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
 
 import com.example.aac.test.surfaceview.view.manager.GLESManager;
 import com.example.aac.test.surfaceview.view.manager.Shader;
@@ -20,8 +19,6 @@ public class GLTriangle extends GLStyle{
 
     private Context context;
 
-    // 创建空的OpenGL ES Program id
-    private int mProgram;
     //顶点字节数组
     private ByteBuffer pointByteBuffer;
     //顶点坐标数组**/
@@ -68,24 +65,19 @@ public class GLTriangle extends GLStyle{
 
     @Override
     public void onDraw() {
-        mProgram = GLESManager.program();
-        Log.e(TAG, "onCreated: 三角形》》Program: "+mProgram );
+        int program = GLESManager.program();
+//        Log.e(TAG, "onCreated: 三角形》》Program: "+program );
         //将程序加入到OpenGLES2.0环境
-        GLES20.glUseProgram(mProgram);
-        //获取变换矩阵vMatrix成员句柄
-//        mMatrixHandler = GLES20.glGetUniformLocation(mProgram, "vMatrix");
-        //获取顶点着色器的vPosition成员句柄
-        int positionHandler = GLES20.glGetAttribLocation(mProgram, Shader.KeyWorld.vPosition);
-        //获取片元着色器的vColor成员的句柄
-        int colorHandler = GLES20.glGetUniformLocation(mProgram, Shader.KeyWorld.vColor);
+        GLES20.glUseProgram(program);
 
-
-        ///////////////////////////////////////////////////////////////////////////
         if (null != pointBuffer) {
             //启用顶点属性数组
-            GLES20.glEnableVertexAttribArray(positionHandler);
+            GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
-            GLES20.glVertexAttribPointer(positionHandler, 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
+            GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
+            //设置绘制图元颜色
+            GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
+            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
 
             /*
              * 按点数绘制图形
@@ -95,15 +87,11 @@ public class GLTriangle extends GLStyle{
              * param3:绘制的顶点数(以点作为单位，而非向量)
              * */
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
-            //设置绘制图元颜色
-            GLES20.glUniform4fv(colorHandler, 1, color, 0);
+
         }
 
-        ////////////////////////////////////////////////////////////
-
-
         //禁止顶点数组的句柄
-        GLES20.glDisableVertexAttribArray(positionHandler);
+        GLES20.glDisableVertexAttribArray(GLESManager.vertexPositionHandler());
     }
 
     @Override

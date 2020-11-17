@@ -2,6 +2,9 @@ package com.example.aac.test.surfaceview.view.draw;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -9,11 +12,15 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import androidx.core.content.ContextCompat;
+
+import com.example.aac.R;
 import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.test.G;
 import com.example.aac.test.surfaceview.view.graphics.GLLine2;
 import com.example.aac.test.surfaceview.view.graphics.GLQuadrilateral;
 import com.example.aac.test.surfaceview.view.graphics.GLStyle;
+import com.example.aac.test.surfaceview.view.graphics.GLTexture;
 import com.example.aac.test.surfaceview.view.manager.GLESManager;
 import com.example.aac.test.surfaceview.view.manager.Shader;
 import com.example.aac.test.surfaceview.view.utils.ArrayUtil;
@@ -39,8 +46,8 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
     private float x, y;
     private int width, height;
 
-    private GLQuadrilateral quadrilateral;
     private int defLength = 1024;
+    private GLTexture glTexture;
     private GLStyle[] glStyleArray = null;
     private GLStyle currentGlStyle = null;
     private AtomicInteger glStylePosition = new AtomicInteger();
@@ -66,14 +73,14 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         Log.e(TAG, "onSurfaceCreated: >>>>>>>>>>>>>>>>>>>>> ");
-        //注意：这里初始化Shader，需要一次性在onSurfaceCreated初始化，不得其它函数中初始化会报错
-        String vertexShaderCode = GLESManager.readGLSLFile20(getContext(), Shader.VertexShaderCode2.shaderCode);
-        String fragmentShaderCode = GLESManager.readGLSLFile20(getContext(), Shader.FragmentShaderCode.shaderCode);
-        GLESManager.putShader20(Shader.VertexShaderCode2.key, Shader.VertexShaderCode2.shaderType, vertexShaderCode);
-        GLESManager.putShader20(Shader.FragmentShaderCode.key, Shader.FragmentShaderCode.shaderType, fragmentShaderCode);
-        //链接
-        GLESManager.createAndLinkProgram20();
+        //Shader创建和链接
+        GLESManager.createAndLinkProgram20(getContext());
+        GLESManager.getShaderParamHandler();
 
+        glTexture = GLTexture.init(getContext());
+        glTexture.onCreate();
+        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_test);
+        glTexture.setTextureBitmap(bitmap);
     }
 
     @Override
@@ -91,6 +98,10 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_STENCIL_BUFFER_BIT);
         GLES20.glClearColor(255f, 255f, 255f, 255f);
+
+
+        glTexture.onDraw();
+
         drawGLStyle();
 
         getBitmap();
@@ -139,6 +150,8 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
                 break;
             case GLESManager.QUADRILATERAL:
                 break;
+            case GLESManager.TEXTURE:
+                break;
             default:
                 return;
         }
@@ -166,6 +179,9 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             case GLESManager.TRIANGLE:
                 break;
             case GLESManager.QUADRILATERAL:
+                break;
+            case GLESManager.TEXTURE:
+
                 break;
             default:
                 return;
@@ -224,12 +240,12 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         byteBuffer = null;
 
 
-        for (int i = 0;i< data.length;i++) {
-            //2.每个int类型的c是接收到的ABGR，但bitmap需要ARGB格式，所以需要交换B和R的位置
-            int c = data[i];
-            //交换B和R，得到ARGB
-            data[i] = c & -0xff0100 | (c & 0x00ff0000 >> 16) | (c & 0x000000ff << 16);
-        }
+//        for (int i = 0;i< data.length;i++) {
+//            //2.每个int类型的c是接收到的ABGR，但bitmap需要ARGB格式，所以需要交换B和R的位置
+//            int c = data[i];
+//            //交换B和R，得到ARGB
+//            data[i] = c & -0xff0100 | (c & 0x00ff0000 >> 16) | (c & 0x000000ff << 16);
+//        }
 
         //上下翻转
         for (int y =  0; y <height / 2;y++) {

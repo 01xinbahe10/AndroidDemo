@@ -65,28 +65,26 @@ public class GLLine2 extends GLStyle {
         int program = GLESManager.program();
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(program);
-        //获取变换矩阵vMatrix成员句柄
-//        mMatrixHandler = GLES20.glGetUniformLocation(mProgram, "vMatrix");
-        //获取顶点着色器的vPosition成员句柄
-        int positionHandler = GLES20.glGetAttribLocation(program, Shader.KeyWorld.vPosition);
-        //获取片元着色器的vColor成员的句柄
-        int colorHandler = GLES20.glGetUniformLocation(program, Shader.KeyWorld.vColor);
 
         Log.e("TAG", "addLinePath: 当前脚标2222222222  " + arrayPosition.get() + "  ");
         if (null != pointBuffer) {
             pointBuffer.position(0);
-            //启用顶点属性数组
-            GLES20.glEnableVertexAttribArray(positionHandler);
+            //激活属性数组
+            GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
-            GLES20.glVertexAttribPointer(positionHandler, 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
+            GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
             GLES20.glLineWidth(10f);
-            GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, arrayPosition.get()/3);
+
             //设置绘制图元颜色
-            GLES20.glUniform4fv(colorHandler, 1, color, 0);
+            GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
+            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
+
+            GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, arrayPosition.get()/3);
+
         }
 
         //禁止顶点数组的句柄
-        GLES20.glDisableVertexAttribArray(positionHandler);
+        GLES20.glDisableVertexAttribArray(GLESManager.vertexPositionHandler());
     }
 
     @Override
@@ -107,12 +105,6 @@ public class GLLine2 extends GLStyle {
         int program = GLESManager.program();
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(program);
-        //获取变换矩阵vMatrix成员句柄
-//        mMatrixHandler = GLES20.glGetUniformLocation(mProgram, "vMatrix");
-        //获取顶点着色器的vPosition成员句柄
-        int positionHandler = GLES20.glGetAttribLocation(program, Shader.KeyWorld.vPosition);
-        //获取片元着色器的vColor成员的句柄
-        int colorHandler = GLES20.glGetUniformLocation(program, Shader.KeyWorld.vColor);
 
         final float[] lineCoodrs = {
                 0.25f, 0.25f, 0f,//v0
@@ -131,16 +123,16 @@ public class GLLine2 extends GLStyle {
         Log.e("TAG", "onDrawTest: >>>>>>>>>>>>>>>>>111111111");
 
         //启用顶点属性数组
-        GLES20.glEnableVertexAttribArray(positionHandler);
+        GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
         //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
-        GLES20.glVertexAttribPointer(positionHandler, 3, GLES20.GL_FLOAT, false, 12, pointBuffer);
+        GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), 3, GLES20.GL_FLOAT, false, 12, pointBuffer);
         GLES20.glLineWidth(10f);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, lineCoodrs.length/3);
         //设置绘制图元颜色
-        GLES20.glUniform4fv(colorHandler, 1, color, 0);
-
-
+        GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
+        GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
+        //绘制
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, lineCoodrs.length/3);
         //禁止顶点数组的句柄
-        GLES20.glDisableVertexAttribArray(positionHandler);
+        GLES20.glDisableVertexAttribArray(GLESManager.vertexPositionHandler());
     }
 }

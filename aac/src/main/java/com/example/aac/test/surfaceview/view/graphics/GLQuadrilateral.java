@@ -2,7 +2,6 @@ package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
 
 import com.example.aac.test.surfaceview.view.manager.GLESManager;
 import com.example.aac.test.surfaceview.view.manager.Shader;
@@ -68,22 +67,19 @@ public class GLQuadrilateral extends GLStyle{
     @Override
     public void onDraw() {
         mProgram = GLESManager.program();
-        Log.e(TAG, "onCreated: 四边形》》Program: "+mProgram );
+//        Log.e(TAG, "onCreated: 四边形》》Program: "+mProgram );
         //将程序加入到OpenGLES2.0环境
         GLES20.glUseProgram(mProgram);
-        //获取变换矩阵vMatrix成员句柄
-//        mMatrixHandler = GLES20.glGetUniformLocation(mProgram, "vMatrix");
-        //获取顶点着色器的vPosition成员句柄
-        int positionHandler = GLES20.glGetAttribLocation(mProgram, Shader.KeyWorld.vPosition);
-        //获取片元着色器的vColor成员的句柄
-        int colorHandler = GLES20.glGetUniformLocation(mProgram, Shader.KeyWorld.vColor);
 
-        ///////////////////////////////////////////////////////////////////////////
         if (null != pointBuffer) {
             //启用顶点属性数组
-            GLES20.glEnableVertexAttribArray(positionHandler);
+            GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
-            GLES20.glVertexAttribPointer(positionHandler, 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
+            GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
+            //设置绘制图元颜色
+            GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
+            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
+
             /*
              * 按索引绘制图形
              * GLES20.glDrawElements(param1,param2,param3,param4);
@@ -99,15 +95,10 @@ public class GLQuadrilateral extends GLStyle{
              * */
             GLES20.glDrawElements(GLES20.GL_TRIANGLES, indexCoords.length, GLES20.GL_UNSIGNED_SHORT, indexBuffer);
 
-            //设置绘制图元颜色
-            GLES20.glUniform4fv(colorHandler, 1, color, 0);
         }
 
-        ////////////////////////////////////////////////////////////
-
-
         //禁止顶点数组的句柄
-        GLES20.glDisableVertexAttribArray(positionHandler);
+        GLES20.glDisableVertexAttribArray(GLESManager.vertexPositionHandler());
     }
 
     @Override

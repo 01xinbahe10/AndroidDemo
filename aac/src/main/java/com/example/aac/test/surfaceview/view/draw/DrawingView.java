@@ -89,8 +89,8 @@ public class DrawingView extends GLSurfaceView implements GLSurfaceView.Renderer
         indexBuffer.put(index);
         indexBuffer.position(0);
 
-        String vertexShaderCode = readGLSL(getContext(), "VertexShaderCode.glsl");
-        String fragmentShaderCode = readGLSL(getContext(), "FragmentShaderCode.glsl");
+        String vertexShaderCode = readGLSL(getContext(), "VertexShader1.glsl");
+        String fragmentShaderCode = readGLSL(getContext(), "FragmentShader1.glsl");
         SparseArray<String> sparseArray = new SparseArray<>();
         sparseArray.put(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
         sparseArray.put(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);

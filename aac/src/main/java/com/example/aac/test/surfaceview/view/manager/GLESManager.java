@@ -23,8 +23,12 @@ public final class GLESManager {
     private int program = 0;
     //存储GLSL shader字符串代码，以供编译时使用
     private SparseArray<CompileShader> shaderTypeCode;
-    //记录最后一次shaderTypeCode的大小
-    private int lastSize = 0;
+
+    ///////////////Shader 参数句柄位置//////////////////
+    private int vPosition;//顶点坐标参数变量的句柄
+    private int tPosition;//纹理参数变量的句柄
+    private int vColor;//顶点渲染颜色变量的句柄
+    private int fragColorType;//输出颜色管道的颜色类别的变量句柄
 
 
     private int width, height;
@@ -126,8 +130,8 @@ public final class GLESManager {
         return programHandle;
     }
 
-    private SparseArray<CompileShader> _getArray(){
-        if (null == shaderTypeCode){
+    private SparseArray<CompileShader> _getArray() {
+        if (null == shaderTypeCode) {
             shaderTypeCode = new SparseArray<>();
         }
         return shaderTypeCode;
@@ -144,21 +148,6 @@ public final class GLESManager {
 
 
     /**
-     * 存入Shader 的类型及代码，以供编译时使用
-     */
-    public static void putShader20(int key, int shaderType, String shaderCode) {
-        if (null == manager) {
-            return;
-        }
-
-        CompileShader shader = new CompileShader();
-        shader.shaderType = shaderType;
-        shader.shaderCode = shaderCode;
-        manager._getArray().put(key, shader);
-    }
-
-
-    /**
      * 该方法在创建OpenGL ES Program id不为0 和 shaderTypeCode容量没有发什么变化时，
      * 只执行一次。
      * 原因：
@@ -169,20 +158,50 @@ public final class GLESManager {
      * 在GLStyle的子类在链接GLES2.0时，请在最后调用，提前调用如shaderTypeCode容量没有发生变化，
      * 后续再调用是没有用的
      */
-    @FunctionalInterface
-    public interface Fun1 {
-        void createAndLinkProgram20();
-    }
 
-    public static void createAndLinkProgram20() {
+    public static void createAndLinkProgram20(Context context) {
         if (null == manager) {
             return;
         }
-        int size = manager._getArray().size();
-        if (manager.program == 0 || size != manager.lastSize) {
+
+        //注意：这里初始化Shader，需要一次性在onSurfaceCreated初始化，不得其它函数中初始化会报错
+        String vertexShaderCode = GLESManager.readGLSLFile20(context, Shader.VertexShader.shaderCode);
+        String fragmentShaderCode = GLESManager.readGLSLFile20(context, Shader.FragmentShader.shaderCode);
+
+        CompileShader vShader = new CompileShader();
+        vShader.shaderType = Shader.VertexShader.shaderType;
+        vShader.shaderCode = vertexShaderCode;
+        CompileShader fShader = new CompileShader();
+        fShader.shaderType = Shader.FragmentShader.shaderType;
+        fShader.shaderCode = fragmentShaderCode;
+
+        manager._getArray().put(Shader.VertexShader.key, vShader);
+        manager._getArray().put(Shader.FragmentShader.key, fShader);
+        if (manager.program == 0) {
             manager.program = manager._createAndLinkProgram20(manager.shaderTypeCode);
-            Log.e(TAG, "createAndLinkProgram: 链接Program :"+manager.program+"   大小："+size );
-            manager.lastSize = size;
+            Log.d(TAG, "createAndLinkProgram: 链接Program :" + manager.program);
+        }
+    }
+
+    /**
+     * 获取shader中各个参数的句柄
+     */
+    public static void getShaderParamHandler() {
+        if (null == manager) {
+            return;
+        }
+        if (manager.program > 0) {
+            //获取顶点着色器的vPosition成员句柄
+            manager.vPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.vPosition);
+            //获取纹理着色器的tPosition成员句柄
+            manager.tPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.tPosition);
+            //获取片元着色器的vColor成员句柄
+            manager.vColor = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.vColor);
+            //获取片元着色器的fragColorType成员句柄
+            manager.fragColorType = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.fragColorType);
+
+            Log.d(TAG, "getShaderParamHandler: 获取Shader各个参数成员变量的句柄  vPosition:" + manager.vPosition + "  tPosition:" + manager.tPosition
+                    + "  vColor:" + manager.vColor + "  fragColorType:" + manager.fragColorType);
         }
     }
 
@@ -192,6 +211,26 @@ public final class GLESManager {
      */
     public static int program() {
         return null == manager ? 0 : manager.program;
+    }
+
+    /**
+     * 提供外部Shader各个param句柄
+     */
+    public static int vertexPositionHandler() {
+        return null == manager ? -1 : manager.vPosition;
+    }
+
+    public static int texturePositionHandler() {
+
+        return null == manager ? -1 : manager.tPosition;
+    }
+
+    public static int vertexColorHandler() {
+        return null == manager ? -1 : manager.vColor;
+    }
+
+    public static int fragColorTypeHandler() {
+        return null == manager ? -1 : manager.fragColorType;
     }
 
 
@@ -205,7 +244,6 @@ public final class GLESManager {
         }
         manager.program = 0;
         manager.shaderTypeCode.clear();
-        manager.lastSize = 0;
     }
 
     public final static class CompileShader {
@@ -214,10 +252,9 @@ public final class GLESManager {
     }
 
 
-
     /**
      * 保存宽高
-     * */
+     */
     public static void saveWidthAndHeight(int width, int height) {
         if (null == manager) {
             return;
@@ -246,22 +283,22 @@ public final class GLESManager {
         boolean maxY = y > manager.height1_2;
         boolean minX = x < manager.width1_2;
         boolean minY = y < manager.height1_2;
-        float percentX = (x/manager.width) * 2f;
-        float percentY = (y/manager.height) * 2f;
-        float scaleX,scaleY,scaleZ = 0;
-        if (maxX && minY){//第一象限
+        float percentX = (x / manager.width) * 2f;
+        float percentY = (y / manager.height) * 2f;
+        float scaleX, scaleY, scaleZ = 0;
+        if (maxX && minY) {//第一象限
             scaleX = percentX - 1f;
             scaleY = 1f - percentY;
-        }else if (minX && minY){//第二象限
+        } else if (minX && minY) {//第二象限
             scaleX = -(1f - percentX);
             scaleY = 1f - percentY;
-        }else if (minX && maxY){//第三象限
+        } else if (minX && maxY) {//第三象限
             scaleX = -(1f - percentX);
-            scaleY = -(percentY  - 1f);
-        }else if (maxX && maxY){//第四象限
-            scaleX =  percentX - 1f;
             scaleY = -(percentY - 1f);
-        }else {
+        } else if (maxX && maxY) {//第四象限
+            scaleX = percentX - 1f;
+            scaleY = -(percentY - 1f);
+        } else {
             scaleX = 0;
             scaleY = 0;
             scaleZ = 0;
@@ -275,25 +312,30 @@ public final class GLESManager {
 
     /**
      * 图形样式设置
-     * */
+     */
     public static final int NO_STYLE = -1;
-    public static final int POINT = 0;
-    public static final int LINE = 1;
-    public static final int TRIANGLE = 2;
-    public static final int QUADRILATERAL = 3;
-    @IntDef({NO_STYLE,POINT,LINE,TRIANGLE,QUADRILATERAL})
+    public static final int POINT = 0;//点
+    public static final int LINE = 10;//线
+    public static final int TRIANGLE = 20;//三角形
+    public static final int QUADRILATERAL = 30;//四边形
+    public static final int TEXTURE = 40;//纹理
+
+    @IntDef({NO_STYLE, POINT, LINE, TRIANGLE, QUADRILATERAL, TEXTURE})
     @Retention(RetentionPolicy.CLASS)
-    public @interface GraphicStyle{}
+    public @interface GraphicStyle {
+    }
+
     private int graphicStyle = NO_STYLE;
-    public static void setGraphicStyle(@GraphicStyle int style){
-        if (null == manager){
+
+    public static void setGraphicStyle(@GraphicStyle int style) {
+        if (null == manager) {
             return;
         }
         manager.graphicStyle = style;
     }
 
-    public static int getGraphicStyle(){
-        if (null == manager){
+    public static int getGraphicStyle() {
+        if (null == manager) {
             return NO_STYLE;
         }
         return manager.graphicStyle;

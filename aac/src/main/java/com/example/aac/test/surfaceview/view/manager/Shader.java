@@ -18,21 +18,35 @@ import android.opengl.GLES20;
 public interface Shader {
     interface KeyWorld{
         String vPosition = "vPosition";
+        String tPosition = "tPosition";
         String vColor = "vColor";
         String vMatrix = "vMatrix";
+        String fragColorType = "fragColorType";
+        int outColor = 0;
+        int outTexture = 1;
     }
 
-    interface VertexShaderCode2{
+    interface VertexShader{
         int key = 1;
         int shaderType = GLES20.GL_VERTEX_SHADER;
-        String shaderCode = "VertexShaderCode2.glsl";//资源文件
+        String shaderCode = "VertexShader.glsl";//资源文件
     }
 
-    interface FragmentShaderCode{
+    interface FragmentShader{
         int  key = 2;
         int shaderType = GLES20.GL_FRAGMENT_SHADER;
-        String shaderCode = "FragmentShaderCode.glsl";//资源文件
+        String shaderCode = "FragmentShader.glsl";//资源文件
     }
 
+    interface VertexShader1{
+        int key = 3;
+        int shaderType = GLES20.GL_VERTEX_SHADER;
+        String shaderCode = "VertexShader1.glsl";
+    }
 
+    interface FragmentShader1{
+        int key = 4;
+        int shaderType = GLES20.GL_FRAGMENT_SHADER;
+        String shaderCode = "FragmentShader1.glsl";
+    }
 }
