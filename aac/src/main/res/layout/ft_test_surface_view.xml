@@ -24,7 +24,6 @@
             android:layout_height="match_parent"
             android:visibility="visible" />
 
-
         <ImageView
             android:id="@+id/iv_review"
             android:layout_width="300dp"
@@ -65,6 +64,30 @@
             android:text="保存"
             app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
             app:layout_constraintRight_toLeftOf="@+id/bt_line" />
+
+        <Button
+            android:id="@+id/bt_eraser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#F10505"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="橡皮檫"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
+            app:layout_constraintRight_toLeftOf="@+id/bt_save" />
+
+
+        <Button
+            android:id="@+id/bt_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#F10505"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="点"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
+            app:layout_constraintRight_toLeftOf="@+id/bt_eraser" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

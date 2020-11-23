@@ -72,13 +72,15 @@ public class GLQuadrilateral extends GLStyle{
         GLES20.glUseProgram(mProgram);
 
         if (null != pointBuffer) {
+            GLES20.glUniform1i(GLESManager.vertexStyleHandler(),Shader.KeyWorld.styleQuadrilateral);
+            GLES20.glUniform1i(GLESManager.fragmentStyleHandler(),Shader.KeyWorld.styleQuadrilateral);
             //启用顶点属性数组
             GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
             GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), 3, GLES20.GL_FLOAT, false, 3 * Float.BYTES, pointBuffer);
             //设置绘制图元颜色
             GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
-            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
+//            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
 
             /*
              * 按索引绘制图形

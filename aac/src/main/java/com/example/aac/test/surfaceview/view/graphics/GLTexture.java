@@ -119,6 +119,12 @@ public class GLTexture extends GLStyle{
     public void onDraw() {
         int program = GLESManager.program();
         GLES20.glUseProgram(program);
+
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+        GLES20.glUniform1i(GLESManager.vertexStyleHandler(),Shader.KeyWorld.styleTexture);
+        GLES20.glUniform1i(GLESManager.fragmentStyleHandler(),Shader.KeyWorld.styleTexture);
         //激活数据句柄
         GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
         GLES20.glEnableVertexAttribArray(GLESManager.texturePositionHandler());
@@ -127,8 +133,6 @@ public class GLTexture extends GLStyle{
         GLES20.glVertexAttribPointer(GLESManager.vertexPositionHandler(), COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
         //设置纹理位置值
         GLES20.glVertexAttribPointer(GLESManager.texturePositionHandler(), COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, textureBuffer);
-        //选择着色片源的输出颜色的类型
-        GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outTexture);
         //绘制 GLES20.GL_TRIANGLE_STRIP:复用坐标
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vertexCount);
 

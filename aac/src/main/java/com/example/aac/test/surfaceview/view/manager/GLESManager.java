@@ -27,17 +27,33 @@ public final class GLESManager {
     ///////////////Shader 参数句柄位置//////////////////
     private int vPosition;//顶点坐标参数变量的句柄
     private int tPosition;//纹理参数变量的句柄
+    private int pointSize;//绘制点的大小
     private int vColor;//顶点渲染颜色变量的句柄
     private int fragColorType;//输出颜色管道的颜色类别的变量句柄
+
+    private int u_vertexStyle;
+    private int u_fragmentStyle;
+    private int a_position;
+    private int a_texturePosition;
+    private int u_pointSize;
+    private int u_color;
 
 
     private int width, height;
     private float width1_2, height1_2;//表示二分之一的宽高
     private float[] scaledCoords = {0.0f, 0.0f, 0.0f};//比例坐标x y z 容器（正中）
 
+
+    //双重锁定校验锁
     public static GLESManager init() {
+        //第一次校验
         if (null == manager) {
-            manager = new GLESManager();
+            synchronized (GLESManager.class) {
+                //第二次校验
+                if (null == manager) {
+                    manager = new GLESManager();
+                }
+            }
         }
         return manager;
     }
@@ -118,7 +134,7 @@ public final class GLESManager {
             //检测program状态
             GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, linkStatus, 0);
             if (linkStatus[0] == 0) {
-                Log.e(TAG, "Error link program:${GLES20.glGetProgramInfoLog(programHandle)}");
+                Log.e(TAG, "Error link program:" + GLES20.glGetProgramInfoLog(programHandle));
                 //删除program
                 GLES20.glDeleteProgram(programHandle);
                 programHandle = 0;
@@ -191,17 +207,31 @@ public final class GLESManager {
             return;
         }
         if (manager.program > 0) {
-            //获取顶点着色器的vPosition成员句柄
-            manager.vPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.vPosition);
-            //获取纹理着色器的tPosition成员句柄
-            manager.tPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.tPosition);
-            //获取片元着色器的vColor成员句柄
-            manager.vColor = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.vColor);
-            //获取片元着色器的fragColorType成员句柄
-            manager.fragColorType = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.fragColorType);
+//            //获取顶点着色器的vPosition成员句柄
+//            manager.vPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.vPosition);
+//            //获取纹理着色器的tPosition成员句柄
+//            manager.tPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.tPosition);
+//            //获取点的成语句柄
+//            manager.pointSize = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.pointSize);
+//            //获取片元着色器的vColor成员句柄
+//            manager.vColor = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.vColor);
+//            //获取片元着色器的fragColorType成员句柄
+//            manager.fragColorType = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.fragColorType);
 
-            Log.d(TAG, "getShaderParamHandler: 获取Shader各个参数成员变量的句柄  vPosition:" + manager.vPosition + "  tPosition:" + manager.tPosition
-                    + "  vColor:" + manager.vColor + "  fragColorType:" + manager.fragColorType);
+
+            manager.u_vertexStyle = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_vertexStyle);
+            manager.u_fragmentStyle = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_fragmentStyle);
+            manager.a_position = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.a_position);
+            manager.a_texturePosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.a_texturePosition);
+            manager.u_pointSize = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_pointSize);
+            manager.u_color = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_color);
+
+
+            Log.d(TAG, "getShaderParamHandler: 获取Shader各个参数成员变量的句柄  vPosition:" + manager.vPosition
+                    + "  tPosition:" + manager.tPosition
+                    + "  pointSize:" + manager.pointSize
+                    + "  vColor:" + manager.vColor
+                    + "  fragColorType:" + manager.fragColorType);
         }
     }
 
@@ -216,23 +246,38 @@ public final class GLESManager {
     /**
      * 提供外部Shader各个param句柄
      */
+    public static int vertexStyleHandler() {
+        return null == manager ? -1 : manager.u_vertexStyle;
+    }
+
+    public static int fragmentStyleHandler() {
+        return null == manager ? -1 : manager.u_fragmentStyle;
+    }
+
     public static int vertexPositionHandler() {
-        return null == manager ? -1 : manager.vPosition;
+//        return null == manager ? -1 : manager.vPosition;
+        return null == manager ? -1 : manager.a_position;
     }
 
     public static int texturePositionHandler() {
 
-        return null == manager ? -1 : manager.tPosition;
+//        return null == manager ? -1 : manager.tPosition;
+        return null == manager ? -1 : manager.a_texturePosition;
+    }
+
+    public static int pointSizeHandler() {
+//        return null == manager ? -1 : manager.pointSize;
+        return null == manager ? -1 : manager.u_pointSize;
     }
 
     public static int vertexColorHandler() {
-        return null == manager ? -1 : manager.vColor;
+//        return null == manager ? -1 : manager.vColor;
+        return null == manager ? -1 : manager.u_color;
     }
 
     public static int fragColorTypeHandler() {
         return null == manager ? -1 : manager.fragColorType;
     }
-
 
     /**
      * 清除Shader容器
@@ -320,7 +365,9 @@ public final class GLESManager {
     public static final int QUADRILATERAL = 30;//四边形
     public static final int TEXTURE = 40;//纹理
 
-    @IntDef({NO_STYLE, POINT, LINE, TRIANGLE, QUADRILATERAL, TEXTURE})
+    public static final int LINE_ERASER = 11;//橡皮擦
+
+    @IntDef({NO_STYLE, POINT, LINE, TRIANGLE, QUADRILATERAL, TEXTURE, LINE_ERASER})
     @Retention(RetentionPolicy.CLASS)
     public @interface GraphicStyle {
     }

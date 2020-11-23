@@ -47,6 +47,8 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
         viewDataBinding.btSave.setOnClickListener(this);
         viewDataBinding.btLine.setOnClickListener(this);
         viewDataBinding.btClear.setOnClickListener(this);
+        viewDataBinding.btEraser.setOnClickListener(this);
+        viewDataBinding.btPoint.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +81,13 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
             case R.id.bt_clear:
 //                viewDataBinding.drawingView2.clearAll();
                 viewDataBinding.drawingView3.clearAll();
+                break;
+            case R.id.bt_eraser:
+                GLESManager.setGraphicStyle(GLESManager.LINE_ERASER);
+                break;
+
+            case R.id.bt_point:
+                GLESManager.setGraphicStyle(GLESManager.POINT);
                 break;
         }
     }

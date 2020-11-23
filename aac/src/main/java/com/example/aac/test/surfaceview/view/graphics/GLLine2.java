@@ -1,6 +1,7 @@
 package com.example.aac.test.surfaceview.view.graphics;
 
 import android.content.Context;
+import android.opengl.GLES10;
 import android.opengl.GLES20;
 import android.util.Log;
 
@@ -43,6 +44,13 @@ public class GLLine2 extends GLStyle {
         pointBuffer.position(0);
     }
 
+    public void setLineColor(float red,float green,float blue,float a){
+        color[0] = red;
+        color[1] = green;
+        color[2] = blue;
+        color[3] = a;
+    }
+
     public synchronized void addLinePath(float[] lineCoords) {
         if (arrayPosition.get() >= defArrayLength - lineCoords.length) {
             defArrayLength += 1024;
@@ -62,13 +70,32 @@ public class GLLine2 extends GLStyle {
 
 
     public synchronized void onDraw() {
-        int program = GLESManager.program();
-        //将程序加入到OpenGLES2.0环境
-        GLES20.glUseProgram(program);
+//        // 启用混合模式
+//        GLES20.glEnable(GLES20.GL_BLEND);
+//        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+        boolean isHaveColor = false;
+        for (int i = 0;i<color.length;i++) {
+            float c = color[i];
+            if (c>0){
+                isHaveColor = true;
+                break;
+            }
+        }
+        GLES20.glEnable(GLES20.GL_BLEND);
+
+        if (!isHaveColor){
+            GLES20.glBlendFunc(GLES20.GL_ZERO, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        }else {
+            GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        }
 
         Log.e("TAG", "addLinePath: 当前脚标2222222222  " + arrayPosition.get() + "  ");
         if (null != pointBuffer) {
             pointBuffer.position(0);
+
+            GLES20.glUniform1i(GLESManager.vertexStyleHandler(),Shader.KeyWorld.styleLine);
+            GLES20.glUniform1i(GLESManager.fragmentStyleHandler(),Shader.KeyWorld.styleLine);
             //激活属性数组
             GLES20.glEnableVertexAttribArray(GLESManager.vertexPositionHandler());
             //准备单个顶点坐标数据(一个顶点(x,y,z)三个坐标点，这三个坐标点是float（4个字节）类型，所以字节数为3*4)
@@ -77,7 +104,6 @@ public class GLLine2 extends GLStyle {
 
             //设置绘制图元颜色
             GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
-            GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
 
             GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, arrayPosition.get()/3);
 
@@ -112,7 +138,6 @@ public class GLLine2 extends GLStyle {
                 -0.25f, -0.25f, 0f,//v2
                 -0.25f, 0.25f, 0f,//v3
         };
-
         FloatBuffer pointBuffer = null;
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(lineCoodrs.length * Float.BYTES);
         byteBuffer.order(ByteOrder.nativeOrder());
@@ -129,9 +154,10 @@ public class GLLine2 extends GLStyle {
         GLES20.glLineWidth(10f);
         //设置绘制图元颜色
         GLES20.glUniform4fv(GLESManager.vertexColorHandler(), 1, color, 0);
-        GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
+//        GLES20.glUniform1i(GLESManager.fragColorTypeHandler(),Shader.KeyWorld.outColor);
         //绘制
         GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, lineCoodrs.length/3);
+//        GLES20.glDrawArrays(GLES20.GL_LINEAR_MIPMAP_LINEAR, 0, lineCoodrs.length/3);
         //禁止顶点数组的句柄
         GLES20.glDisableVertexAttribArray(GLESManager.vertexPositionHandler());
     }

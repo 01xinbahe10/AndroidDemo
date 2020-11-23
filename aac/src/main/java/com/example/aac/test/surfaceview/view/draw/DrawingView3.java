@@ -18,6 +18,7 @@ import com.example.aac.R;
 import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.test.G;
 import com.example.aac.test.surfaceview.view.graphics.GLLine2;
+import com.example.aac.test.surfaceview.view.graphics.GLPoint;
 import com.example.aac.test.surfaceview.view.graphics.GLQuadrilateral;
 import com.example.aac.test.surfaceview.view.graphics.GLStyle;
 import com.example.aac.test.surfaceview.view.graphics.GLTexture;
@@ -32,6 +33,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import static android.opengl.Matrix.orthoM;
 
 /**
  * Created by hxb on  2020/11/11
@@ -63,6 +66,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
 
     private void init() {
         setEGLContextClientVersion(2);
+        setEGLConfigChooser(8,8,8,8,16,8);
         setRenderer(this);
         /*渲染方式，RENDERMODE_WHEN_DIRTY表示被动渲染，只有在调用requestRender或者onResume等方法时才会进行渲染。RENDERMODE_CONTINUOUSLY表示持续渲染*/
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
@@ -76,7 +80,8 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         //Shader创建和链接
         GLESManager.createAndLinkProgram20(getContext());
         GLESManager.getShaderParamHandler();
-
+        //将程序加入到OpenGLES2.0环境
+        GLES20.glUseProgram(GLESManager.program());
         glTexture = GLTexture.init(getContext());
         glTexture.onCreate();
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_test);
@@ -90,6 +95,18 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         Log.e(TAG, "onSurfaceChanged: >>>>>>>>>>>>>>>>>>>>>>>>>  width:" + width + "   height:" + height);
         GLESManager.saveWidthAndHeight(this.width, this.height);
         GLES20.glViewport(0, 0, width, height);
+//        //设置支持横竖屏转换
+//        final float aspectRatio = width > height ?
+//                (float) width / (float) height :
+//                (float) height / (float) width;
+//
+//        if (width > height) {
+//            // Landscape
+//            orthoM(mProjectMatrix, 0, -aspectRatio, aspectRatio, -1f, 1f, -1f, 1f);
+//        } else {
+//            // Portrait or square
+//            orthoM(mProjectMatrix, 0, -1f, 1f, -aspectRatio, aspectRatio, -1f, 1f);
+//        }
     }
 
     @Override
@@ -142,9 +159,15 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         }
         switch (GLESManager.getGraphicStyle()) {
             case GLESManager.POINT:
+                currentGlStyle = GLPoint.init(getContext());
                 break;
             case GLESManager.LINE:
                 currentGlStyle = GLLine2.init(getContext());
+                break;
+            case GLESManager.LINE_ERASER:
+                GLLine2 eraser = GLLine2.init(getContext());
+                eraser.setLineColor(255f, 255f, 255f, 255f);
+                currentGlStyle = eraser;
                 break;
             case GLESManager.TRIANGLE:
                 break;
@@ -169,8 +192,11 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         }
         switch (GLESManager.getGraphicStyle()) {
             case GLESManager.POINT:
+                GLPoint glPoint = (GLPoint) currentGlStyle;
+                glPoint.addLinePath(GLESManager.convertToScaledCoords(x, y, 0));
                 break;
             case GLESManager.LINE:
+            case GLESManager.LINE_ERASER:
                 GLLine2 glLine2 = (GLLine2) currentGlStyle;
                 float[] glLine2Coords = GLESManager.convertToScaledCoords(x, y, 0);
                 Log.e(TAG, "onTouchEvent: x:" + glLine2Coords[0] + "  y:" + glLine2Coords[1] + "  z:0");
@@ -181,8 +207,8 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             case GLESManager.QUADRILATERAL:
                 break;
             case GLESManager.TEXTURE:
-
                 break;
+
             default:
                 return;
         }
@@ -198,7 +224,13 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
                 break;
             }
             Log.e(TAG, "onDrawFrame: >>>>>>>>>>>>>>>>>>  ");
+//            if (glStyle instanceof GLPoint){
+//                ((GLPoint)glStyle).onDrawTest();
+//                continue;
+//            }
+//
             glStyle.onDraw();
+
         }
     }
 
