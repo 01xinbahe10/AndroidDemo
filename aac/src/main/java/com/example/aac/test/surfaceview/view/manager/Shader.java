@@ -17,16 +17,6 @@ import android.opengl.GLES20;
  */
 public interface Shader {
     interface KeyWorld{
-        String vPosition = "vPosition";
-        String tPosition = "tPosition";
-        String pointSize = "pointSize";
-        String vColor = "vColor";
-        String vMatrix = "vMatrix";
-        String fragColorType = "fragColorType";
-        int outColor = 0;
-        int outTexture = 1;
-
-
         String u_vertexStyle = "u_vertexStyle";
         String u_fragmentStyle = "u_fragmentStyle";
         String a_position = "a_position";

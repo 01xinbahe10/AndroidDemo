@@ -3,38 +3,27 @@ package com.example.aac.test.surfaceview.view.draw;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-
-import androidx.core.content.ContextCompat;
 
 import com.example.aac.R;
 import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.test.G;
 import com.example.aac.test.surfaceview.view.graphics.GLLine2;
 import com.example.aac.test.surfaceview.view.graphics.GLPoint;
-import com.example.aac.test.surfaceview.view.graphics.GLQuadrilateral;
 import com.example.aac.test.surfaceview.view.graphics.GLStyle;
 import com.example.aac.test.surfaceview.view.graphics.GLTexture;
 import com.example.aac.test.surfaceview.view.manager.GLESManager;
-import com.example.aac.test.surfaceview.view.manager.Shader;
-import com.example.aac.test.surfaceview.view.utils.ArrayUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import static android.opengl.Matrix.orthoM;
 
 /**
  * Created by hxb on  2020/11/11
@@ -49,11 +38,11 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
     private float x, y;
     private int width, height;
 
-    private int defLength = 1024;
+    private final int defLength = 1024;
     private GLTexture glTexture;
     private GLStyle[] glStyleArray = null;
     private GLStyle currentGlStyle = null;
-    private AtomicInteger glStylePosition = new AtomicInteger();
+    private final AtomicInteger glStylePosition = new AtomicInteger();
 
     public DrawingView3(Context context) {
         this(context, null);
@@ -141,7 +130,6 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
                 return true;
             case MotionEvent.ACTION_MOVE:
                 setDataGLStyle();
-                requestRender();
                 return true;
             case MotionEvent.ACTION_UP:
                 break;
@@ -155,7 +143,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             glStyleArray = new GLStyle[defLength];
         }
         if (glStylePosition.get() >= glStyleArray.length - 1) {
-            glStyleArray = (GLLine2[]) ArrayUtil.arrayMerge(glStyleArray, new GLLine2[defLength]);
+            glStyleArray = (GLStyle[]) GLESManager.arrayAppendLength(glStyleArray,defLength);
         }
         switch (GLESManager.getGraphicStyle()) {
             case GLESManager.POINT:
@@ -212,6 +200,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             default:
                 return;
         }
+        requestRender();
     }
 
     private void drawGLStyle() {

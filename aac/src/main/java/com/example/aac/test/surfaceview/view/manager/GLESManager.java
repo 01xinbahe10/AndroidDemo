@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
 
 /**
  * Created by hxb on  2020/11/12
@@ -25,18 +26,12 @@ public final class GLESManager {
     private SparseArray<CompileShader> shaderTypeCode;
 
     ///////////////Shader 参数句柄位置//////////////////
-    private int vPosition;//顶点坐标参数变量的句柄
-    private int tPosition;//纹理参数变量的句柄
-    private int pointSize;//绘制点的大小
-    private int vColor;//顶点渲染颜色变量的句柄
-    private int fragColorType;//输出颜色管道的颜色类别的变量句柄
-
     private int u_vertexStyle;
     private int u_fragmentStyle;
-    private int a_position;
-    private int a_texturePosition;
-    private int u_pointSize;
-    private int u_color;
+    private int a_position;//顶点坐标参数变量的句柄
+    private int a_texturePosition;//纹理参数变量的句柄
+    private int u_pointSize;//绘制点的大小
+    private int u_color;//顶点渲染颜色变量的句柄
 
 
     private int width, height;
@@ -207,31 +202,25 @@ public final class GLESManager {
             return;
         }
         if (manager.program > 0) {
-//            //获取顶点着色器的vPosition成员句柄
-//            manager.vPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.vPosition);
-//            //获取纹理着色器的tPosition成员句柄
-//            manager.tPosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.tPosition);
-//            //获取点的成语句柄
-//            manager.pointSize = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.pointSize);
-//            //获取片元着色器的vColor成员句柄
-//            manager.vColor = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.vColor);
-//            //获取片元着色器的fragColorType成员句柄
-//            manager.fragColorType = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.fragColorType);
-
-
             manager.u_vertexStyle = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_vertexStyle);
             manager.u_fragmentStyle = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_fragmentStyle);
+            //获取顶点着色器的a_position成员句柄
             manager.a_position = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.a_position);
+            //获取纹理着色器的a_texturePosition成员句柄
             manager.a_texturePosition = GLES20.glGetAttribLocation(manager.program, Shader.KeyWorld.a_texturePosition);
+            //获取点的成语句柄
             manager.u_pointSize = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_pointSize);
+            //获取片元着色器的u_color成员句柄
             manager.u_color = GLES20.glGetUniformLocation(manager.program, Shader.KeyWorld.u_color);
 
 
-            Log.d(TAG, "getShaderParamHandler: 获取Shader各个参数成员变量的句柄  vPosition:" + manager.vPosition
-                    + "  tPosition:" + manager.tPosition
-                    + "  pointSize:" + manager.pointSize
-                    + "  vColor:" + manager.vColor
-                    + "  fragColorType:" + manager.fragColorType);
+            Log.d(TAG, "getShaderParamHandler: 获取Shader各个参数成员变量的句柄  u_vertexStyle:" + manager.u_vertexStyle
+                    + "  u_fragmentStyle:" + manager.u_fragmentStyle
+                    + "  a_position:" + manager.a_position
+                    + "  a_texturePosition:" + manager.a_texturePosition
+                    + "  u_pointSize:" + manager.u_pointSize
+                    + "  u_color:" + manager.u_color
+            );
         }
     }
 
@@ -255,28 +244,19 @@ public final class GLESManager {
     }
 
     public static int vertexPositionHandler() {
-//        return null == manager ? -1 : manager.vPosition;
         return null == manager ? -1 : manager.a_position;
     }
 
     public static int texturePositionHandler() {
-
-//        return null == manager ? -1 : manager.tPosition;
         return null == manager ? -1 : manager.a_texturePosition;
     }
 
     public static int pointSizeHandler() {
-//        return null == manager ? -1 : manager.pointSize;
         return null == manager ? -1 : manager.u_pointSize;
     }
 
     public static int vertexColorHandler() {
-//        return null == manager ? -1 : manager.vColor;
         return null == manager ? -1 : manager.u_color;
-    }
-
-    public static int fragColorTypeHandler() {
-        return null == manager ? -1 : manager.fragColorType;
     }
 
     /**
@@ -386,5 +366,27 @@ public final class GLESManager {
             return NO_STYLE;
         }
         return manager.graphicStyle;
+    }
+
+
+    /**
+     * 数组合并
+     * */
+    public static <T>Object[] arrayMerge(T[] firstArray, T[] twoArray) {
+        int firstLength = firstArray.length;
+        int twoLength = twoArray.length;
+        T[] newArray = Arrays.copyOf(firstArray, (firstLength + twoLength));
+        System.arraycopy(twoArray, 0, newArray, firstLength, twoLength);
+        return newArray;
+    }
+
+    /**
+     * 数组追加长度
+     */
+    public static <T> Object[] arrayAppendLength(T[] array, int appendLength) {
+        int arrayLength = array.length;
+        Object[] newArray = new Object[arrayLength + appendLength];
+        System.arraycopy(array, 0, newArray, 0, arrayLength + appendLength);
+        return newArray;
     }
 }
