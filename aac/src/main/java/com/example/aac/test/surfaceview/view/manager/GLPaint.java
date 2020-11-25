@@ -5,6 +5,7 @@ import androidx.annotation.IntRange;
 
 /**
  * Created by hxb on  2020/11/25
+ * 画图样式配置类
  */
 public final class GLPaint {
     private static volatile GLPaint glPaint = null;
