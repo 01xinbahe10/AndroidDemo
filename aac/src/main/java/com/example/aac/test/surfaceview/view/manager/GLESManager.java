@@ -335,38 +335,38 @@ public final class GLESManager {
         return manager.scaledCoords;
     }
 
-    /**
-     * 图形样式设置
-     */
-    public static final int NO_STYLE = -1;
-    public static final int POINT = 0;//点
-    public static final int LINE = 10;//线
-    public static final int TRIANGLE = 20;//三角形
-    public static final int QUADRILATERAL = 30;//四边形
-    public static final int TEXTURE = 40;//纹理
-
-    public static final int LINE_ERASER = 11;//橡皮擦
-
-    @IntDef({NO_STYLE, POINT, LINE, TRIANGLE, QUADRILATERAL, TEXTURE, LINE_ERASER})
-    @Retention(RetentionPolicy.CLASS)
-    public @interface GraphicStyle {
-    }
-
-    private int graphicStyle = NO_STYLE;
-
-    public static void setGraphicStyle(@GraphicStyle int style) {
-        if (null == manager) {
-            return;
-        }
-        manager.graphicStyle = style;
-    }
-
-    public static int getGraphicStyle() {
-        if (null == manager) {
-            return NO_STYLE;
-        }
-        return manager.graphicStyle;
-    }
+//    /**
+//     * 图形样式设置
+//     */
+//    public static final int NO_STYLE = -1;
+//    public static final int POINT = 0;//点
+//    public static final int LINE = 10;//线
+//    public static final int TRIANGLE = 20;//三角形
+//    public static final int QUADRILATERAL = 30;//四边形
+//    public static final int TEXTURE = 40;//纹理
+//
+//    public static final int LINE_ERASER = 11;//橡皮擦
+//
+//    @IntDef({NO_STYLE, POINT, LINE, TRIANGLE, QUADRILATERAL, TEXTURE, LINE_ERASER})
+//    @Retention(RetentionPolicy.CLASS)
+//    public @interface GraphicStyle {
+//    }
+//
+//    private int graphicStyle = NO_STYLE;
+//
+//    public static void setGraphicStyle(@GraphicStyle int style) {
+//        if (null == manager) {
+//            return;
+//        }
+//        manager.graphicStyle = style;
+//    }
+//
+//    public static int getGraphicStyle() {
+//        if (null == manager) {
+//            return NO_STYLE;
+//        }
+//        return manager.graphicStyle;
+//    }
 
 
     /**

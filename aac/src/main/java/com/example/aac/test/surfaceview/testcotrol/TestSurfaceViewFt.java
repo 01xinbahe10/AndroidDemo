@@ -16,7 +16,11 @@ import com.example.aac.base_frame.BaseViewModel;
 import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.databinding.FtTestSurfaceViewBinding;
 import com.example.aac.test.G;
-import com.example.aac.test.surfaceview.view.manager.GLESManager;
+import com.example.aac.test.surfaceview.view.manager.GLPaint;
+
+import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.ERASER;
+import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.LINE;
+import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.POINT;
 
 /**
  * Created by hxb on  2020/11/10
@@ -76,18 +80,18 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
                 break;
 
             case R.id.bt_line:
-                GLESManager.setGraphicStyle(GLESManager.LINE);
+                GLPaint.setPaintStyle(LINE);
                 break;
             case R.id.bt_clear:
 //                viewDataBinding.drawingView2.clearAll();
                 viewDataBinding.drawingView3.clearAll();
                 break;
             case R.id.bt_eraser:
-                GLESManager.setGraphicStyle(GLESManager.LINE_ERASER);
+                GLPaint.setPaintStyle(ERASER);
                 break;
 
             case R.id.bt_point:
-                GLESManager.setGraphicStyle(GLESManager.POINT);
+                GLPaint.setPaintStyle(POINT);
                 break;
         }
     }

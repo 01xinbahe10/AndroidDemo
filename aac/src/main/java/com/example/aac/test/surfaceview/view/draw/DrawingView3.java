@@ -17,6 +17,7 @@ import com.example.aac.test.surfaceview.view.graphics.GLPoint;
 import com.example.aac.test.surfaceview.view.graphics.GLStyle;
 import com.example.aac.test.surfaceview.view.graphics.GLTexture;
 import com.example.aac.test.surfaceview.view.manager.GLESManager;
+import com.example.aac.test.surfaceview.view.manager.GLPaint;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -24,6 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import static com.example.aac.test.surfaceview.view.manager.GLPaint.getPaintStyle;
 
 /**
  * Created by hxb on  2020/11/11
@@ -61,6 +64,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         //初始化样式管理类
         GLESManager.init();
+        GLPaint.init();
     }
 
     @Override
@@ -145,23 +149,23 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         if (glStylePosition.get() >= glStyleArray.length - 1) {
             glStyleArray = (GLStyle[]) GLESManager.arrayAppendLength(glStyleArray,defLength);
         }
-        switch (GLESManager.getGraphicStyle()) {
-            case GLESManager.POINT:
+        switch (getPaintStyle()) {
+            case POINT:
                 currentGlStyle = GLPoint.init(getContext());
                 break;
-            case GLESManager.LINE:
+            case LINE:
                 currentGlStyle = GLLine2.init(getContext());
                 break;
-            case GLESManager.LINE_ERASER:
+            case ERASER:
                 GLLine2 eraser = GLLine2.init(getContext());
                 eraser.setLineColor(255f, 255f, 255f, 255f);
                 currentGlStyle = eraser;
                 break;
-            case GLESManager.TRIANGLE:
+            case TRIANGLE:
                 break;
-            case GLESManager.QUADRILATERAL:
+            case QUADRILATERAL:
                 break;
-            case GLESManager.TEXTURE:
+            case TEXTURE:
                 break;
             default:
                 return;
@@ -178,23 +182,23 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         if (null == currentGlStyle) {
             return;
         }
-        switch (GLESManager.getGraphicStyle()) {
-            case GLESManager.POINT:
+        switch (getPaintStyle()) {
+            case POINT:
                 GLPoint glPoint = (GLPoint) currentGlStyle;
                 glPoint.addLinePath(GLESManager.convertToScaledCoords(x, y, 0));
                 break;
-            case GLESManager.LINE:
-            case GLESManager.LINE_ERASER:
+            case LINE:
+            case ERASER:
                 GLLine2 glLine2 = (GLLine2) currentGlStyle;
                 float[] glLine2Coords = GLESManager.convertToScaledCoords(x, y, 0);
                 Log.e(TAG, "onTouchEvent: x:" + glLine2Coords[0] + "  y:" + glLine2Coords[1] + "  z:0");
                 glLine2.addLinePath(glLine2Coords);
                 break;
-            case GLESManager.TRIANGLE:
+            case TRIANGLE:
                 break;
-            case GLESManager.QUADRILATERAL:
+            case QUADRILATERAL:
                 break;
-            case GLESManager.TEXTURE:
+            case TEXTURE:
                 break;
 
             default:
