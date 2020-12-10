@@ -13,6 +13,7 @@ import com.example.aac.R;
 import com.example.aac.base_frame.LiveDataBus;
 import com.example.aac.test.G;
 import com.example.aac.test.surfaceview.view.graphics.GLLine2;
+import com.example.aac.test.surfaceview.view.graphics.GLLine3;
 import com.example.aac.test.surfaceview.view.graphics.GLPoint;
 import com.example.aac.test.surfaceview.view.graphics.GLStyle;
 import com.example.aac.test.surfaceview.view.graphics.GLTexture;
@@ -110,7 +111,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
         GLES20.glClearColor(255f, 255f, 255f, 255f);
 
 
-        glTexture.onDraw();
+//        glTexture.onDraw();
 
         drawGLStyle();
 
@@ -128,6 +129,8 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
     public boolean onTouchEvent(MotionEvent event) {
         this.x = event.getX();
         this.y = event.getY();
+
+        Log.e(TAG, "onTouchEvent: X:"+x+"   Y:"+y );
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 createGLStyle();
@@ -167,6 +170,9 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
                 break;
             case TEXTURE:
                 break;
+            case POINT_LINE:
+                currentGlStyle = GLLine3.init(getContext());
+                break;
             default:
                 return;
         }
@@ -191,7 +197,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             case ERASER:
                 GLLine2 glLine2 = (GLLine2) currentGlStyle;
                 float[] glLine2Coords = GLESManager.convertToScaledCoords(x, y, 0);
-                Log.e(TAG, "onTouchEvent: x:" + glLine2Coords[0] + "  y:" + glLine2Coords[1] + "  z:0");
+//                Log.e(TAG, "onTouchEvent: x:" + glLine2Coords[0] + "  y:" + glLine2Coords[1] + "  z:0");
                 glLine2.addLinePath(glLine2Coords);
                 break;
             case TRIANGLE:
@@ -200,7 +206,10 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
                 break;
             case TEXTURE:
                 break;
-
+            case POINT_LINE:
+                GLLine3 glLine3 = (GLLine3) currentGlStyle;
+                glLine3.addLinePath(GLESManager.convertToScaledCoords(x, y, 0));
+                break;
             default:
                 return;
         }
@@ -216,7 +225,7 @@ public class DrawingView3 extends GLSurfaceView implements GLSurfaceView.Rendere
             if (null == glStyle) {
                 break;
             }
-            Log.e(TAG, "onDrawFrame: >>>>>>>>>>>>>>>>>>  ");
+//            Log.e(TAG, "onDrawFrame: >>>>>>>>>>>>>>>>>>  ");
 //            if (glStyle instanceof GLPoint){
 //                ((GLPoint)glStyle).onDrawTest();
 //                continue;

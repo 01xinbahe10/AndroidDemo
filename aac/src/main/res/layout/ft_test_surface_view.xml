@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,69 +23,87 @@
             android:layout_height="match_parent"
             android:visibility="visible" />
 
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
         <ImageView
             android:id="@+id/iv_review"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
             android:padding="10dp"
             android:src="@mipmap/ic_launcher_round"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/gl_v1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/bt_clear"
-            android:layout_width="wrap_content"
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F10505"
-            android:text="clear"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/bt_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#F10505"
-            android:text="线条"
-            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
-            app:layout_constraintRight_toLeftOf="@+id/bt_clear" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#F10505"
-            android:text="保存"
-            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
-            app:layout_constraintRight_toLeftOf="@+id/bt_line" />
+                <Button
+                    android:id="@+id/bt_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#F10505"
+                    android:text="clear" />
 
-        <Button
-            android:id="@+id/bt_eraser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#F10505"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="橡皮檫"
-            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
-            app:layout_constraintRight_toLeftOf="@+id/bt_save" />
+                <Button
+                    android:id="@+id/bt_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F10505"
+                    android:text="线条" />
+
+                <Button
+                    android:id="@+id/bt_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F10505"
+                    android:text="保存" />
+
+                <Button
+                    android:id="@+id/bt_eraser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F10505"
+                    android:text="橡皮檫" />
 
 
-        <Button
-            android:id="@+id/bt_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#F10505"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="点"
-            app:layout_constraintBottom_toBottomOf="@+id/bt_clear"
-            app:layout_constraintRight_toLeftOf="@+id/bt_eraser" />
+                <Button
+                    android:id="@+id/bt_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F10505"
+                    android:text="点"/>
+
+                <Button
+                    android:id="@+id/bt_line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F10505"
+                    android:text="线条二"/>
+            </LinearLayout>
+
+        </HorizontalScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

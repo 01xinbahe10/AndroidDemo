@@ -90,7 +90,7 @@ public class GLLine2 extends GLStyle {
             GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         }
 
-        Log.e("TAG", "addLinePath: 当前脚标2222222222  " + arrayPosition.get() + "  ");
+//        Log.e("TAG", "addLinePath: 当前脚标2222222222  " + arrayPosition.get() + "  ");
         if (null != pointBuffer) {
             pointBuffer.position(0);
 

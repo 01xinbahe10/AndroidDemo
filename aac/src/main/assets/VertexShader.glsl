@@ -20,9 +20,8 @@ void main() {
         return;
     }
 
-    if (u_vertexStyle == 2){//纹理
+    if (u_vertexStyle == 2){ //纹理
         gl_Position = a_position;
         v_texturePosition = a_texturePosition;
     }
-
 }

@@ -21,6 +21,7 @@ import com.example.aac.test.surfaceview.view.manager.GLPaint;
 import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.ERASER;
 import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.LINE;
 import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.POINT;
+import static com.example.aac.test.surfaceview.view.manager.GLPaint.Graphic.POINT_LINE;
 
 /**
  * Created by hxb on  2020/11/10
@@ -53,6 +54,7 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
         viewDataBinding.btClear.setOnClickListener(this);
         viewDataBinding.btEraser.setOnClickListener(this);
         viewDataBinding.btPoint.setOnClickListener(this);
+        viewDataBinding.btLine2.setOnClickListener(this);
     }
 
     @Override
@@ -92,6 +94,10 @@ public class TestSurfaceViewFt extends BaseFragment<FtTestSurfaceViewBinding, Ba
 
             case R.id.bt_point:
                 GLPaint.setPaintStyle(POINT);
+                break;
+
+            case R.id.bt_line2:
+                GLPaint.setPaintStyle(POINT_LINE);
                 break;
         }
     }

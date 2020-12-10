@@ -90,6 +90,7 @@ public final class GLPaint {
         , QUADRILATERAL(3)//四边形
         , TEXTURE(4)//纹理
         , ERASER(5)//橡皮擦
+        , POINT_LINE(6)//点组成线
         ;
 
         int v;
