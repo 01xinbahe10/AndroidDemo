@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aac">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:name=".base_frame.BaseApplication"
         android:allowBackup="true"
@@ -23,6 +25,10 @@
 
         <activity android:name=".test.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard|navigation"/>
+
+        <service android:name=".test.service.ForegroundService">
+
+        </service>
     </application>
 
 </manifest>
