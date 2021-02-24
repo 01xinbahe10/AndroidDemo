@@ -275,7 +275,7 @@ open class SQLiteAssetHelper : SQLiteOpenHelper {
         var inputStream: InputStream
         var isZip = false
         try {
-            inputStream = mContext!!.assets.open(path)
+            inputStream = mContext!!.assets.open(path.toString())
         } catch (e: IOException) {
             // 尝试压缩
             try {
