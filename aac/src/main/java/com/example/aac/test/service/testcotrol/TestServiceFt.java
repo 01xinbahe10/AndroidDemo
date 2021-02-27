@@ -5,7 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,6 +37,7 @@ public class TestServiceFt extends BaseFragment<FtTestServiceBinding, BaseViewMo
     public void initViewObservable() {
         super.initViewObservable();
         mHandler = new Handler();
+        //开启服务
         viewDataBinding.tvStartService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +47,7 @@ public class TestServiceFt extends BaseFragment<FtTestServiceBinding, BaseViewMo
                 }
             }
         });
+        //终止服务
         viewDataBinding.tvStopService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +57,7 @@ public class TestServiceFt extends BaseFragment<FtTestServiceBinding, BaseViewMo
                 }
             }
         });
-
+        //延时开启线程
         viewDataBinding.tvStartThreadStartService.setOnClickListener((view)->{
 
             new Thread(new Runnable() {
@@ -83,5 +87,40 @@ public class TestServiceFt extends BaseFragment<FtTestServiceBinding, BaseViewMo
             }).start();
 
         });
+
+        final View.OnTouchListener touchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (v.getId()){
+                    case R.id.btTest1:
+                        if (event.getAction() == MotionEvent.ACTION_DOWN){
+                            Log.d(TAG, "onTouch: 111  DOWN     "+System.currentTimeMillis());
+                        }else if (event.getAction() == MotionEvent.ACTION_UP){
+                            Log.d(TAG, "onTouch: 111    UP     "+System.currentTimeMillis());
+                        }
+                        break;
+                    case R.id.btTest2:
+                        if (event.getAction() == MotionEvent.ACTION_DOWN){
+                            Log.d(TAG, "onTouch: 222  DOWN     "+System.currentTimeMillis());
+                        }else if (event.getAction() == MotionEvent.ACTION_UP){
+                            Log.d(TAG, "onTouch: 222    UP     "+System.currentTimeMillis());
+                        }
+                        break;
+                }
+                return false;
+            }
+        };
+
+        final View.OnKeyListener keyListener = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return false;
+            }
+        };
+
+        viewDataBinding.btTest1.setOnTouchListener(touchListener);
+        viewDataBinding.btTest2.setOnTouchListener(touchListener);
+
+
     }
 }
