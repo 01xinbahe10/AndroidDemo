@@ -8,8 +8,8 @@ import com.example.aac.BR;
 import com.example.aac.R;
 import com.example.aac.base_frame.BaseApplication;
 import com.example.aac.base_frame.adapter.BaseRecycler1Adapter;
-import com.example.aac.test_aac.data.vo.CityVO;
 import com.example.aac.databinding.ItemMainBinding;
+import com.example.aac.test_aac.data.vo.CityVO;
 import com.example.aac.test_aac.vm.ItemVM;
 
 /**
@@ -31,7 +31,7 @@ public class MainAdapter extends BaseRecycler1Adapter<ItemMainBinding, CityVO> {
 
     @Override
     protected  void viewInstance(ItemMainBinding viewBinding) {
-
+        Log.d(TAG, "viewInstance: >>>>>>>>>>>>>>>>>>");
     }
 
     @Override
@@ -63,6 +63,5 @@ public class MainAdapter extends BaseRecycler1Adapter<ItemMainBinding, CityVO> {
                 viewBinding.tvCityId.setText(itemVO.getCityId());
                 break;
         }
-
     }
 }

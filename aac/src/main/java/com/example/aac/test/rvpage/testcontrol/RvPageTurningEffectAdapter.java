@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aac.R;
@@ -58,6 +59,16 @@ public class RvPageTurningEffectAdapter extends RecyclerView.Adapter<RecyclerVie
         return datas == null ? 0 : datas.size();
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivIcon;
         TextView tvTitle;
@@ -82,5 +93,4 @@ public class RvPageTurningEffectAdapter extends RecyclerView.Adapter<RecyclerVie
             }
         }
     }
-
 }
