@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.example.aac.R;
 import com.example.aac.base_frame.BaseActivity;
 import com.example.aac.base_frame.utils.FragmentPersistence;
+import com.example.aac.test.protocase.TestProtoFt;
 import com.example.aac.test.rvpage.testcontrol.RvPageTurningEffectFt;
 import com.example.aac.test.service.testcotrol.TestServiceFt;
 import com.example.aac.test.surfaceview.testcotrol.TestSurfaceViewFt;
@@ -35,8 +36,9 @@ public class TestActivity extends BaseActivity {
                 .putFragment(RvPageTurningEffectFt.class)
                 .putFragment(TestSurfaceViewFt.class)
                 .putFragment(TestServiceFt.class)
+                .putFragment(TestProtoFt.class)
                 .build();
 
-        persistence.switchFragment(TestServiceFt.class);
+        persistence.switchFragment(TestProtoFt.class);
     }
 }

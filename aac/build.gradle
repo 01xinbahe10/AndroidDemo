@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
 
 android {
     compileSdkVersion 29
@@ -32,6 +33,43 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    sourceSets{
+        main{
+            java{
+                srcDir'src/main/java'
+            }
+            proto{
+                srcDir'src/main/proto'//指定.proto文件路径
+                include '*.proto'
+            }
+        }
+    }
+
+}
+
+protobuf {
+    protoc {
+        // You still need protoc like in the non-Android case
+        artifact = 'com.google.protobuf:protoc:3.7.0'
+    }
+    plugins {
+        javalite {
+            // The codegen for lite comes as a separate artifact
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                // In most cases you don't need the full Java output
+                // if you use the lite output.
+                remove java
+            }
+            task.plugins {
+                javalite {}
+            }
+        }
+    }
 }
 
 dependencies {
@@ -51,4 +89,7 @@ dependencies {
     implementation 'androidx.databinding:databinding-adapters:4.1.1'
     implementation 'androidx.databinding:databinding-runtime:4.1.1'
     implementation 'androidx.databinding:databinding-common:4.1.1'
+
+    //添加Proto依赖
+    implementation 'com.google.protobuf:protobuf-lite:3.0.0'
 }

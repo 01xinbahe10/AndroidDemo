@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_package = "proto.data";
+message gps_data {
+  int64 id = 1;
+  string terminalId = 2;
+  string dataTime = 3;
+  double lon = 4;
+  float speed = 6;
+  int32 gpsStatus = 9;
+}
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+  string phone = 4;
+}
