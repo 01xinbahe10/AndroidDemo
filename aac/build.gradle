@@ -2,9 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion = '28.0.3'
-    ndkVersion '22.0.7026061'
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.aac"
