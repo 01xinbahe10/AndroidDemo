@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 File file = new File(picPath);
 
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                String outPath = (Environment.getExternalStorageDirectory().getAbsolutePath()+"/hfresult.jpg");
+                String outPath = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/test_compression.jpg");
                 MineJni.compress(bitmap, outPath);
             }
         });

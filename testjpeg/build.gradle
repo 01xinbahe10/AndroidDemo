@@ -1,12 +1,12 @@
 //apply plugin: 'com.android.library'
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         minSdkVersion 20
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -43,7 +43,7 @@ android {
         }
     }
 
-    //瑙ｅ喅鍚屼竴涓枃浠跺湪渚濊禆椤规垨妯″潡涓嚭鐜颁簡澶氭
+    //解决同一个文件在依赖项或模块中出现了多次
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libjpeg.so"
     }

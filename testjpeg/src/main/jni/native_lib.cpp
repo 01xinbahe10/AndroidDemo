@@ -61,7 +61,7 @@ void writeImg(BYTE *data, const char *path,int w,int h){
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_example_testjpeg_MineJni_compress(JNIEnv *env, jobject instance, jobject bitmap,
+Java_com_example_testjpeg_MineJni_compress(JNIEnv *env, jclass instance, jobject bitmap,
                                                 jstring path_) {
     const char *path = env->GetStringUTFChars(path_, 0);
     LOGE("  xxxxxxxxxxxxxx  -------------------1111111111111");
