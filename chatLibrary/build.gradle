@@ -1,12 +1,11 @@
 //apply plugin: 'com.android.application'
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
-//        applicationId "com.cdct.cmdim" //需要调试移动defaultConfig {}
+    compileSdkVersion 32
+    //        applicationId "com.cdct.cmdim" //需要调试移动defaultConfig {}
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 32
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
