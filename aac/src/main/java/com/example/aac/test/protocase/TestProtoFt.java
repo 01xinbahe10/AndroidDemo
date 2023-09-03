@@ -21,6 +21,7 @@ import com.example.aac.R;
 import com.example.aac.base_frame.BaseFragment;
 import com.example.aac.base_frame.BaseViewModel;
 import com.example.aac.databinding.FtTestProtoBinding;
+import com.example.aac.test.stack.TestStackUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import proto.data.ProtoCase;
@@ -115,13 +116,14 @@ public class TestProtoFt extends BaseFragment<FtTestProtoBinding, BaseViewModel>
     @Override
     public void onResume() {
         super.onResume();
-
+        TestStackUtil.printStackSize(TAG);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         Log.e(TAG, "onPause: " );
+        TestStackUtil.printStackSize(TAG);
     }
 
     @Override
