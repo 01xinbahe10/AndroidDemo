@@ -8,7 +8,8 @@ dependencies {
 //    testImplementation 'junit:junit:4.12'
 //    testImplementation 'com.google.truth:truth:0.42'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation "com.google.auto.service:auto-service:1.0-rc4"//自動配置的
+    implementation "com.google.auto.service:auto-service:1.0-rc4"
+    implementation 'junit:junit:4.12'//自動配置的
     annotationProcessor "com.google.auto.service:auto-service:1.0-rc4" //這個在gradle5.0以上需要的
 }
 //  解決build 錯誤：編碼GBK的不可映射字符

@@ -19,6 +19,7 @@ android {
             }
         }
         ndk {
+            //noinspection ChromeOsAbiSupport
             abiFilters "armeabi-v7a"
         }
 
@@ -43,14 +44,15 @@ android {
         }
     }
 
-    //解决同一个文件在依赖项或模块中出现了多次
+    //瑙ｅ喅鍚屼竴涓枃浠跺湪渚濊禆椤规垨妯″潡涓嚭鐜颁簡澶氭
     packagingOptions {
-        pickFirst "lib/armeabi-v7a/libjpeg.so"
+        pickFirst "**/libjpeg.so"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.example.testjpeg'
 
 
 }
